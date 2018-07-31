@@ -3,47 +3,65 @@ import logo from './logo.svg';
 import './App.css';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
+import Login from './Login.js';
+import Register from './Register.js';
+import { Button,
+ButtonGroup,
+DropdownButton,
+MenuItem,
+PageHeader,
+Modal,
+FormGroup,
+FormControl } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      title: '',
-      password: '',
+      // title: '',
+      // password: '',
+      registered: false, // whether to load login screen or registration
+      userId: '', // account id to pass in when logging in
+      classId: '',
     };
   }
+
   render() {
     return (
-      // <div className="App">
-      //   <header className="App-header">
-      //     <img src={logo} className="App-logo" alt="logo" />
-      //     <h1 className="App-title">Welcome to React</h1>
-      //   </header>
-      //   <form>
-      //     <FormGroup controlId="formBasicText">
-      //       <h4>Classroom Title:</h4>
-      //       <FormControl
-      //         type="text"
-      //         value={this.state.title}
-      //         onChange={(e)=>this.setState({
-      //           newDoc: {
-      //             show: true,
-      //             title: e.target.value,
-      //             password: this.state.newDoc.password,
-      //           }})}
-      //       />
-      //       <h4>Document Password:</h4>
-      //       <FormControl
-      //         type="text"
-      //         value={this.state.newDoc.password}
-      //         onChange={(e)=>this.setState({
-      //             password: e.target.value
-      //           })}
-      //       />
-      //     </FormGroup>
-      //   </form>
-      // </div>
-      <RegisterClass />
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Classify</h1>
+        </header>
+        {(this.state.registered) ?
+          // (this.state.userId) ?
+            <Login
+              goToRegister={() => this.setState({ registered: false })}
+              loginSuccess={(userId) => this.setState({ userId: userId })}
+            />
+          : <Register
+              goToLogin={() => this.setState({ registered: true })}
+              registerSuccess={() => this.setState({ registered: true })}
+            />
+        }
+        {/* <form>
+          <FormGroup>
+            <h4>Classroom Title:</h4>
+            <FormControl
+              type="text"
+              value={this.state.title}
+              onChange={(e) => this.setState({ title: e.target.value })}
+            />
+            <h4>Classroom Password:</h4>
+            <FormControl
+              type="password"
+              value={this.state.password}
+              onChange={(e) => this.setState({ password: e.target.value })}
+            />
+          </FormGroup>
+        </form>
+        <Button onClick={(e) => this.newClass(e)}>Save</Button> */}
+      </div>
     );
   }
 }
