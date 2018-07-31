@@ -2,18 +2,22 @@ const models = require('../models/models')
 const Teacher = models.Teacher;
 const Lecture = models.Lecture;
 
-function saveTeacher(username, password){
+function saveTeacher(username, password) {
   var teacher = new Teacher({
     username: username,
     password: password
   })
 
-  teacher.save(function(err, user) {
-    if (err) {
-      console.log(err);
-    }
-    console.log('successful registration');
-  });
+  return teacher.save();
+}
+
+function saveStudent(username, password) {
+  var teacher = new Teacher({
+    username: username,
+    password: password
+  })
+
+  return teacher.save();
 }
 
 function saveLecture(classId, lectureTitle, password){
