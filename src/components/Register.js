@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import { Button,
+<<<<<<< HEAD
 ButtonToolbar,
+=======
+// ButtonToolbar,
+>>>>>>> kavi-munjal
 FormGroup,
 FormControl,
 ToggleButton,
@@ -22,7 +26,12 @@ export default class Register extends React.Component {
     }
   }
 
+<<<<<<< HEAD
   async makeAccount() {
+=======
+  async makeAccount(e) {
+    e.preventDefault();
+>>>>>>> kavi-munjal
     try {
       await axios.post('/saveUser', {
         username: this.state.username,
@@ -30,6 +39,10 @@ export default class Register extends React.Component {
         passwordRepeat: this.state.passwordRepeat,
         type: this.state.type
       })
+<<<<<<< HEAD
+=======
+      console.log('New user saved')
+>>>>>>> kavi-munjal
       this.props.goToLogin();
     }
     catch(error) {
@@ -38,7 +51,10 @@ export default class Register extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     console.log(this.state.type)
+=======
+>>>>>>> kavi-munjal
     return (
       // <div>
       //   <h1>Make an account!</h1>
@@ -75,7 +91,7 @@ export default class Register extends React.Component {
           <Form horizontal>
             <FormGroup>
               <Col smOffset={3} sm={4}>
-                <div class="h1">
+                <div className="h1">
                   <h1>Register</h1>
                 </div>
               </Col>
@@ -104,9 +120,13 @@ export default class Register extends React.Component {
                 <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({password: e.target.value})}/>
               </Col>
             </FormGroup>
+            <ToggleButtonGroup block type="radio" name="options" defaultValue={this.state.type}>
+              <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
+              <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
+            </ToggleButtonGroup>
             <FormGroup>
               <Col smOffset={4} sm={4}>
-                <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.makeAccount()}>Register</Button>
+                <Button type="submit" bsStyle="primary" bsSize="large" block onClick={(e) => this.makeAccount(e)}>Register</Button>
               </Col>
             </FormGroup>
           </Form>

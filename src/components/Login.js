@@ -1,5 +1,6 @@
 import React from 'react';
-import {FormControl, Form, Col, Button, FormGroup, ControlLabel, } from 'react-bootstrap';
+import {FormControl, Form, Col, Button, FormGroup, ControlLabel, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+
 import axios from 'axios';
 
 export default class Login extends React.Component {
@@ -8,24 +9,28 @@ export default class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
+
     }
   }
 
-  logIn(username, password) {
-    console.log('hey')
-  }
-
-  async makeAccount() {
+  async logIn(e) {
+    e.preventDefault();
     try {
-      await axios.post('/saveUser', {
-        username: this.state.username,
-        password: this.state.password,
-        passwordRepeat: this.state.passwordRepeat,
-        type: this.state.type
-      })
-      this.props.goToLogin();
-    }
-    catch(error) {
+      console.log('hi')
+      if (this.state.type === 1) {
+        await axios.post('/loginStudent', {
+          username: this.state.username,
+          password: this.state.password,
+        })
+        console.log('logged in as student');
+      } else {
+        await axios.post('/loginTeacher', {
+          username: this.state.username,
+          password: this.state.password,
+        })
+        console.log('logged in as teacher');
+      }
+    } catch(error) {
       console.log(error);
     }
   }
@@ -55,7 +60,7 @@ export default class Login extends React.Component {
       <Form horizontal>
         <FormGroup>
           <Col smOffset={3} sm={4}>
-            <div class="h1">
+            <div className="h1">
               <h1>Login</h1>
             </div>
           </Col>
@@ -65,7 +70,7 @@ export default class Login extends React.Component {
             Username
           </Col>
           <Col sm={6}>
-            <FormControl type="text" placeholder="Username" onChange={(e) => this.setState({username: e.target.value})}/>
+            <FormControl type="text" placeholder="Username" onChange={(e) => this.setState({ username: e.target.value })}/>
           </Col>
         </FormGroup>
         {/* <FormGroup controlId="formHorizontalEmail">
@@ -81,12 +86,16 @@ export default class Login extends React.Component {
             Password
           </Col>
           <Col sm={6}>
-            <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({password: e.target.value})}/>
+            <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })}/>
           </Col>
         </FormGroup>
+        <ToggleButtonGroup type="radio" name="options" block defaultValue={this.state.type}>
+          <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
+          <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
+        </ToggleButtonGroup>
         <FormGroup>
           <Col smOffset={4} sm={4}>
-            <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.logIn(this.state.username, this.state.password)} >Login</Button>
+            <Button type="submit" bsStyle="primary" bsSize="large" block onClick={(e) => this.logIn(e)} >Login</Button>
           </Col>
         </FormGroup>
         <FormGroup>
