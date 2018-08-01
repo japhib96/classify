@@ -1,9 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import {FormControl, Form, Col, Button, FormGroup, ControlLabel, } from 'react-bootstrap';
-=======
 import {FormControl, Form, Col, Button, FormGroup, ControlLabel, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
->>>>>>> kavi-munjal
+
 import axios from 'axios';
 
 export default class Login extends React.Component {
@@ -12,7 +9,7 @@ export default class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-<<<<<<< HEAD
+
     }
   }
 
@@ -29,8 +26,7 @@ export default class Login extends React.Component {
         type: this.state.type
       })
       this.props.goToLogin();
-=======
-      type: 1
+      // type: 1
     }
   }
 
@@ -51,9 +47,7 @@ export default class Login extends React.Component {
         })
         console.log('logged in as teacher');
       }
->>>>>>> kavi-munjal
-    }
-    catch(error) {
+    } catch(error) {
       console.log(error);
     }
   }
