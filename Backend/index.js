@@ -4,6 +4,7 @@ const saveFunctions= require('./saveFunctions')
 var session = require('express-session')
 const bodyParser= require('body-parser')
 var auth = require('./auth');
+
 var passport = require('./services/passport');
 var LocalStrategy = require('passport-local');
 var MongoStore = require('connect-mongo')(session);
@@ -53,4 +54,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3001, () => console.log('Example app listening on port 3001!'))
+var server = app.listen(3001, () => console.log('Example app listening on port 3001!'))
+require('./services/socketio')
