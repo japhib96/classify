@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormControl, Form, Col, Button, FormGroup, ControlLabel, } from 'react-bootstrap';
+import {FormControl, Form, Col, Button, FormGroup, ControlLabel, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import axios from 'axios';
 
 export default class Login extends React.Component {
@@ -8,11 +8,14 @@ export default class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
+      type: 1
     }
   }
 
-  async logIn() {
+  async logIn(e) {
+    e.preventDefault();
     try {
+      console.log('hi')
       if (this.state.type === 1) {
         await axios.post('/loginStudent', {
           username: this.state.username,
@@ -57,7 +60,7 @@ export default class Login extends React.Component {
       <Form horizontal>
         <FormGroup>
           <Col smOffset={3} sm={4}>
-            <div class="h1">
+            <div className="h1">
               <h1>Login</h1>
             </div>
           </Col>
@@ -86,9 +89,13 @@ export default class Login extends React.Component {
             <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })}/>
           </Col>
         </FormGroup>
+        <ToggleButtonGroup type="radio" name="options" defaultValue={this.state.type}>
+          <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
+          <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
+        </ToggleButtonGroup>
         <FormGroup>
           <Col smOffset={4} sm={4}>
-            <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.logIn()} >Login</Button>
+            <Button type="submit" bsStyle="primary" bsSize="large" block onClick={(e) => this.logIn(e)} >Login</Button>
           </Col>
         </FormGroup>
         <FormGroup>

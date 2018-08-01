@@ -35,7 +35,9 @@ module.exports = function(passport) {
 
   router.post('/loginStudent', passport.authenticate('local-student'));
 
-  router.post('/loginTeacher', passport.authenticate('local-teacher'));
+  router.post('/loginTeacher', passport.authenticate('local-teacher'), (req, res) => {
+    res.status(200).json({ success: true });
+  });
 
 
   // GET Logout page
