@@ -13,23 +13,6 @@ export default class Login extends React.Component {
     }
   }
 
-  logIn(username, password) {
-    console.log('hey')
-  }
-
-  async makeAccount() {
-    try {
-      await axios.post('/saveUser', {
-        username: this.state.username,
-        password: this.state.password,
-        passwordRepeat: this.state.passwordRepeat,
-        type: this.state.type
-      })
-      this.props.goToLogin();
-      // type: 1
-    }
-  }
-
   async logIn(e) {
     e.preventDefault();
     try {
