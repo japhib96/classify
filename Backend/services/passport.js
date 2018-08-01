@@ -3,6 +3,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
+var models = require('../../models/models.js')
 
 passport.serializeUser(function(user, done){
   done(null, user._id);
@@ -47,5 +48,3 @@ passport.use('local-student',new LocalStrategy(function(username, password, done
   return done(null, user);
   })
 }))
-
-module.export = passport;

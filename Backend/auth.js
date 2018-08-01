@@ -13,11 +13,7 @@ module.exports = function(passport) {
 
 
   // POST registration page
-  var validateReq = function(userData) {
-    return (userData.password === userData.passwordRepeat);
-  };
   router.post('/saveUser', async (req, res) => {
-
     if (!req.body.username || !req.body.password) {
       res.status(400).json({ error: 'Please enter valid username and password' });
     }
@@ -28,29 +24,25 @@ module.exports = function(passport) {
       if (req.body.type === 1) {
         await saveFunctions.saveStudent(req.body.username, req.body.password);
       } else {
-        console.log('teacher')
-        let teacher = await saveFunctions.saveTeacher(req.body.username, req.body.password);
-        console.log(teacher);
+        await saveFunctions.saveTeacher(req.body.username, req.body.password);
       }
       res.json({ success: true });
     }
     catch(error) {
       res.status(400).json({error: error.message})
     }
-
-  })
-
-  router.post('/login', passport.authenticate('local'), function(req, res) {
-     var userId = req.user._id
-     res.send(userId)
   });
+
+  router.post('/loginStudent', passport.authenticate('local-student'));
+
+  router.post('/loginTeacher', passport.authenticate('local-teacher'));
 
 
   // GET Logout page
-  router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/login');
-  });
+  // router.get('/logout', function(req, res) {
+  //   req.logout();
+  //   res.redirect('/login');
+  // });
 
   return router;
 };

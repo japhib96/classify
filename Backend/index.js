@@ -4,20 +4,19 @@ const saveFunctions= require('./saveFunctions')
 var session = require('express-session')
 const bodyParser= require('body-parser')
 var auth = require('./auth');
-var passport = require('./services/passport');
+var passport = require('passport');
+require('./services/passport');
 var LocalStrategy = require('passport-local');
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var routes = require('./routes');
 var models = require('../models/models')
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/', auth(passport));
 app.use('/', routes);
