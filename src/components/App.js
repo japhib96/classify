@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
 import Login from './Login.js';
 import Register from './Register.js';
+import Navigationbar from './Navbar';
 import { Button,
 ButtonGroup,
 DropdownButton,
@@ -12,7 +11,8 @@ MenuItem,
 PageHeader,
 Modal,
 FormGroup,
-FormControl } from 'react-bootstrap';
+FormControl,
+} from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -29,21 +29,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Classify</h1>
-        </header>
+        <Navigationbar />
         {(this.state.registered) ?
           // (this.state.userId) ?
+          <Register
+              goToLogin={() => this.setState({ registered: false })}
+              registerSuccess={() => this.setState({ registered: true })}
+            /> :
             <Login
-              goToRegister={() => this.setState({ registered: false })}
+              goToRegister={() => this.setState({ registered: true })}
               loginSuccess={(userId) => this.setState({ userId: userId })}
             />
-          : <Register
-              goToLogin={() => this.setState({ registered: true })}
-              registerSuccess={() => this.setState({ registered: true })}
-            />
+
         }
+
         {/* <form>
           <FormGroup>
             <h4>Classroom Title:</h4>
