@@ -41,24 +41,6 @@ class App extends Component {
             registerSuccess={() => this.setState({ registered: true })}
           />
         }
-
-        {/* <form>
-          <FormGroup>
-            <h4>Classroom Title:</h4>
-            <FormControl
-              type="text"
-              value={this.state.title}
-              onChange={(e) => this.setState({ title: e.target.value })}
-            />
-            <h4>Classroom Password:</h4>
-            <FormControl
-              type="password"
-              value={this.state.password}
-              onChange={(e) => this.setState({ password: e.target.value })}
-            />
-          </FormGroup>
-        </form>
-        <Button onClick={(e) => this.newClass(e)}>Save</Button> */}
       </div>
     );
   }

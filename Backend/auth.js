@@ -33,7 +33,9 @@ module.exports = function(passport) {
     }
   });
 
-  router.post('/loginStudent', passport.authenticate('local-student'));
+  router.post('/loginStudent', passport.authenticate('local-student'), (req, res) => {
+    res.status(200).json({ success: true });
+  });
 
   router.post('/loginTeacher', passport.authenticate('local-teacher'), (req, res) => {
     res.status(200).json({ success: true });

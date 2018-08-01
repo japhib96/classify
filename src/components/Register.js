@@ -22,7 +22,8 @@ export default class Register extends React.Component {
     }
   }
 
-  async makeAccount() {
+  async makeAccount(e) {
+    e.preventDefault();
     try {
       await axios.post('/saveUser', {
         username: this.state.username,
@@ -104,13 +105,13 @@ export default class Register extends React.Component {
                 <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({password: e.target.value})}/>
               </Col>
             </FormGroup>
-            <ToggleButtonGroup type="radio" name="options" defaultValue={this.state.type}>
+            <ToggleButtonGroup block type="radio" name="options" defaultValue={this.state.type}>
               <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
               <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
             </ToggleButtonGroup>
             <FormGroup>
               <Col smOffset={4} sm={4}>
-                <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.makeAccount()}>Register</Button>
+                <Button type="submit" bsStyle="primary" bsSize="large" block onClick={(e) => this.makeAccount(e)}>Register</Button>
               </Col>
             </FormGroup>
           </Form>

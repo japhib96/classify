@@ -89,7 +89,7 @@ export default class Login extends React.Component {
             <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })}/>
           </Col>
         </FormGroup>
-        <ToggleButtonGroup type="radio" name="options" defaultValue={this.state.type}>
+        <ToggleButtonGroup type="radio" name="options" block defaultValue={this.state.type}>
           <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
           <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
         </ToggleButtonGroup>
