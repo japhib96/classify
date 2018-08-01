@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { Button,
-<<<<<<< HEAD
 ButtonToolbar,
-=======
 // ButtonToolbar,
->>>>>>> kavi-munjal
 FormGroup,
 FormControl,
 ToggleButton,
@@ -26,12 +23,8 @@ export default class Register extends React.Component {
     }
   }
 
-<<<<<<< HEAD
-  async makeAccount() {
-=======
   async makeAccount(e) {
     e.preventDefault();
->>>>>>> kavi-munjal
     try {
       await axios.post('/saveUser', {
         username: this.state.username,
@@ -39,10 +32,7 @@ export default class Register extends React.Component {
         passwordRepeat: this.state.passwordRepeat,
         type: this.state.type
       })
-<<<<<<< HEAD
-=======
       console.log('New user saved')
->>>>>>> kavi-munjal
       this.props.goToLogin();
     }
     catch(error) {
@@ -51,10 +41,6 @@ export default class Register extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
-    console.log(this.state.type)
-=======
->>>>>>> kavi-munjal
     return (
       // <div>
       //   <h1>Make an account!</h1>
