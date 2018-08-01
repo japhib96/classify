@@ -14,6 +14,7 @@ var models = require('../models/models')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 

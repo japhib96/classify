@@ -1,9 +1,7 @@
 const models = require('../models/models')
-const Teacher = models.Teacher;
-const Lecture = models.Lecture;
 
 function saveTeacher(username, password) {
-  var teacher = new Teacher({
+  var teacher = new models.Teacher({
     username: username,
     password: password
   })
@@ -12,16 +10,16 @@ function saveTeacher(username, password) {
 }
 
 function saveStudent(username, password) {
-  var teacher = new Teacher({
+  var student = new models.Student({
     username: username,
     password: password
   })
 
-  return teacher.save();
+  return student.save();
 }
 
 function saveLecture(classId, lectureTitle, password){
-  var lecture = new Lecture({
+  var lecture = new models.Lecture({
     classId: classId,
     lectureTitle: lectureTitle,
     password: password
@@ -38,4 +36,5 @@ function saveLecture(classId, lectureTitle, password){
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
+  saveStudent: saveStudent,
 }

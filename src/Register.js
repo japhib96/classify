@@ -26,6 +26,7 @@ export default class Register extends React.Component {
         passwordRepeat: this.state.passwordRepeat,
         type: this.state.type
       })
+      console.log('New user saved')
       this.props.goToLogin();
     }
     catch(error) {
@@ -34,7 +35,6 @@ export default class Register extends React.Component {
   }
 
   render() {
-    console.log(this.state.type)
     return (
       <div>
         <h1>Make an account!</h1>
