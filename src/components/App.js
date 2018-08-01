@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
 import Login from './Login.js';
 import Register from './Register.js';
-import Navigationbar from './components/Navbar';
+import Navigationbar from './Navbar';
 import { Button,
 ButtonGroup,
 DropdownButton,
@@ -34,16 +32,17 @@ class App extends Component {
         <Navigationbar />
         {(this.state.registered) ?
           // (this.state.userId) ?
+          <Register
+              goToLogin={() => this.setState({ registered: false })}
+              registerSuccess={() => this.setState({ registered: true })}
+            /> :
             <Login
-              goToRegister={() => this.setState({ registered: false })}
+              goToRegister={() => this.setState({ registered: true })}
               loginSuccess={(userId) => this.setState({ userId: userId })}
             />
-          : <Register
-              goToLogin={() => this.setState({ registered: true })}
-              registerSuccess={() => this.setState({ registered: true })}
-            />
+
         }
-      
+
         {/* <form>
           <FormGroup>
             <h4>Classroom Title:</h4>
