@@ -10,6 +10,11 @@ var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var routes = require('./routes');
 var models = require('../models/models')
+var http = require('http')
+var server = http.createServer(app);
+
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -55,5 +60,16 @@ app.use('/', routes);
 //     error: {}
 //   });
 // });
+var socket = require('socket.io');
+io = socket(server);
 
-app.listen(3001, () => console.log('Example app listening on port 3001!'))
+io.on('connection', (socket) => {
+    console.log(socket.id);
+
+    socket.on('SEND_MESSAGE', function(data){
+        console.log('about to emit')
+        io.emit('RECEIVE_MESSAGE', data);
+    })
+});
+
+server.listen(3001, () => console.log('Example app listening on port 3001!'))
