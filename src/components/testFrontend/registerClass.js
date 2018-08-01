@@ -18,11 +18,17 @@ class RegisterClass extends Component {
     };
   }
 
-async  saveLecture(){
-  await  axios.post('/saveLecture',{
-      lectureTitle: this.state.lectureTitle,
-      password: this.state.password
-    })
+  async saveLecture() {
+    try {
+      await axios.post('/saveLecture', {
+          lectureTitle: this.state.lectureTitle,
+          password: this.state.password
+      })
+      console.log('classroom saved')
+    }
+    catch(error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -49,7 +55,7 @@ async  saveLecture(){
             />
           </FormGroup>
         </form>
-       <Button onClick={()=> this.saveLecture()} >Register</Button>
+       <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.saveLecture()}>Register</Button>
       </div>
     );
   }

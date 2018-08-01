@@ -18,19 +18,13 @@ function saveStudent(username, password) {
   return student.save();
 }
 
-function saveLecture(classId, lectureTitle, password){
+function saveLecture(lectureTitle, password){
   var lecture = new models.Lecture({
-    classId: classId,
     lectureTitle: lectureTitle,
     password: password
   })
 
-  lecture.save(function(err, user) {
-    if (err) {
-      console.log(err);
-    }
-    console.log('lecture saved');
-  });
+  return lecture.save();
 }
 
 module.exports = {

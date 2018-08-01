@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 
 // If you're getting an error here, it's probably because
 // your connect string is not defined or incorrect.
+mongoose.connection.on('connected', function() {
+  console.log('Connected to MongoDb!');
+})
 mongoose.connect(process.env.MONGODB_URI);
 
 const teacherSchema = mongoose.Schema({
@@ -36,10 +39,6 @@ const studentSchema = mongoose.Schema({
 })
 
 const lectureSchema = mongoose.Schema({
-  classId: {
-    type: String,
-    // required: true
-  },
   lectureTitle: {
     type: String,
     required: true

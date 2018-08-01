@@ -64,12 +64,11 @@ var socket = require('socket.io');
 io = socket(server);
 
 io.on('connection', (socket) => {
-    console.log(socket.id);
+  console.log(socket.id);
 
-    socket.on('SEND_MESSAGE', function(data){
-        console.log('about to emit')
-        io.emit('RECEIVE_MESSAGE', data);
-    })
+  socket.on('SEND_MESSAGE', function(data) {
+    io.emit('RECEIVE_MESSAGE', data);
+  })
 });
 
 server.listen(3001, () => console.log('Example app listening on port 3001!'))
