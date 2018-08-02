@@ -64,11 +64,23 @@ var socket = require('socket.io');
 io = socket(server);
 
 io.on('connection', (socket) => {
-  console.log(socket.id);
+    console.log(socket)
+  socket.on('JOIN_ROOM', async function(data){
+    var startMessages = await saveFunctions.updateLecture("5b6248bdea6e0239442e8d23", data.message)
 
-  socket.on('SEND_MESSAGE', function(data) {
-    io.emit('RECEIVE_MESSAGE', data);
+    io.emit('UPDATE_MESSAGE', startMessages )
   })
+
+
+    socket.on('SEND_MESSAGE', async function(data) {
+      var message = {
+        author: data.author,
+        message: data.message
+      }
+      var messages = await saveFunctions.updateLecture("5b6248bdea6e0239442e8d23", message)
+      console.log('send message', messages)
+      io.emit('RECEIVE_MESSAGE', messages);
+    })
 });
 
 server.listen(3001, () => console.log('Example app listening on port 3001!'))

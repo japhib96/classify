@@ -62,7 +62,7 @@ class App extends Component {
       //   </form>
       //   <Button onClick={(e) => this.newClass(e)}>Save</Button> */}
       // </div>
-      <JoinClass />
+      <Chat />
     );
   }
 }
