@@ -9,7 +9,9 @@ var LocalStrategy = require('passport-local');
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var routes = require('./routes');
-var models = require('../models/models')
+var models = require('../models/models');
+import '../semantic/dist/semantic.min.css';
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
