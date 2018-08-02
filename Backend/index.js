@@ -9,9 +9,15 @@ var LocalStrategy = require('passport-local');
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var routes = require('./routes');
+<<<<<<< HEAD
 var models = require('../models/models')
 var http = require('http')
 var server = http.createServer(app);
+=======
+var models = require('../models/models');
+import '../semantic/dist/semantic.min.css';
+
+>>>>>>> japhib96
 
 
 

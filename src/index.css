@@ -1,5 +1,58 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: komet-sc, sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  background-color: #ececec;
+}
+
+.ui.navbar {
+  background-color: white;
+  box-shadow: 2px 2px;
+}
+
+.ui.icon {
+  background-color: #f64c72;
+}
+
+.ui.segment {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #f64c72;
+    box-shadow: 2px 2px;
+    margin-right: 20px;
+}
+
+.column.menu.bar:hover {
+    background-color: #ddeaff;
+
+}
+
+.column.menu {
+  width: 100%;
+  height: 100%;
+}
+
+.ui.centered.cards {
+  justify-content: left;
+}
+
+.menubar.item {
+  font-size: 36px;
+}
+
+
+.ui.segment.navbar {
+  background-color: #ececec;
+}
+
+.segment.user {
+  background-color: #ddeaff;
+  width: 100%;
+  height:100%;
+}
+
+.ui.equal.width.grid.usergrid {
+  justify-content: center;
 }
