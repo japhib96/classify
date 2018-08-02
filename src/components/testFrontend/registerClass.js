@@ -21,8 +21,8 @@ class RegisterClass extends Component {
   async saveLecture() {
     try {
       await axios.post('/saveLecture', {
-          lectureTitle: this.state.lectureTitle,
-          password: this.state.password
+        lectureTitle: this.state.lectureTitle,
+        password: this.state.password
       })
       console.log('classroom saved')
     }

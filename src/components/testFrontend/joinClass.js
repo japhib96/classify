@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Button,
 ButtonGroup,
 DropdownButton,
@@ -9,20 +10,34 @@ FormGroup,
 FormControl } from 'react-bootstrap';
 
 class JoinClass extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       classId: '',
       password: '',
     };
   }
+
+  async join() {
+    try {
+      await axios.post('/joinClass', {
+        classId: this.state.lectureTitle,
+        password: this.state.password
+      })
+      console.log('classroom saved')
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+
   render() {
     return (
       <div className="App">
 
         <form>
           <FormGroup controlId="formBasicText">
-            <h4>Classroom Title:</h4>
+            <h4>Classroom Id:</h4>
             <FormControl
               type="text"
               value={this.state.classId}
@@ -40,6 +55,7 @@ class JoinClass extends Component {
             />
           </FormGroup>
         </form>
+        <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.join()}>Join Class</Button>
       </div>
     );
   }
