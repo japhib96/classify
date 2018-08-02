@@ -47,6 +47,10 @@ const lectureSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Teacher'
+  }
 })
 
 

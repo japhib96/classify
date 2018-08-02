@@ -5,6 +5,7 @@ import Chat from './testFrontend/chatRoom'
 import Login from './Login.js';
 import Register from './Register.js';
 import Navigationbar from './Navbar';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { Button,
 ButtonGroup,
 DropdownButton,
@@ -19,8 +20,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // title: '',
-      // password: '',
       registered: false, // whether to load login screen or registration
       userId: '', // account id to pass in when logging in
       classId: '',
@@ -28,41 +27,34 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
-      // <div className="App">
-      //   <Navigationbar />
-      //   {(this.state.registered) ?
-      //     // (this.state.userId) ?
-      //     <Register
-      //         goToLogin={() => this.setState({ registered: false })}
-      //         registerSuccess={() => this.setState({ registered: true })}
-      //       /> :
-      //       <Login
-      //         goToRegister={() => this.setState({ registered: true })}
-      //         loginSuccess={(userId) => this.setState({ userId: userId })}
-      //       />
-      //
-      //   }
-      //
-      //   {/* <form>
-      //     <FormGroup>
-      //       <h4>Classroom Title:</h4>
-      //       <FormControl
-      //         type="text"
-      //         value={this.state.title}
-      //         onChange={(e) => this.setState({ title: e.target.value })}
-      //       />
-      //       <h4>Classroom Password:</h4>
-      //       <FormControl
-      //         type="password"
-      //         value={this.state.password}
-      //         onChange={(e) => this.setState({ password: e.target.value })}
-      //       />
-      //     </FormGroup>
-      //   </form>
-      //   <Button onClick={(e) => this.newClass(e)}>Save</Button> */}
-      // </div>
-      <JoinClass />
+    <BrowserRouter>
+      <div className="App">
+        <Navigationbar />
+        {/* {(this.state.registered) ? */}
+          {/* // (this.state.userId) ? */}
+          <Route path='/register' render={() =>
+            <Register
+              // goToLogin={() => this.setState({ registered: false })}
+              // registerSuccess={() => this.setState({ registered: true })}
+            />
+          } />
+          <Route path='/login' render={() =>
+            <Login
+              // goToRegister={() => this.props.history.push('/register')}
+              // loginSuccess={(userId) => this.setState({ userId: userId })}
+            />
+          } />
+          <Route path='/class/new' render={() =>
+            <RegisterClass />
+          } />
+          <Route path='/class/join' render={() =>
+            <JoinClass />
+          } />
+        {/* } */}
+      </div>
+    </BrowserRouter>
     );
   }
 }
