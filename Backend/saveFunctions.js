@@ -21,14 +21,31 @@ function saveStudent(username, password) {
 function saveLecture(lectureTitle, password){
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
-    password: password
+    password: password,
+    messages: []
   })
 
   return lecture.save();
 }
 
+async function  updateLecture(lectureId, message){
+try{
+  var lecture = await models.Lecture.findById(lectureId)
+  if(message === ''){
+      return lecture.messages
+      }
+  lecture.messages = [...lecture.messages, message];
+  var updatedLecture = await lecture.save()
+      return updatedLecture.messages
+  } catch(e){
+    console.log(e)
+  }
+}
+
+
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
   saveStudent: saveStudent,
+  updateLecture: updateLecture
 }

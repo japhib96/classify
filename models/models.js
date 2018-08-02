@@ -47,6 +47,9 @@ const lectureSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  messages: {
+    type: Array
+  }
 })
 
 

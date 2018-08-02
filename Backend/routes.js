@@ -4,6 +4,7 @@ const saveFunctions = require('./saveFunctions');
 
 
 router.post('/saveLecture', async (req, res) => {
+  console.log('hi')
   try {
     await saveFunctions.saveLecture(req.body.lectureTitle, req.body.password);
     res.json({ success: true });
