@@ -70,22 +70,31 @@ var socket = require('socket.io');
 io = socket(server);
 
 io.on('connection', (socket) => {
-    console.log(socket)
+
   socket.on('JOIN_ROOM', async function(data){
-    var startMessages = await saveFunctions.updateLecture("5b6248bdea6e0239442e8d23", data.message)
+    var startMessages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", data.message)
 
     io.emit('UPDATE_MESSAGE', startMessages )
   })
 
+    socket.on('REACTION', async function(data){
+        var reactions = await saveFunctions.updateReaction("5b63c3c2c6481e737c3cfb2b", socket.id, data.reaction)
+        io.emit('ALL_REACTIONS', reactions)
+    })
 
     socket.on('SEND_MESSAGE', async function(data) {
       var message = {
         author: data.author,
-        message: data.message
+        message: data.message,
+        likes: []
       }
-      var messages = await saveFunctions.updateLecture("5b6248bdea6e0239442e8d23", message)
-      console.log('send message', messages)
+      var messages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", message)
       io.emit('RECEIVE_MESSAGE', messages);
+    })
+
+    socket.on('LIKE_MESSAGE', async function(data){
+      var messages = await saveFunctions.updateLikes("5b63c3c2c6481e737c3cfb2b", socket.id, data)
+      io.emit('UPDATE_LIKES', messages)
     })
 });
 
