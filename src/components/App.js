@@ -96,6 +96,7 @@ import Comments from './comments';
 import DashboardGrid from './dashboardGrid';
 import User from './UserGrid';
 
+import { BrowserRouter, Route } from 'react-router-dom';
 import { Button,
 ButtonGroup,
 DropdownButton,
@@ -106,32 +107,49 @@ FormGroup,
 FormControl,
 } from 'react-bootstrap';
 
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      registered: false, // whether to load login screen or registration
+      userId: '', // account id to pass in when logging in
+      classId: '',
+      activeItem: 'home',
+    };
 
-export default class App extends Component {
-  state = {
-    activeItem: 'home'
- }
+    handleContextRef = contextRef => this.setState({ contextRef })
 
-
-  handleContextRef = contextRef => this.setState({ contextRef })
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  }
 
   render() {
     const { contextRef } = this.state
 
     const { activeItem } = this.state
-
     return (
-      <div ref={this.handleContextRef}>
-        <Sticky context={contextRef}>
-          <Navigationbar />
-        </Sticky>
-          <Headercomp />
-          <Divider />
-        {/* <DashboardGrid /> */}
-        <User />
-      </div>
-    )
+      <BrowserRouter>
+        <div ref={this.handleContextRef}>
+          <Sticky context={contextRef}>
+            <Navigationbar />
+          </Sticky>
+            <Headercomp />
+            <Divider />
+          {/* <DashboardGrid /> */}
+          <User />
+          <Route path='/register' render={() =>
+            <Register />
+          } />
+          <Route path='/login' render={() =>
+            <Login />
+          } />
+          <Route path='/class/new' render={() =>
+            <RegisterClass />
+          } />
+          <Route path='/class/join' render={() =>
+            <JoinClass />
+          } />
+        </div>
+      </BrowserRouter>
+    );
   }
 }

@@ -49,6 +49,9 @@ const lectureSchema = mongoose.Schema({
   },
   messages: {
     type: Array
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Teacher'
   }
 })
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {FormControl, Form, Col, Button, FormGroup, ControlLabel, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 
 import axios from 'axios';
@@ -9,14 +10,13 @@ export default class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-
+      type: 1,
     }
   }
 
   async logIn(e) {
     e.preventDefault();
     try {
-      console.log('hi')
       if (this.state.type === 1) {
         await axios.post('/loginStudent', {
           username: this.state.username,
@@ -37,26 +37,6 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      // <div>
-      //   <form method="POST">
-      //     <h3>Login</h3>
-      //     <div className="form-group">
-      //       <label type="text">Username: </label>
-      //       <input type="text" name="username" className="form-control" onChange={(e) => this.setState({username: e.target.value})} />
-      //     </div>
-      //     <div className="form-group">
-      //       <label type="text">Password: </label>
-      //       <input type="password" name="password" className="form-control" onChange={(e) => this.setState({password: e.target.value})}/>
-      //     </div>
-      //     <div className="form-group">
-      //       <button className="btn btn-primary" onClick={() => this.props.goToRegister()}>Register</button>
-      //       <button className="btn btn-success" type="button" onClick={() => this.logIn(this.state.username, this.state.password)}>Login</button>
-      //     </div>
-      //   </form>
-      // </div>
-
-
-
       <Form horizontal>
         <FormGroup>
           <Col smOffset={3} sm={4}>
@@ -100,12 +80,10 @@ export default class Login extends React.Component {
         </FormGroup>
         <FormGroup>
           <Col smOffset={4} sm={6}>
-            <div> Not a user yet? Click for <a onClick={() => this.props.goToRegister()}>Register</a>  </div>
+            <div>Not a user yet? Click for <Link to={'/register'}>Register</Link></div>
           </Col>
         </FormGroup>
       </Form>
     );
   }
 }
-
-{/* <a href='#' onClick={() => this.props.goToRegister()} >Register</a> */}

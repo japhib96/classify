@@ -20,13 +20,12 @@ class JoinClass extends Component {
 
   async join() {
     try {
-      await axios.post('/joinClass', {
-        classId: this.state.lectureTitle,
-        password: this.state.password
+      await axios.post('/join', {
+        classId: this.state.classId,
+        password: this.state.password,
       })
-      console.log('classroom saved')
-    }
-    catch(error) {
+      console.log('logged in as student');
+    } catch(error) {
       console.log(error);
     }
   }
