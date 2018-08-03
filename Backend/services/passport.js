@@ -9,15 +9,23 @@ passport.serializeUser(function(user, done) {
   done(null, user._id);
 })
 
-passport.deserializeUser(function(id, done) {
-  models.Teacher.findById(id, function(err, teacher) {
-    if (!teacher) {
-      models.Student.findById(id, function(err, student) {
-        done(err, student)
-      })
-    }
-    done(err, teacher);
-  });
+passport.deserializeUser(async function(id, done) {
+  const teacher = await models.Teacher.findById(id);
+  if (!teacher) {
+    const student = await models.Student.findById(id);
+    return done(null, student);
+  }
+  return done(null, teacher);
+  // models.Teacher.findById(id, function(err, teacher) {
+  //   if (!teacher) {
+  //     console.log(teacher)
+  //     models.Student.findById(id, function(err, student) {
+  //       console.log(student)
+  //       return done(err, student)
+  //     })
+  //   }
+  //   done(err, teacher);
+  // });
 });
 
 passport.use('local-teacher', new LocalStrategy(function(username, password, done) {

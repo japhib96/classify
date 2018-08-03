@@ -1,182 +1,107 @@
 import React from 'react'
-import { Button, Comment, Form, Header } from 'semantic-ui-react'
+import { Button, Comment, Form, Header, Icon} from 'semantic-ui-react'
+import io from 'socket.io-client';
 
-const CommentSection = () => (
-  <Comment.Group threaded>
-    <Header as='h1' dividing textAlign="center">
-      Comments / Questions
-      <Header.Subheader content='Ask Questions and respond to threads. Btw. Its all anonymous, so don´t shy away PUSSSAY!'/>
-    </Header>
 
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/matt.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <span>Today at 5:42PM</span>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
 
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/elliot.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Elliot Fu</Comment.Author>
-        <Comment.Metadata>
-          <span>Yesterday at 12:30AM</span>
-        </Comment.Metadata>
-        <Comment.Text>
-          <p>This has been very useful for my research. Thanks as well!</p>
-        </Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
+class Comments extends React.Component {
 
-      <Comment.Group>
-        <Comment>
-          <Comment.Avatar as='a' src='/images/avatar/small/jenny.jpg' />
-          <Comment.Content>
-            <Comment.Author as='a'>Jenny Hess</Comment.Author>
-            <Comment.Metadata>
-              <span>Just now</span>
-            </Comment.Metadata>
-            <Comment.Text>Elliot you are always so right :)</Comment.Text>
-            <Comment.Actions>
-              <a>Reply</a>
-            </Comment.Actions>
-          </Comment.Content>
-        </Comment>
-      </Comment.Group>
-    </Comment>
+  constructor(props){
+    super(props);
 
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar as='a' src='/images/avatar/small/joe.jpg' />
-      <Comment.Content>
-        <Comment.Author as='a'>Joe Henderson</Comment.Author>
-        <Comment.Metadata>
-          <span>5 days ago</span>
-        </Comment.Metadata>
-        <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-        <Comment.Actions>
-          <a>Reply</a>
-        </Comment.Actions>
-      </Comment.Content>
-    </Comment>
-    <Form reply>
-      <Form.TextArea />
-      <Button content='Add Reply' labelPosition='center' icon='edit' primary />
-    </Form>
-  </Comment.Group>
+    this.state = {
+      username: '',
+      message: '',
+      messages: [],
+      reaction: '',
+      allReactions: []
+    };
+    var self = this;
 
-)
+    this.socket = io('localhost:3001');
 
-export default CommentSection
+    this.socket.on('RECEIVE_MESSAGE', function(data){
+      addMessage(data);
+    });
+
+    this.socket.on('UPDATE_LIKES', function(data){
+      self.setState({messages: data})
+      console.log(self.state.messages)
+    })
+
+    this.socket.on("UPDATE_MESSAGE", function(data){
+      self.setState({messages: data})
+    })
+
+    const addMessage = data => {
+      this.setState({messages: data});
+
+    };
+
+    this.sendMessage = ev => {
+      ev.preventDefault();
+      this.socket.emit('SEND_MESSAGE', {
+        author: this.props.user.username,
+        message: this.state.message
+      });
+      this.setState({message: ''});
+    }
+  }
+
+
+  componentDidMount() {
+    this.socket.emit('JOIN_ROOM', {
+      message: '',
+    })
+  }
+
+  likeMessage = (index) =>{
+    this.socket.emit('LIKE_MESSAGE',{
+      messages: this.state.messages,
+      index: index,
+      user: this.props.user._id
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <Comment.Group threaded>
+          <Header as='h1' dividing textAlign="center">
+            Comments / Questions
+            <Header.Subheader content='Ask Questions and respond to threads. Btw. Its all anonymous, so don´t shy away PUSSSAY!'/>
+          </Header>
+
+          {
+            this.state.messages.map( (message, index) => {
+              return (
+                <Comment key={index}>
+                  <Comment.Avatar as='a' src='/images/avatar/small/matt.jpg' />
+                  <Comment.Content>
+                    <Comment.Author  as='a'>{message.author}</Comment.Author>
+                    <Comment.Metadata>
+                      <span>Today at 5:42PM</span>
+                    </Comment.Metadata>
+                    <Comment.Text>{message.message}</Comment.Text>
+                    <Comment.Actions>
+                      <Button onClick={() => this.likeMessage(index) }>
+                        <Icon  name="smile" content="Likes" />
+                      </Button>
+                      {message.likes.length}
+                    </Comment.Actions>
+                  </Comment.Content>
+                </Comment>
+              )
+            })}
+            <Form reply>
+              <Form.TextArea onChange={ (e) => this.setState({message: e.target.value})} value={this.state.message}/>
+              <Button content='Add Reply' labelPosition='center' icon='edit' primary onClick={this.sendMessage} />
+            </Form>
+          </Comment.Group>
+        </div>
+      );
+    }
+
+  }
+
+  export default Comments

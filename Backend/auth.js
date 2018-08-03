@@ -26,7 +26,9 @@ module.exports = function(passport) {
       } else {
         await saveFunctions.saveTeacher(req.body.username, req.body.password);
       }
+            console.log(req.user)
       res.json({ success: true });
+
     }
     catch(error) {
       res.status(400).json({error: error.message})
@@ -34,19 +36,28 @@ module.exports = function(passport) {
   });
 
   router.post('/loginStudent', passport.authenticate('local-student'), (req, res) => {
+    console.log(req.user)
     res.status(200).json({ success: true });
   });
 
   router.post('/loginTeacher', passport.authenticate('local-teacher'), (req, res) => {
+    console.log(req.user)
     res.status(200).json({ success: true });
   });
 
+  router.get('/currentUser', (req, res) => {
+    if (!req.user) {
+      res.send('error');
+    }
+    res.send(req.user);
+  })
+
 
   // GET Logout page
-  // router.get('/logout', function(req, res) {
-  //   req.logout();
-  //   res.redirect('/login');
-  // });
+  router.get('/logout', function(req, res) {
+    req.logout();
+    // res.redirect('/login');
+  });
 
   return router;
 };

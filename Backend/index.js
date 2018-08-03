@@ -21,6 +21,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(session({
+  secret: process.env.SECRET,
+  name: 'Catscoookie',
+  store: new MongoStore({ mongooseConnection: require('mongoose').connection }),
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -71,7 +80,7 @@ io.on('connection', (socket) => {
   })
 
     socket.on('REACTION', async function(data){
-        var reactions = await saveFunctions.updateReaction("5b62409074de93e9dd270623", socket.id, data.reaction)
+        var reactions = await saveFunctions.updateReaction("5b62409074de93e9dd270623", data.user, data.reaction)
         io.emit('ALL_REACTIONS', reactions)
     })
 
@@ -86,7 +95,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('LIKE_MESSAGE', async function(data){
-      var messages = await saveFunctions.updateLikes("5b62409074de93e9dd270623", socket.id, data)
+      var messages = await saveFunctions.updateLikes("5b62409074de93e9dd270623", data.user, data)
       io.emit('UPDATE_LIKES', messages)
     })
 });

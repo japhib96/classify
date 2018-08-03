@@ -5,8 +5,10 @@ import { Grid, Segment } from 'semantic-ui-react'
 import Comment from './Comments';
 import Emotions from './EmotionBar';
 import Statistics from './ClassStatistics';
+import axios from 'axios'
 
-const UserInterface = () => (
+
+const UserInterface = (props) => (
 
 <div>
   <Grid columns='equal' className="usergrid">
@@ -14,12 +16,13 @@ const UserInterface = () => (
       <Statistics />
     </Grid.Column>
     <Grid.Column width={8} className="usergrid">
-        <Comment />
+        <Comment user={props.user} />
     </Grid.Column>
     <Grid.Column>
-      <Emotions />
+      <Emotions user={props.user} />
     </Grid.Column>
   </Grid>
+
 </div>
 
 )

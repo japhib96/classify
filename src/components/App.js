@@ -14,6 +14,7 @@ import EmotionBar from './EmotionBar';
 import Comments from './Comments';
 import DashboardGrid from './dashboardGrid';
 import User from './UserGrid';
+import axios from 'axios';
 
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Button,
@@ -31,7 +32,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       registered: false, // whether to load login screen or registration
-      userId: '', // account id to pass in when logging in
+      user: {}, // account id to pass in when logging in
       classId: '',
       // activeItem: 'home',
     };
@@ -41,7 +42,22 @@ export default class App extends Component {
     // handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   }
 
+  componentDidMount() {
+    const self = this;
+    axios.get('/currentUser')
+    .then((resp) => {
+      self.setState({ user: resp.data });
+    });
+  }
+
+  // getUser() {
+  //   console.log('hi')
+  //   axios.get('/currentUser')
+  //   .then(resp => console.log(resp.data))
+  // }
+
   render() {
+    console.log(this.state.user)
     const { contextRef } = this.state
 
     // const { activeItem } = this.state
@@ -53,19 +69,28 @@ export default class App extends Component {
           </Sticky>
             <Headercomp />
             <Divider />
-          {/* <DashboardGrid /> */}
-          {/* <User /> */}
           <Route path='/register' render={() =>
             <Register />
           } />
           <Route path='/login' render={() =>
             <Login />
           } />
+          <Route path='/dashboard' render={() =>
+            <DashboardGrid />
+          } />
           <Route path='/class/new' render={() =>
             <RegisterClass />
           } />
           <Route path='/class/join' render={() =>
             <JoinClass />
+          } />
+
+          {/* Chat and User are the same, need to be integrated */}
+          <Route path='/class/room' render={() =>
+            <Chat />
+          } />
+          <Route path='/user' render={() =>
+            <User user={this.state.user}/>
           } />
         </div>
       </BrowserRouter>

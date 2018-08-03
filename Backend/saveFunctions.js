@@ -42,19 +42,19 @@ async function  updateLecture(lectureId, message){
     }
 }
 
-async function  updateReaction(lectureId, socketId, reaction){
+async function  updateReaction(lectureId, userId, reaction){
   try{
     var lecture = await models.Lecture.findById(lectureId)
     if(reaction === ''){
         return lecture.reactions
         }
     var index = lecture.reactions.findIndex(function(reactionObj){
-      return reactionObj.id === socketId
+      return reactionObj.id === userId
     })
     if(index === -1){
-      lecture.reactions = [...lecture.reactions, {id: socketId, reaction: reaction}]
+      lecture.reactions = [...lecture.reactions, {id: userId, reaction: reaction}]
     } else{
-      lecture.reactions[index] = {id: socketId, reaction: reaction};
+      lecture.reactions[index] = {id: userId, reaction: reaction};
     }
     var updatedLecture = await lecture.save()
         return updatedLecture.reactions
@@ -64,26 +64,20 @@ async function  updateReaction(lectureId, socketId, reaction){
   }
 }
 
-async function  updateLikes(lectureId, socketId, data){
+async function  updateLikes(lectureId, userId, data){
   try{
     var lecture = await models.Lecture.findById(lectureId)
     if(data === ''){
         return lecture.messages
         }
-       console.log('start',lecture.messages[data.index].likes)
       var index = lecture.messages[data.index].likes.findIndex(function(likesObj){
-        console.log('find',likesObj.id)
-        return likesObj.id === socketId
+        return likesObj.id === userId
       })
-      console.log('index', index)
       if(index === -1){
-        console.log('if', socketId)
-        lecture.messages[data.index].likes = [...lecture.messages[data.index].likes, {id: socketId}]
-        console.log('if', lecture.messages[data.index].likes)
+        lecture.messages[data.index].likes = [...lecture.messages[data.index].likes, {id: userId}]
       } else{
         lecture.messages[data.index].likes.splice(index, 1)
       }
-      console.log(lecture)
     var updatedLecture = await lecture.save()
         return updatedLecture.messages
 
