@@ -4,18 +4,17 @@ body {
   font-family: komet-sc, sans-serif;
   font-style: italic;
   font-weight: 900;
-  background-color: #ececec;
+  background-color: #fffaf0;
 }
-
 .ui.navbar {
-  background-color: white;
+  background-color: #b3ee3a;
   box-shadow: 2px 2px;
 }
-
-.ui.icon {
+.ui.icon:hover {
   background-color: #f64c72;
+  color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
 }
-
 .ui.segment {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -23,36 +22,57 @@ body {
     box-shadow: 2px 2px;
     margin-right: 20px;
 }
-
 .column.menu.bar:hover {
     background-color: #ddeaff;
-
 }
-
 .column.menu {
   width: 100%;
   height: 100%;
 }
-
 .ui.centered.cards {
   justify-content: left;
 }
-
 .menubar.item {
   font-size: 36px;
 }
-
-
 .ui.segment.navbar {
   background-color: #ececec;
 }
-
 .segment.user {
   background-color: #ddeaff;
   width: 100%;
   height:100%;
 }
-
-.ui.equal.width.grid.usergrid {
+.usergrid {
+  background-color: #fffaf0;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+.outer {
   justify-content: center;
+  background-color: ;
+  justify-content: center;
+}
+.ui.segment.emoji {
+  background-color: white;
+}
+.ui.segment.emoji.top:hover {
+  background-color: green;
+  color: black;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+.ui.segment.emoji.good:hover {
+  background-color: #bdffb2;
+  color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+.ui.segment.emoji.confused:hover {
+  background-color: #ef9797;
+  color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+.ui.segment.emoji.out:hover {
+  background-color: #fc0000;
+  color: black;
+    box-shadow: inset 0 0 0 3px #3a7999;
 }

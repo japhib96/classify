@@ -56,6 +56,7 @@ const lectureSchema = mongoose.Schema({
   ],
   reactions: {
     type: Array
+  },
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'Teacher'

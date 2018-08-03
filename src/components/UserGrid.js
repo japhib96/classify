@@ -4,13 +4,14 @@ import React from 'react'
 import { Grid, Segment } from 'semantic-ui-react'
 import Comment from './Comments';
 import Emotions from './EmotionBar';
+import Statistics from './ClassStatistics';
 
 const UserInterface = () => (
 
 <div>
   <Grid columns='equal' className="usergrid">
     <Grid.Column>
-      <Emotions />
+      <Statistics />
     </Grid.Column>
     <Grid.Column width={8} className="usergrid">
         <Comment />

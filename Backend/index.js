@@ -9,18 +9,11 @@ var LocalStrategy = require('passport-local');
 var MongoStore = require('connect-mongo')(session);
 var mongoose = require('mongoose');
 var routes = require('./routes');
-<<<<<<< HEAD
 var models = require('../models/models')
 var http = require('http')
 var server = http.createServer(app);
-=======
 var models = require('../models/models');
-import '../semantic/dist/semantic.min.css';
-
->>>>>>> japhib96
-
-
-
+// require('../semantic/dist/semantic.min.css');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -72,13 +65,13 @@ io = socket(server);
 io.on('connection', (socket) => {
 
   socket.on('JOIN_ROOM', async function(data){
-    var startMessages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", data.message)
+    var startMessages = await saveFunctions.updateLecture("5b62409074de93e9dd270623", data.message)
 
     io.emit('UPDATE_MESSAGE', startMessages )
   })
 
     socket.on('REACTION', async function(data){
-        var reactions = await saveFunctions.updateReaction("5b63c3c2c6481e737c3cfb2b", socket.id, data.reaction)
+        var reactions = await saveFunctions.updateReaction("5b62409074de93e9dd270623", socket.id, data.reaction)
         io.emit('ALL_REACTIONS', reactions)
     })
 
@@ -88,12 +81,12 @@ io.on('connection', (socket) => {
         message: data.message,
         likes: []
       }
-      var messages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", message)
+      var messages = await saveFunctions.updateLecture("5b62409074de93e9dd270623", message)
       io.emit('RECEIVE_MESSAGE', messages);
     })
 
     socket.on('LIKE_MESSAGE', async function(data){
-      var messages = await saveFunctions.updateLikes("5b63c3c2c6481e737c3cfb2b", socket.id, data)
+      var messages = await saveFunctions.updateLikes("5b62409074de93e9dd270623", socket.id, data)
       io.emit('UPDATE_LIKES', messages)
     })
 });

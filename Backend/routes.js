@@ -2,6 +2,13 @@ var express = require('express');
 var router = express.Router();
 const saveFunctions = require('./saveFunctions');
 
+router.use(function(req, res, next){
+  if (!req.user) {
+    res.json({ success: false, loggedIn: false });
+  } else {
+    return next();
+  }
+});
 
 router.post('/saveLecture', async (req, res) => {
   console.log('hi')
