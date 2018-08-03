@@ -62,3 +62,5 @@ class RegisterClass extends Component {
 }
 
 export default RegisterClass;
+
+                

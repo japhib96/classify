@@ -47,7 +47,14 @@ const lectureSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  messages: {
+  messages: [
+    {message: String,
+      author: String,
+      likes: Array
+    }
+
+  ],
+  reactions: {
     type: Array
   }
 })
