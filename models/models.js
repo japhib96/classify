@@ -51,7 +51,8 @@ const lectureSchema = mongoose.Schema({
     {message: String,
       author: String,
       date: String,
-      likes: Array
+      likes: Array,
+      replies: Array
     }
 
   ],
