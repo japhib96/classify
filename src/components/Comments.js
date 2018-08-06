@@ -14,7 +14,9 @@ class Comments extends React.Component {
       message: '',
       messages: [],
       reaction: '',
-      allReactions: []
+      allReactions: [],
+      reply:'',
+      pressed: []
     };
     var self = this;
 
@@ -30,12 +32,22 @@ class Comments extends React.Component {
     })
 
     this.socket.on("UPDATE_MESSAGE", function(data){
-      self.setState({messages: data})
+      var pressArr = [];
+      data.forEach(() => {
+        pressArr.push(false)
+      })
+      self.setState({
+        messages: data,
+        pressed: pressArr
+      })
+    })
+
+    this.socket.on('UPDATE_REPLIES', function(data) {
+      self.setState({ messages: data, reply: '' })
     })
 
     const addMessage = data => {
-      this.setState({messages: data});
-
+      this.setState({ messages: data, pressed: [...this.state.pressed, false] });
     };
 
     this.sendMessage = ev => {
@@ -48,19 +60,33 @@ class Comments extends React.Component {
     }
   }
 
-
   componentDidMount() {
     this.socket.emit('JOIN_ROOM', {
       message: '',
     })
   }
 
-  likeMessage = (index) =>{
+  likeMessage = (id) =>{
     this.socket.emit('LIKE_MESSAGE',{
       messages: this.state.messages,
-      index: index,
+      index: id,
       user: this.props.user._id
     })
+  }
+
+  addReply(index) {
+    var arr = this.state.pressed.slice();
+    arr[index] = !arr[index];
+    this.setState({ pressed : arr })
+  }
+
+  sendReply(id, index) {
+    this.socket.emit('ADD_REPLY', {
+      user: this.props.user.username,
+      reply: this.state.reply,
+      index: id
+    })
+    this.addReply(index);
   }
 
   render() {
@@ -83,11 +109,24 @@ class Comments extends React.Component {
                       <span>{message.date ? message.date.substring(0,21) : ''}</span>
                     </Comment.Metadata>
                     <Comment.Text>{message.message}</Comment.Text>
+                    <ul>
+                      {this.state.messages[index].replies.map((replies) =>
+                        <li>{replies.author}: {replies.reply}</li>
+                      )}
+                    </ul>
                     <Comment.Actions>
-                      <Button onClick={() => this.likeMessage(index) }>
+                      <Button onClick={() => this.likeMessage(message._id) }>
                         <Icon  name="smile" content="Likes" />
                       </Button>
                       {message.likes.length}
+                      <button onClick={() => this.addReply(index)}>Add Reply</button>
+                      {this.state.pressed[index] ?
+                        <div>
+                          <input type="text" placeholder="Message" className="form-control" onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}/>
+                          <button onClick={() => this.sendReply(message._id, index)} >Send Reply</button>
+                        </div>
+                        : <div></div>
+                      }
                     </Comment.Actions>
                   </Comment.Content>
                 </Comment>
