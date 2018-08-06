@@ -50,6 +50,7 @@ const lectureSchema = mongoose.Schema({
   messages: [
     {message: String,
       author: String,
+      date: String,
       likes: Array
     }
 

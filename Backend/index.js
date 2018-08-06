@@ -88,6 +88,7 @@ io.on('connection', (socket) => {
       var message = {
         author: data.author,
         message: data.message,
+        date: new Date(),
         likes: []
       }
       var messages = await saveFunctions.updateLecture("5b62409074de93e9dd270623", message)

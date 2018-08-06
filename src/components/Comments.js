@@ -80,7 +80,7 @@ class Comments extends React.Component {
                   <Comment.Content>
                     <Comment.Author  as='a'>{message.author}</Comment.Author>
                     <Comment.Metadata>
-                      <span>Today at 5:42PM</span>
+                      <span>{message.date ? message.date.substring(0,21) : ''}</span>
                     </Comment.Metadata>
                     <Comment.Text>{message.message}</Comment.Text>
                     <Comment.Actions>
