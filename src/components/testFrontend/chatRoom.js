@@ -13,7 +13,9 @@ class Chat extends React.Component{
       message: '',
       messages: [],
       reaction: '',
-      allReactions: []
+      allReactions: [],
+      reply:'',
+      pressed: []
     };
     var self = this;
 
@@ -21,30 +23,44 @@ class Chat extends React.Component{
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
       addMessage(data);
+
     });
 
     this.socket.on('UPDATE_LIKES', function(data){
       self.setState({messages: data})
-      console.log(self.state.messages)
     })
 
     this.socket.on("UPDATE_MESSAGE", function(data){
-      self.setState({messages: data})
+      var pressArr=[]
+      data.forEach(()=>{
+        pressArr.push(false)
+      })
+      self.setState({
+        messages: data,
+        pressed: pressArr
     })
+  })
+
+  this.socket.on('UPDATE_REPLIES', function(data){
+    self.setState({messages: data, reply: ''})
+
+
+  })
 
     const addMessage = data => {
-      this.setState({messages: data});
+      this.setState({messages: data, pressed: [...this.state.pressed, false]});
 
     };
 
     this.sendMessage = ev => {
       ev.preventDefault();
-      // this.socket.emit('SEND_MESSAGE', {
-      //   author: this.state.username,
-      //   message: this.state.message
-      // });
-      // this.setState({message: ''});
-      axios.get('/logout')
+
+      this.socket.emit('SEND_MESSAGE', {
+        author: this.props.user._id,
+        message: this.state.message
+      });
+      this.setState({message: ''});
+      // axios.get('/logout')
     }
 
     this.socket.on("ALL_REACTIONS", function(reactions){
@@ -67,21 +83,24 @@ class Chat extends React.Component{
 
   thumbsUp(){
     this.socket.emit('REACTION',{
-      reaction: 1
+      reaction: 1,
+      user: this.props.user._id
     })
     this.setState({reaction: 'This makes total sense'})
   }
 
   okay(){
     this.socket.emit('REACTION',{
-      reaction: 0
+      reaction: 0,
+      user: this.props.user._id
     })
     this.setState({reaction: 'I kind of understand'})
   }
 
   thumbsDown(){
     this.socket.emit('REACTION',{
-      reaction: -1
+      reaction: -1,
+      user: this.props.user._id
     })
     this.setState({reaction: "This doesn't make sense"})
   }
@@ -93,10 +112,35 @@ class Chat extends React.Component{
     // this.setState({messsages: allMessages})
     this.socket.emit('LIKE_MESSAGE',{
       messages: this.state.messages,
-      index: index
+      index: index,
+      user: this.props.user._id
+
     })
 
   }
+
+  addReply(index){
+    var arr= this.state.pressed
+    arr[index]= true;
+    console.log(this.state.pressed)
+    this.setState({pressed : arr})
+
+
+  }
+
+  sendReply(index){
+    this.socket.emit('ADD_REPLY',{
+      user: this.props.user.username,
+      reply: this.state.reply,
+      index: index
+    })
+    var arr1= this.state.pressed
+    arr1[index]= false;
+    console.log(this.state.pressed)
+    this.setState({pressed : arr1})
+
+    }
+
 
 
 
@@ -127,6 +171,7 @@ class Chat extends React.Component{
         thumbsUp += 1
       }
     })
+
     return (
       <div className="container">
         <div className="row">
@@ -146,11 +191,26 @@ class Chat extends React.Component{
                 <div className="messages">
                   {
                     this.state.messages.map( (message, index) => {
-                      console.log(message.likes)
+
                       return (
                         <div style={{border:"1px solid gray"}}  key={index} >
                           <p>{message.author}: {message.message}</p>
+                          <ul>
+                            {this.state.messages[index].replies.map((replies) =>
+                              <li>{replies.author}: {replies.reply}</li>
+                            )}
+                          </ul>
                           <button onClick={() => this.likeMessage(index) } >LIKE</button>
+                          <button onClick={() => this.addReply(index)}>Add Reply</button>
+                          {this.state.pressed[index] ?
+                            <div>
+                          <input type="text" placeholder="Message" className="form-control" onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}/>
+                          <button onClick={() => this.sendReply(index)} >Send Reply</button>
+                          </div>
+                          : <div></div>
+                        }
+
+
                           <p>{message.likes.length}</p>
 
                         </div>

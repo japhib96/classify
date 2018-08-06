@@ -94,6 +94,7 @@ export default class App extends Component {
           } />
         </div>
       </BrowserRouter>
+      // <Chat user={this.state.user}/>
     );
   }
 }
