@@ -47,14 +47,12 @@ const lectureSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  messages: [
-    {message: String,
-      author: String,
-      date: String,
-      likes: Array
-    }
-
-  ],
+  // messages: [
+  //   {
+  //     type: mongoose.Schema.ObjectId,
+  //     ref: 'Message'
+  //   }
+  // ],
   reactions: {
     type: Array
   },
@@ -64,13 +62,39 @@ const lectureSchema = mongoose.Schema({
   }
 })
 
+lectureSchema.methods.getMessages = async function() {
+  var self = this;
+  var messages = await messageModel.find({ 'lecture': self._id });
+  return messages;
+}
+
+const messageSchema = mongoose.Schema({
+  message: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
+  },
+  likes: Array,
+  replies: Array,
+  lecture: String
+})
+
 
 const teacherModel = mongoose.model('Teacher', teacherSchema);
 const studentModel = mongoose.model('Student', studentSchema);
 const lectureModel = mongoose.model('Lecture', lectureSchema);
+const messageModel = mongoose.model('Message', messageSchema);
 
-module.exports={
+module.exports = {
   Teacher: teacherModel,
   Student: studentModel,
-  Lecture: lectureModel
+  Lecture: lectureModel,
+  Message: messageModel
 }
