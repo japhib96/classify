@@ -108,25 +108,6 @@ async function updateReplies(lectureId, userId, data) {
   }
 }
 
-async function  updateReplies(lectureId, userId, data){
-  try{
-    var lecture = await models.Lecture.findById(lectureId)
-    if(data === ''){
-        return lecture.messages
-        }
-
-    lecture.messages[data.index].replies = [...lecture.messages[data.index].replies, {author: userId, reply: data.reply}]
-
-    var updatedLecture = await lecture.save()
-        return updatedLecture.messages
-
-  } catch(e){
-    console.log(e)
-  }
-}
-
-
-
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,

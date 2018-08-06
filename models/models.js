@@ -47,24 +47,12 @@ const lectureSchema = mongoose.Schema({
     type: String,
     required: true
   },
-<<<<<<< HEAD
-  messages: [
-    {message: String,
-      author: String,
-      date: String,
-      likes: Array,
-      replies: Array
-    }
-
-  ],
-=======
   // messages: [
   //   {
   //     type: mongoose.Schema.ObjectId,
   //     ref: 'Message'
   //   }
   // ],
->>>>>>> kavi-munjal
   reactions: {
     type: Array
   },
