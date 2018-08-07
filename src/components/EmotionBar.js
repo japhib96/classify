@@ -12,6 +12,13 @@ class Emotion extends React.Component {
     this.socket = io('localhost:3001');
   }
 
+  componentDidMount() {
+    this.socket.emit('JOIN_ROOM', {
+      message: '',
+      class: this.props.class
+    })
+  }
+
   thumbsUp() {
     this.socket.emit('REACTION',{
       reaction: 1,

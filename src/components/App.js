@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import { Grid, Header, Image, Rail, Segment, Sticky } from 'semantic-ui-react'
-import { Menu, Input, Dropdown, Icon} from 'semantic-ui-react'
+import { Menu, Input, Dropdown, Icon } from 'semantic-ui-react'
 import React, { Component } from 'react';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
@@ -33,7 +33,8 @@ export default class App extends Component {
     this.state = {
       registered: false, // whether to load login screen or registration
       user: '', // account id to pass in when logging in
-      classId: '',
+      classId: '5b689caf57657f1271f1ae4d',
+      loading: true
       // activeItem: 'home',
     };
 
@@ -42,28 +43,27 @@ export default class App extends Component {
     // handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   }
 
-  componentDidMount() {
-    const self = this;
-    axios.get('/currentUser')
-    .then((resp) => {
-      console.log(resp)
-      self.setState({ user: resp.data });
-    });
+  componentWillMount() {
+    this.getUser();
   }
 
   joinRoom(classId) {
-    console.log(classId)
     this.setState({ classId: classId });
   }
 
-  // getUser() {
-  //   console.log('hi')
-  //   axios.get('/currentUser')
-  //   .then(resp => console.log(resp.data))
-  // }
+  async getUser() {
+    let user;
+    const self = this;
+    await axios.get('/currentUser')
+    .then((resp) => {
+      user = resp.data;
+    });
+    this.setState({ user: user, loading: false })
+  }
 
   render() {
     console.log(this.state.user)
+    if (this.state.loading) { return <h2>Loading...</h2> }
     const { contextRef } = this.state
 
     // const { activeItem } = this.state
@@ -76,19 +76,19 @@ export default class App extends Component {
             <Headercomp />
             <Divider />
           <Route path='/register' render={() =>
-            <Register />
+            this.state.user ? <Redirect to='/dashboard' /> : <Register />
           } />
           <Route path='/login' render={() =>
-            <Login />
+            this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
           } />
           <Route path='/dashboard' render={() =>
-            this.state.user ? <DashboardGrid /> : <Login />
+            this.state.user ? <DashboardGrid /> : <Redirect to='/login' />
           } />
           <Route path='/class/new' render={() =>
-            <RegisterClass />
+            this.state.user ? <RegisterClass /> : <Redirect to='/login' />
           } />
           <Route path='/class/join' render={() =>
-            <JoinClass joinRoom={this.joinRoom.bind(this)} />
+            this.state.user ? <JoinClass joinRoom={this.joinRoom.bind(this)} /> : <Redirect to='/login' />
           } />
 
           {/* Chat and User are the same, need to be integrated */}
@@ -96,7 +96,7 @@ export default class App extends Component {
             <Chat />
           } />
           <Route path='/user' render={() =>
-            <User user={this.state.user} class={this.state.classId}/>
+            this.state.user ? <User user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
           } />
         </div>
       </BrowserRouter>

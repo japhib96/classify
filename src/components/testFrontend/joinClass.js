@@ -22,7 +22,7 @@ class JoinClass extends Component {
 
   async join() {
     try {
-      await axios.post('/join', {
+      await axios.post('/class/join', {
         lectureId: this.state.classId,
         password: this.state.password,
       })

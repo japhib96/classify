@@ -21,7 +21,7 @@ router.post('/saveLecture', async (req, res) => {
   }
 })
 
-router.post('/join', async (req, res) => {
+router.post('/class/join', async (req, res) => {
   console.log('hi')
   try {
     await saveFunctions.joinLecture(req.body.lectureId, req.body.password);
