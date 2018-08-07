@@ -47,9 +47,10 @@ module.exports = function(passport) {
 
   router.get('/currentUser', (req, res) => {
     if (!req.user) {
-      res.send('error');
+      res.send('');
+    } else {
+      res.send(req.user);
     }
-    res.send(req.user);
   })
 
 

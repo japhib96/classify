@@ -42,7 +42,7 @@ class RegisterClass extends Component {
             />
             <h4>Document Password:</h4>
             <FormControl
-              type="text"
+              type="password"
               value={this.state.password}
               onChange={(e)=>this.setState({
                   password: e.target.value
@@ -57,5 +57,3 @@ class RegisterClass extends Component {
 }
 
 export default RegisterClass;
-
-                

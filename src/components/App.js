@@ -16,7 +16,7 @@ import DashboardGrid from './dashboardGrid';
 import User from './UserGrid';
 import axios from 'axios';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Button,
 ButtonGroup,
 DropdownButton,
@@ -32,7 +32,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       registered: false, // whether to load login screen or registration
-      user: {}, // account id to pass in when logging in
+      user: '', // account id to pass in when logging in
       classId: '',
       // activeItem: 'home',
     };
@@ -46,6 +46,7 @@ export default class App extends Component {
     const self = this;
     axios.get('/currentUser')
     .then((resp) => {
+      console.log(resp)
       self.setState({ user: resp.data });
     });
   }
@@ -81,7 +82,7 @@ export default class App extends Component {
             <Login />
           } />
           <Route path='/dashboard' render={() =>
-            <DashboardGrid />
+            this.state.user ? <DashboardGrid /> : <Login />
           } />
           <Route path='/class/new' render={() =>
             <RegisterClass />

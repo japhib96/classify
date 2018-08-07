@@ -5,7 +5,7 @@ const saveFunctions = require('./saveFunctions');
 router.use(function(req, res, next){
   if (!req.user) {
     console.log('not logged in')
-    res.json({ success: false, loggedIn: false });
+    res.status(401).json({ success: false, loggedIn: false });
   } else {
     return next();
   }
