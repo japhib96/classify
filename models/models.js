@@ -1,47 +1,100 @@
-var mongoose = require('mongoose');
-var connect = process.env.MONGODB_URI;
+const mongoose = require('mongoose');
 
 // If you're getting an error here, it's probably because
 // your connect string is not defined or incorrect.
-mongoose.connect(connect);
+mongoose.connection.on('connected', function() {
+  console.log('Connected to MongoDb!');
+})
+mongoose.connect(process.env.MONGODB_URI);
 
-// Step 1: Write your schemas here!
-// Remember: schemas are like your blueprint, and models
-// are like your building!
-var teacherSchema = mongoose.Schema({
-  username:{
+const teacherSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    index: {
+      unique: true,
+    }
+  },
+  password: {
     type: String,
     required: true
   },
-  password:{
+  classes: {
+    type: Array // array of lecture objects
+  },
+})
+
+const studentSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    index: {
+      unique: true,
+    }
+  },
+  password: {
     type: String,
     required: true
   },
-  classes:{
-    type: Array     //array of lecture objects
+})
+
+const lectureSchema = mongoose.Schema({
+  lectureTitle: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  // messages: [
+  //   {
+  //     type: mongoose.Schema.ObjectId,
+  //     ref: 'Message'
+  //   }
+  // ],
+  reactions: {
+    type: Array
+  },
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Teacher'
   }
 })
 
-var lectureSchema = mongoose.Schema({
-  classId:{
-    type: String,
-    // required: true
-  },
-  lectureTitle:{
-    type: String,
-    required: true
-  },
-  password:{
+lectureSchema.methods.getMessages = async function() {
+  var self = this;
+  var messages = await messageModel.find({ 'lecture': self._id });
+  return messages;
+}
+
+const messageSchema = mongoose.Schema({
+  message: {
     type: String,
     required: true
   },
+  author: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: String,
+    required: true
+  },
+  likes: Array,
+  replies: Array,
+  lecture: String
 })
 
 
-var teacherModel = mongoose.model('Teacher', teacherSchema);
-var lectureModel = mongoose.model('Lecture', lectureSchema);
+const teacherModel = mongoose.model('Teacher', teacherSchema);
+const studentModel = mongoose.model('Student', studentSchema);
+const lectureModel = mongoose.model('Lecture', lectureSchema);
+const messageModel = mongoose.model('Message', messageSchema);
 
-module.exports={
+module.exports = {
   Teacher: teacherModel,
-  Lecture: lectureModel
+  Student: studentModel,
+  Lecture: lectureModel,
+  Message: messageModel
 }
