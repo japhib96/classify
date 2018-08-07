@@ -108,6 +108,19 @@ async function updateReplies(lectureId, userId, data) {
   }
 }
 
+async function joinLecture(lectureId, password) {
+  try {
+    var lecture = await models.Lecture.findById(lectureId);
+    if (password === lecture.password) {
+      return;
+    } else {
+      throw new Error('Incorrect password');
+    }
+  } catch(e) {
+    console.log(e);
+  }
+}
+
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
@@ -115,5 +128,6 @@ module.exports = {
   updateLecture: updateLecture,
   updateReaction: updateReaction,
   updateLikes: updateLikes,
-  updateReplies: updateReplies
+  updateReplies: updateReplies,
+  joinLecture: joinLecture
 }

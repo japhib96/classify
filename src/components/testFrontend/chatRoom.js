@@ -2,6 +2,7 @@ import React from "react";
 import io from "socket.io-client";
 import Emoji from 'react-emoji-render';
 import { Button, Comment, Form, Header } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 
 class Chat extends React.Component{
@@ -55,12 +56,13 @@ class Chat extends React.Component{
     this.sendMessage = ev => {
       ev.preventDefault();
 
-      this.socket.emit('SEND_MESSAGE', {
-        author: this.props.user._id,
-        message: this.state.message
-      });
-      this.setState({message: ''});
-      // axios.get('/logout')
+      // this.socket.emit('SEND_MESSAGE', {
+      //   author: this.props.user._id,
+      //   message: this.state.message
+      // });
+      // this.setState({message: ''});
+      console.log('hi')
+      axios.get('/logout')
     }
 
     this.socket.on("ALL_REACTIONS", function(reactions){

@@ -15,28 +15,32 @@ class Emotion extends React.Component {
   thumbsUp() {
     this.socket.emit('REACTION',{
       reaction: 1,
-      user: this.props.user._id
+      user: this.props.user._id,
+      class: this.props.class
     })
   }
 
   okay(){
     this.socket.emit('REACTION',{
       reaction: 0,
-      user: this.props.user._id
+      user: this.props.user._id,
+      class: this.props.class
     })
   }
 
   thumbsDown(){
     this.socket.emit('REACTION',{
       reaction: -1,
-      user: this.props.user._id
+      user: this.props.user._id,
+      class: this.props.class
     })
   }
 
   confused(){
     this.socket.emit('REACTION',{
       reaction: -2,
-      user: this.props.user._id
+      user: this.props.user._id,
+      class: this.props.class
     })
   }
 

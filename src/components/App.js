@@ -50,6 +50,11 @@ export default class App extends Component {
     });
   }
 
+  joinRoom(classId) {
+    console.log(classId)
+    this.setState({ classId: classId });
+  }
+
   // getUser() {
   //   console.log('hi')
   //   axios.get('/currentUser')
@@ -82,7 +87,7 @@ export default class App extends Component {
             <RegisterClass />
           } />
           <Route path='/class/join' render={() =>
-            <JoinClass />
+            <JoinClass joinRoom={this.joinRoom.bind(this)} />
           } />
 
           {/* Chat and User are the same, need to be integrated */}
@@ -90,7 +95,7 @@ export default class App extends Component {
             <Chat />
           } />
           <Route path='/user' render={() =>
-            <User user={this.state.user}/>
+            <User user={this.state.user} class={this.state.classId}/>
           } />
         </div>
       </BrowserRouter>

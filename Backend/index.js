@@ -74,14 +74,15 @@ io = socket(server);
 io.on('connection', (socket) => {
 
   socket.on('JOIN_ROOM', async function(data){
-    var startMessages = await saveFunctions.updateLecture("5b689caf57657f1271f1ae4d", data.message)
+    socket.join(data.class);
+    var startMessages = await saveFunctions.updateLecture(data.class, data.message)
 
-    io.emit('UPDATE_MESSAGE', startMessages )
+    socket.emit('UPDATE_MESSAGE', startMessages )
   })
 
     socket.on('REACTION', async function(data){
-        var reactions = await saveFunctions.updateReaction("5b689caf57657f1271f1ae4d", data.user, data.reaction)
-        io.emit('ALL_REACTIONS', reactions)
+        var reactions = await saveFunctions.updateReaction(data.class, data.user, data.reaction)
+        io.to(data.class).emit('ALL_REACTIONS', reactions)
     })
 
     socket.on('SEND_MESSAGE', async function(data) {
@@ -91,20 +92,20 @@ io.on('connection', (socket) => {
         date: new Date(),
         likes: [],
         replies: [],
-        lecture: "5b689caf57657f1271f1ae4d"
+        lecture: data.class
       }
-      var messages = await saveFunctions.updateLecture("5b689caf57657f1271f1ae4d", message)
-      io.emit('RECEIVE_MESSAGE', messages);
+      var messages = await saveFunctions.updateLecture(data.class, message)
+      io.to(data.class).emit('RECEIVE_MESSAGE', messages);
     })
 
     socket.on('LIKE_MESSAGE', async function(data){
-      var messages = await saveFunctions.updateLikes("5b689caf57657f1271f1ae4d", data.user, data)
-      io.emit('UPDATE_LIKES', messages)
+      var messages = await saveFunctions.updateLikes(data.class, data.user, data)
+      io.to(data.class).emit('UPDATE_LIKES', messages)
     })
 
     socket.on('ADD_REPLY', async function(data) {
-      var messages = await saveFunctions.updateReplies("5b689caf57657f1271f1ae4d", data.user, data)
-      io.emit('UPDATE_REPLIES', messages)
+      var messages = await saveFunctions.updateReplies(data.class, data.user, data)
+      io.to(data.class).emit('UPDATE_REPLIES', messages)
     })
 });
 

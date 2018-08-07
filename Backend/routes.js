@@ -12,9 +12,19 @@ router.use(function(req, res, next){
 });
 
 router.post('/saveLecture', async (req, res) => {
-  console.log('hi')
   try {
     await saveFunctions.saveLecture(req.body.lectureTitle, req.body.password);
+    res.json({ success: true });
+  }
+  catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+})
+
+router.post('/join', async (req, res) => {
+  console.log('hi')
+  try {
+    await saveFunctions.joinLecture(req.body.lectureId, req.body.password);
     res.json({ success: true });
   }
   catch(error) {

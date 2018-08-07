@@ -13,13 +13,13 @@ const UserInterface = (props) => (
 <div>
   <Grid columns='equal' className="usergrid">
     <Grid.Column>
-      <Statistics />
+      <Statistics user={props.user} class={props.class} />
     </Grid.Column>
     <Grid.Column width={8} className="usergrid">
-        <Comment user={props.user} />
+        <Comment user={props.user} class={props.class} />
     </Grid.Column>
     <Grid.Column>
-      <Emotions user={props.user} />
+      <Emotions user={props.user} class={props.class} />
     </Grid.Column>
   </Grid>
 

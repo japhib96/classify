@@ -40,7 +40,7 @@ export default class Login extends React.Component {
 
   render() {
     if (this.state.done) {
-      return <Redirect to='/user' />
+      return <Redirect to='/dashboard' />
     }
     return (
       <Form horizontal>
