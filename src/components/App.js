@@ -33,28 +33,24 @@ export default class App extends Component {
       registered: false, // whether to load login screen or registration
       userId: '', // account id to pass in when logging in
       classId: '',
-      // activeItem: 'home',
     };
 
     const handleContextRef = contextRef => this.setState({ contextRef })
 
-    // handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   }
 
   render() {
     const { contextRef } = this.state
 
-    // const { activeItem } = this.state
+
     return (
       <BrowserRouter>
-        <div ref={this.handleContextRef}>
-          <Sticky context={contextRef}>
-            <Navigationbar />
-          </Sticky>
-            <Headercomp />
-            <Divider />
+        <div>
+          <Navigationbar />
+          <Headercomp />
           {/* <DashboardGrid /> */}
-          {/* <User /> */}
+          <User  />
+
           <Route path='/register' render={() =>
             <Register />
           } />

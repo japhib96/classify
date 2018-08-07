@@ -29,49 +29,19 @@ require('./services/passport');
 app.use('/', auth(passport));
 app.use('/', routes);
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-// if (app.get('env') === 'development') {
-//   app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('error', {
-//       message: err.message,
-//       error: err
-//     });
-//   });
-// }
-
-// production error handler
-// no stacktraces leaked to user
-// app.use(function(err, req, res, next) {
-//   res.status(err.status || 500);
-//   res.render('error', {
-//     message: err.message,
-//     error: {}
-//   });
-// });
 var socket = require('socket.io');
 io = socket(server);
 
 io.on('connection', (socket) => {
 
   socket.on('JOIN_ROOM', async function(data){
-    var startMessages = await saveFunctions.updateLecture("5b62409074de93e9dd270623", data.message)
+    var startMessages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", data.message)
 
     io.emit('UPDATE_MESSAGE', startMessages )
   })
 
     socket.on('REACTION', async function(data){
-        var reactions = await saveFunctions.updateReaction("5b62409074de93e9dd270623", socket.id, data.reaction)
+        var reactions = await saveFunctions.updateReaction("5b63c3c2c6481e737c3cfb2b", socket.id, data.reaction)
         io.emit('ALL_REACTIONS', reactions)
     })
 
@@ -81,12 +51,12 @@ io.on('connection', (socket) => {
         message: data.message,
         likes: []
       }
-      var messages = await saveFunctions.updateLecture("5b62409074de93e9dd270623", message)
+      var messages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", message)
       io.emit('RECEIVE_MESSAGE', messages);
     })
 
     socket.on('LIKE_MESSAGE', async function(data){
-      var messages = await saveFunctions.updateLikes("5b62409074de93e9dd270623", socket.id, data)
+      var messages = await saveFunctions.updateLikes("5b63c3c2c6481e737c3cfb2b", socket.id, data)
       io.emit('UPDATE_LIKES', messages)
     })
 });

@@ -2,9 +2,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: komet-sc, sans-serif;
-  font-style: italic;
-  font-weight: 900;
   background-color: #fffaf0;
+  height:100%;
 }
 .ui.navbar {
   background-color: #b3ee3a;
@@ -13,7 +12,7 @@ body {
 .ui.icon:hover {
   background-color: #f64c72;
   color: #3a7999;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment {
     border-top-right-radius: 5px;
@@ -44,9 +43,14 @@ body {
   height:100%;
 }
 .usergrid {
-  background-color: #fffaf0;
   border-left: 1px solid gray;
   border-right: 1px solid gray;
+  overflow:hidden;
+  max-height: 80vh;
+
+}
+.usergrid:hover {
+  overflow-y:scroll;
 }
 .outer {
   justify-content: center;
@@ -59,20 +63,106 @@ body {
 .ui.segment.emoji.top:hover {
   background-color: green;
   color: black;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment.emoji.good:hover {
   background-color: #bdffb2;
   color: #3a7999;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment.emoji.confused:hover {
   background-color: #ef9797;
   color: #3a7999;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment.emoji.out:hover {
   background-color: #fc0000;
   color: black;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.button.likes {
+  background-color: #fffaf0;
+}
+
+#form-textarea-control-opinion {
+  margin-top: 10px;
+
+}
+
+#form-button-control-public {
+  margin-bottom: 30px;
+}
+
+#styling {
+  background-color: white;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+	-moz-box-shadow: 0 10px 6px -6px #777;
+	box-shadow: 0 10px 6px -6px #777;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 12px;
+}
+
+.reply.styling {
+  border-radius: 10px;
+}
+
+.ui.form.textarea {
+  background-color: white;
+  overflow:hidden;
+  border-color: red;
+}
+
+
+
+/* #userinterface {
+  max-height: 100%;
+  max-width: 100%;
+  padding:10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 50px;
+} */
+
+.row.grid {
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+
+.eight.wide.column {
+  /* display: absolute; */
+  background-color: white;
+}
+
+.twelve.wide.column {
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui.button.ui.circular.label:hover {
+  background-color: #f64c72;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.content:hover {
+  background-color: #fcfdff;
+  color: #3a7999;
+}
+
+.left.aligned.center.aligned.column.reply {
+  margin-top: 10px;
+}
+
+.ui.equal.width.grid {
+  height: ;
+}
+
+.ui.threaded.comments {
+  display:inline;
+  background-color: white;
 }

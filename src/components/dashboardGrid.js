@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { Grid, Menu, Segment, Icon } from 'semantic-ui-react'
 import CardGroups from './projectComponent';
+import AddButton from './AddModal';
 
 
 export default class DashboardGridComponent extends Component {
@@ -29,23 +30,7 @@ export default class DashboardGridComponent extends Component {
         </Grid.Column>
         <Grid.Column stretched width={12} className='column menu item'>
           <Segment stretched width={12} className='navbar'>
-            <Segment stretched width={12} ></Segment>
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
-              <CardGroups />
+            <Segment stretched width={12} > <AddButton /> </Segment>
               <CardGroups />
           </Segment>
         </Grid.Column>

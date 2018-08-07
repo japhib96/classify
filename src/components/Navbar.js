@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Segment, Input, Dropdown, Icon} from 'semantic-ui-react'
 
 
+
 export default class Navigationbar extends Component {
   state = { activeItem: 'home' }
 
@@ -12,7 +13,7 @@ export default class Navigationbar extends Component {
 
     return (
       <div>
-        <Menu className='ui navbar' size='massive'>
+        <Menu fixed='top' className='ui navbar' size='massive' style={{ margin: 0 }}>
           <Menu.Item header name='Classify' active={activeItem === 'home'} onClick={this.handleItemClick} />
           <Menu.Menu position='right'>
             <Dropdown  className='ui icon' icon='user' floating labeled button className='icon' text='Settings' active={activeItem === 'logout'}
