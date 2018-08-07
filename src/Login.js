@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
+
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -28,7 +30,7 @@ export default class Login extends React.Component {
             <input type="password" name="password" className="form-control" onChange={(e) => this.setState({password: e.target.value})}/>
           </div>
           <div className="form-group">
-            <button className="btn btn-primary" onClick={() => this.props.goToRegister()}>Register</button>
+            <Button className="btn btn-primary" onClick={() => this.props.goToRegister()}>Register</Button>
             <button className="btn btn-success" type="button" onClick={() => this.logIn(this.state.username, this.state.password)}>Login</button>
           </div>
         </form>

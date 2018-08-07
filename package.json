@@ -10,8 +10,10 @@
     "mongoose": "^5.2.5",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
+    "react-bootstrap-sidebar": "0.0.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "semantic-ui-react": "^0.82.1"
   },
   "scripts": {
     "start": "react-scripts start",

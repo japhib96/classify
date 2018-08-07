@@ -33,5 +33,5 @@ function saveLecture(classId, lectureTitle, password){
 
 module.exports = {
   saveLecture: saveLecture,
-  saveTeacher: saveTeacher,
+  saveTeacher: saveTeacher
 }

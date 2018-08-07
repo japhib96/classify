@@ -5,14 +5,24 @@ import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
 import Login from './Login.js';
 import Register from './Register.js';
-import { Button,
-ButtonGroup,
-DropdownButton,
-MenuItem,
-PageHeader,
-Modal,
-FormGroup,
-FormControl } from 'react-bootstrap';
+import SideBarExample from './sideBar.js'
+import Teacher from './teacherView.js'
+import Main from './mainPage.js'
+import TeacherSession from './newTeacherSession.js'
+import { Button, Header, Icon, Image, Menu, Segment, Sidebar } from 'semantic-ui-react'
+
+ //import { //Button,
+// ButtonGroup,
+// DropdownButton,
+// MenuItem,
+// PageHeader,
+// Modal,
+// FormGroup,
+ //FormControl, Glyphicon } from 'react-bootstrap';
+
+let sidebarstyle = {
+   display: 'block'
+}
 
 class App extends Component {
   constructor(props){
@@ -23,28 +33,47 @@ class App extends Component {
       registered: false, // whether to load login screen or registration
       userId: '', // account id to pass in when logging in
       classId: '',
+      sidebarStyle: {
+        display: "none"
+      }
     };
+    this.changeStyle = this.changeStyle.bind(this)
   }
 
+  changeStyle() {
+    let prevStyle = Object.assign({}, this.state.sidebarStyle);
+    prevStyle.display = prevStyle.display === "block" ? "none" : "block";
+    this.setState({
+      sidebarStyle: prevStyle
+    })
+  }
+
+//   function w3_open() {
+//     document.getElementById("mySidebar").style.display = "block";
+// }
+// function w3_close() {
+//     document.getElementById("mySidebar").style.display = "none";
+// }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Classify</h1>
-        </header>
-        {(this.state.registered) ?
-          // (this.state.userId) ?
-            <Login
-              goToRegister={() => this.setState({ registered: false })}
-              loginSuccess={(userId) => this.setState({ userId: userId })}
-            />
-          : <Register
-              goToLogin={() => this.setState({ registered: true })}
-              registerSuccess={() => this.setState({ registered: true })}
-            />
-        }
-        {/* <form>
+
+      // <div className="App">
+      //   <header className="App-header">
+      //     <img src={logo} className="App-logo" alt="logo" />
+      //     <h1 className="App-title">Classify</h1>
+      //   </header>
+      //   {(this.state.registered) ?
+      //     // (this.state.userId) ?
+      //       <Login
+      //         goToRegister={() => this.setState({ registered: false })}
+      //         loginSuccess={(userId) => this.setState({ userId: userId })}
+      //       />
+      //     : <Register
+      //         goToLogin={() => this.setState({ registered: true })}
+      //         registerSuccess={() => this.setState({ registered: true })}
+      //       />
+      //   }
+        /* <form>
           <FormGroup>
             <h4>Classroom Title:</h4>
             <FormControl
@@ -60,8 +89,14 @@ class App extends Component {
             />
           </FormGroup>
         </form>
-        <Button onClick={(e) => this.newClass(e)}>Save</Button> */}
-      </div>
+        <Button onClick={(e) => this.newClass(e)}>Save</Button> */
+        <div>
+
+
+    
+          <Main/>
+        </div>
+    //  </div>
     );
   }
 }
