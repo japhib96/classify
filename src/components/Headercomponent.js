@@ -7,7 +7,7 @@ class Headercomp extends Component {
 
   render() {
     return (
-      <div style={{paddingTop:"55px"}}>
+      <div style={{height: '15%', paddingTop: '60px'}} >
         <Header as='h1' textAlign="center">
           Your Dashboard
           <Header.Subheader> Welcome to your Dashboard. You can create and/or join sessions</Header.Subheader>

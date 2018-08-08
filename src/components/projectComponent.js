@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Card, Image } from 'semantic-ui-react'
 
 const CardGroups = () => (
-  <Card.Group centered itemsPerRow={3} >
+  <Card.Group  itemsPerRow={3} >
     <Card className='cardItem' raised>
       <Card.Content>
         <Image floated='right' size='mini' src='https://react.semantic-ui.com/images/avatar/large/steve.jpg' />

@@ -21,6 +21,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(session({
+  secret: process.env.SECRET,
+  name: 'Catscoookie',
+  store: new MongoStore({ mongooseConnection: require('mongoose').connection }),
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -29,36 +38,46 @@ require('./services/passport');
 app.use('/', auth(passport));
 app.use('/', routes);
 
+
 var socket = require('socket.io');
 io = socket(server);
 
 io.on('connection', (socket) => {
 
   socket.on('JOIN_ROOM', async function(data){
-    var startMessages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", data.message)
+    socket.join(data.class);
+    var startMessages = await saveFunctions.updateLecture(data.class, data.message)
 
-    io.emit('UPDATE_MESSAGE', startMessages )
+    socket.emit('UPDATE_MESSAGE', startMessages )
   })
 
-    socket.on('REACTION', async function(data){
-        var reactions = await saveFunctions.updateReaction("5b63c3c2c6481e737c3cfb2b", socket.id, data.reaction)
-        io.emit('ALL_REACTIONS', reactions)
-    })
+  socket.on('REACTION', async function(data){
+    var reactions = await saveFunctions.updateReaction(data.class, data.user, data.reaction)
+    io.to(data.class).emit('ALL_REACTIONS', reactions)
+  })
 
-    socket.on('SEND_MESSAGE', async function(data) {
-      var message = {
-        author: data.author,
-        message: data.message,
-        likes: []
-      }
-      var messages = await saveFunctions.updateLecture("5b63c3c2c6481e737c3cfb2b", message)
-      io.emit('RECEIVE_MESSAGE', messages);
-    })
+  socket.on('SEND_MESSAGE', async function(data) {
+    var message = {
+      author: data.author,
+      message: data.message,
+      date: new Date(),
+      likes: [],
+      replies: [],
+      lecture: data.class
+    }
+    var messages = await saveFunctions.updateLecture(data.class, message)
+    io.to(data.class).emit('RECEIVE_MESSAGE', messages);
+  })
 
-    socket.on('LIKE_MESSAGE', async function(data){
-      var messages = await saveFunctions.updateLikes("5b63c3c2c6481e737c3cfb2b", socket.id, data)
-      io.emit('UPDATE_LIKES', messages)
-    })
+  socket.on('LIKE_MESSAGE', async function(data){
+    var messages = await saveFunctions.updateLikes(data.class, data.user, data)
+    io.to(data.class).emit('UPDATE_LIKES', messages)
+  })
+
+  socket.on('ADD_REPLY', async function(data) {
+    var messages = await saveFunctions.updateReplies(data.class, data.user, data)
+    io.to(data.class).emit('UPDATE_REPLIES', messages)
+  })
 });
 
 server.listen(3001, () => console.log('Example app listening on port 3001!'))

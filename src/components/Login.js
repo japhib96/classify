@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {FormControl, Form, Col, Button, FormGroup, ControlLabel, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 
 import axios from 'axios';
@@ -11,6 +11,7 @@ export default class Login extends React.Component {
       username: '',
       password: '',
       type: 1,
+      done: '',
     }
   }
 
@@ -23,12 +24,14 @@ export default class Login extends React.Component {
           password: this.state.password,
         })
         console.log('logged in as student');
+        this.setState({ done: 'student' });
       } else {
         await axios.post('/loginTeacher', {
           username: this.state.username,
           password: this.state.password,
         })
         console.log('logged in as teacher');
+        this.setState({ done: 'teacher' });
       }
     } catch(error) {
       console.log(error);
@@ -36,6 +39,9 @@ export default class Login extends React.Component {
   }
 
   render() {
+    if (this.state.done) {
+      return <Redirect to='/dashboard' />
+    }
     return (
       <Form horizontal>
         <FormGroup>

@@ -12,7 +12,6 @@ export default class Navigationbar extends Component {
     const { activeItem } = this.state
 
     return (
-      <div>
         <Menu fixed='top' className='ui navbar' size='massive' style={{ margin: 0 }}>
           <Menu.Item header name='Classify' active={activeItem === 'home'} onClick={this.handleItemClick} />
           <Menu.Menu position='right'>
@@ -27,7 +26,6 @@ export default class Navigationbar extends Component {
             </Dropdown>
           </Menu.Menu>
         </Menu>
-      </div>
     )
   }
 }

@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: komet-sc, sans-serif;
+  font-family: Raleway, sans-serif;
   background-color: #fffaf0;
   height:100%;
 }
@@ -28,9 +28,7 @@ body {
   width: 100%;
   height: 100%;
 }
-.ui.centered.cards {
-  justify-content: left;
-}
+
 .menubar.item {
   font-size: 36px;
 }
@@ -65,12 +63,27 @@ body {
   color: black;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
+.ui.segment.emoji.top:focus {
+  background-color: green;
+  color: black;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
 .ui.segment.emoji.good:hover {
   background-color: #bdffb2;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
+.ui.segment.emoji.good:focus {
+  background-color: #bdffb2;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
 .ui.segment.emoji.confused:hover {
+  background-color: #ef9797;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+.ui.segment.emoji.confused:focus {
   background-color: #ef9797;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
@@ -81,6 +94,11 @@ body {
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
+.ui.segment.emoji.out:focus {
+  background-color: #fc0000;
+  color: black;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
 .button.likes {
   background-color: #fffaf0;
 }
@@ -94,7 +112,7 @@ body {
   margin-bottom: 30px;
 }
 
-#styling {
+/* #styling {
   background-color: white;
   -webkit-box-shadow: 0 10px 6px -6px #777;
 	-moz-box-shadow: 0 10px 6px -6px #777;
@@ -102,7 +120,7 @@ body {
   border-radius: 10px;
   margin: 5px;
   padding: 12px;
-}
+} */
 
 .reply.styling {
   border-radius: 10px;
@@ -158,11 +176,81 @@ body {
   margin-top: 10px;
 }
 
-.ui.equal.width.grid {
-  height: ;
-}
 
 .ui.threaded.comments {
   display:inline;
   background-color: white;
+}
+
+
+.ui.container.container {
+  margin-bottom: 15px;
+}
+
+
+.ui.container {
+  justify-content: center;
+  align-items: center;
+}
+
+.uicentered.center.aligned.center.aligned.one.column.grid {
+  padding: 30px;
+}
+
+
+.hello {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.style {
+  height: 100%;
+}
+
+.dashboard.style {
+  height:20vh;
+  padding: 20px;
+  margin:40px;
+}
+
+.menu.style {
+  height: 10vh;
+  padding:20px;
+  margin: 40px;
+}
+
+/* .icon.cont {
+  align-items: center;
+  justify-content: center;
+} */
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.ui.center.aligned.container {
+  justify-content: center;
+  align-items: center;
+}
+
+.user.dashboard.menu {
+  background-color: black;
+  justify-content: center;
+  margin-bottom: 0px;
+  align-items: center;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-left: 25px;
+}
+
+.ui.raised.card.cardItem {
+  width: 90%;
+  justify-content: center;
+  align-items: center;
 }
