@@ -22,7 +22,7 @@ class JoinClass extends Component {
 
   async join() {
     try {
-      await axios.post('/join', {
+      await axios.post('/class/join', {
         lectureId: this.state.classId,
         password: this.state.password,
       })
@@ -52,7 +52,7 @@ class JoinClass extends Component {
             />
             <h4>Document Password:</h4>
             <FormControl
-              type="text"
+              type="password"
               value={this.state.password}
               onChange={(e)=>this.setState({
                   password: e.target.value

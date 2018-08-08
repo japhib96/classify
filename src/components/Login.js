@@ -23,25 +23,26 @@ export default class Login extends React.Component {
           username: this.state.username,
           password: this.state.password,
         })
-        console.log('logged in as student');
-        this.setState({ done: 'student' });
+        // this.setState({ done: 'student' });
+        console.log('hey')
       } else {
         await axios.post('/loginTeacher', {
           username: this.state.username,
           password: this.state.password,
         })
         console.log('logged in as teacher');
-        this.setState({ done: 'teacher' });
+        // this.setState({ done: 'teacher' });
       }
+      this.props.setUser();
     } catch(error) {
       console.log(error);
     }
   }
 
   render() {
-    if (this.state.done) {
-      return <Redirect to='/dashboard' />
-    }
+    // if (this.props.user) {
+    //   return <Redirect to='/dashboard' />
+    // }
     return (
       <Form horizontal>
         <FormGroup>

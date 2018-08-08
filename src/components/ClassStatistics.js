@@ -28,6 +28,7 @@ class StatisticSection extends React.Component {
       message: '',
       class: this.props.class
     })
+
     this.socket.emit('REACTION',{
       reaction: '',
       user: this.props.user._id,

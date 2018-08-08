@@ -5,7 +5,7 @@ const saveFunctions = require('./saveFunctions');
 router.use(function(req, res, next){
   if (!req.user) {
     console.log('not logged in')
-    res.json({ success: false, loggedIn: false });
+    res.status(401).json({ success: false, loggedIn: false });
   } else {
     return next();
   }
@@ -21,7 +21,7 @@ router.post('/saveLecture', async (req, res) => {
   }
 })
 
-router.post('/join', async (req, res) => {
+router.post('/class/join', async (req, res) => {
   console.log('hi')
   try {
     await saveFunctions.joinLecture(req.body.lectureId, req.body.password);

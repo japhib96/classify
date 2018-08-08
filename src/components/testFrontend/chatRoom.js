@@ -2,7 +2,6 @@ import React from "react";
 import io from "socket.io-client";
 import Emoji from 'react-emoji-render';
 import { Button, Comment, Form, Header } from 'semantic-ui-react';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 
 class Chat extends React.Component{
@@ -76,9 +75,11 @@ class Chat extends React.Component{
   componentDidMount(){
     this.socket.emit('JOIN_ROOM', {
       message: '',
+      class: '5b689caf57657f1271f1ae4d'
     })
     this.socket.emit('REACTION',{
-      reaction: ''
+      reaction: '',
+      class: '5b689caf57657f1271f1ae4d'
     })
 
   }
