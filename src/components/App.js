@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
 import Chat from './testFrontend/chatRoom'
+import PDFViewer from './testFrontend/PDFViewer'
 import Login from './Login.js';
 import Register from './Register.js';
 import Navigationbar from './Navbar';
@@ -67,39 +68,39 @@ export default class App extends Component {
 
     // const { activeItem } = this.state
     return (
-      <BrowserRouter>
-        <div ref={this.handleContextRef}>
-          <Sticky context={contextRef}>
-            <Navigationbar />
-          </Sticky>
-            <Headercomp />
-            <Divider />
-          <Route path='/register' render={() =>
-            <Register />
-          } />
-          <Route path='/login' render={() =>
-            <Login />
-          } />
-          <Route path='/dashboard' render={() =>
-            <DashboardGrid />
-          } />
-          <Route path='/class/new' render={() =>
-            <RegisterClass />
-          } />
-          <Route path='/class/join' render={() =>
-            <JoinClass joinRoom={this.joinRoom.bind(this)} />
-          } />
-
-          {/* Chat and User are the same, need to be integrated */}
-          <Route path='/class/room' render={() =>
-            <Chat />
-          } />
-          <Route path='/user' render={() =>
-            <User user={this.state.user} class={this.state.classId}/>
-          } />
-        </div>
-      </BrowserRouter>
-      // <Chat user={this.state.user}/>
+      // <BrowserRouter>
+      //   <div ref={this.handleContextRef}>
+      //     <Sticky context={contextRef}>
+      //       <Navigationbar />
+      //     </Sticky>
+      //       <Headercomp />
+      //       <Divider />
+      //     <Route path='/register' render={() =>
+      //       <Register />
+      //     } />
+      //     <Route path='/login' render={() =>
+      //       <Login />
+      //     } />
+      //     <Route path='/dashboard' render={() =>
+      //       <DashboardGrid />
+      //     } />
+      //     <Route path='/class/new' render={() =>
+      //       <RegisterClass />
+      //     } />
+      //     <Route path='/class/join' render={() =>
+      //       <JoinClass joinRoom={this.joinRoom.bind(this)} />
+      //     } />
+      //
+      //     {/* Chat and User are the same, need to be integrated */}
+      //     <Route path='/class/room' render={() =>
+      //       <Chat />
+      //     } />
+      //     <Route path='/user' render={() =>
+      //       <User user={this.state.user} class={this.state.classId}/>
+      //     } />
+      //   </div>
+      // </BrowserRouter>
+       <PDFViewer />
     );
   }
 }

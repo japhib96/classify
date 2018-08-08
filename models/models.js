@@ -86,15 +86,25 @@ const messageSchema = mongoose.Schema({
   lecture: String
 })
 
+const slideSchema = mongoose.Schema({
+  pdf:{
+    name: String,
+    data: Buffer
+  }
+})
+
+
 
 const teacherModel = mongoose.model('Teacher', teacherSchema);
 const studentModel = mongoose.model('Student', studentSchema);
 const lectureModel = mongoose.model('Lecture', lectureSchema);
 const messageModel = mongoose.model('Message', messageSchema);
+const slideModel = mongoose.model('Slide', slideSchema);
 
 module.exports = {
   Teacher: teacherModel,
   Student: studentModel,
   Lecture: lectureModel,
-  Message: messageModel
+  Message: messageModel,
+  Slide: slideModel
 }
