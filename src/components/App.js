@@ -58,6 +58,7 @@ export default class App extends Component {
     .then((resp) => {
       user = resp.data;
     });
+    console.log(user)
     this.setState({ user: user, loading: false })
   }
 
@@ -71,7 +72,7 @@ export default class App extends Component {
       <BrowserRouter>
         <div ref={this.handleContextRef}>
           <Sticky context={contextRef}>
-            <Navigationbar />
+            <Navigationbar setUser={this.getUser.bind(this)} user={this.state.user} />
           </Sticky>
             <Headercomp />
             <Divider />
