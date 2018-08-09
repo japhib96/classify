@@ -26,13 +26,13 @@ class StatisticSection extends React.Component {
   componentDidMount() {
     this.socket.emit('JOIN_ROOM', {
       message: '',
-      class: this.props.class
+      class: this.props.lecture
     })
 
     this.socket.emit('REACTION',{
       reaction: '',
       user: this.props.user._id,
-      class: this.props.class
+      class: this.props.lecture
     })
   }
 

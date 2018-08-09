@@ -53,7 +53,8 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
         name: req.file.originalname,
         data: fs.readFileSync(req.file.path)
       },
-      slideNumber: 1,
+      // slideNumber: 1,
+      // totalSlides: 0,
       lectureId: req.body.lectureId
 
     }).save(function(err, slide) {

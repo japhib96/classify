@@ -1,22 +1,45 @@
 import React from 'react';
 import PDF from 'react-pdf-js';
-
+import io from "socket.io-client";
 
 class MyPdfViewer extends React.Component {
-  state = {
-    filePath: ''
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      filePath: '',
+      slideId: '',
+      pages: 0
+    };
+
+    this.socket = io('localhost:3001');
+}
 
   onDocumentComplete = (pages) => {
+    console.log(pages)
     this.setState({ page: 1, pages });
+    this.socket.emit('TOTAL_SLIDES', {
+      slides: pages,
+      slideId: this.state.slideId
+    })
   }
 
   handlePrevious = () => {
     this.setState({ page: this.state.page - 1 });
+
+    this.socket.emit('UPDATE_SLIDE', {
+      page: this.state.page -1,
+      slideId: this.state.slideId
+    })
+
   }
 
   handleNext = () => {
     this.setState({ page: this.state.page + 1 });
+
+    this.socket.emit('UPDATE_SLIDE', {
+      page: this.state.page + 1,
+      slideId: this.state.slideId
+    })
   }
 
   renderPagination = (page, pages) => {
@@ -45,9 +68,10 @@ class MyPdfViewer extends React.Component {
   sendFile(e){
     e.preventDefault()
         // console.log(req.user)
+
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
-    data.append("lectureId", this.props.class)
+    data.append("lectureId", this.props.lecture)
     fetch("/uploadSlide", {
       method:"POST",
       credentials:"same-origin",
@@ -63,7 +87,7 @@ class MyPdfViewer extends React.Component {
         var filePath = 'http://localhost:3001/slide/' + res.id
 
 
-        this.setState({filePath, uploadFile: ''})
+        this.setState({filePath, uploadFile: '', slideId: res.id})
 
       }
     })
@@ -78,6 +102,7 @@ class MyPdfViewer extends React.Component {
     if (this.state.pages) {
       pagination = this.renderPagination(this.state.page, this.state.pages);
     }
+    console.log(this.state.pages)
     console.log('render', this.state.filePath)
 
     return (
@@ -90,7 +115,7 @@ class MyPdfViewer extends React.Component {
              />
         <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
       </form>
-      {this.state.filePath == '' ?
+      {this.state.filePath === '' ?
         <div>
 
         </div>

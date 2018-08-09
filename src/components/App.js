@@ -35,7 +35,7 @@ export default class App extends Component {
     this.state = {
       registered: false, // whether to load login screen or registration
       user: '', // account id to pass in when logging in
-      classId: '5b6b7543c2f1978a28ef9f19',
+      lectureId: '5b6cba6a54e07f950c1eafbc',
       loading: true
       // activeItem: 'home',
     };
@@ -99,7 +99,7 @@ export default class App extends Component {
       //     } />
       //   </div>
       // </BrowserRouter>
-      <TeacherView user={this.state.user} class={this.state.classId}/>
+      <TeacherView user={this.state.user} lecture={this.state.lectureId}/>
     );
   }
 }

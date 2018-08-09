@@ -22,7 +22,9 @@ function saveLecture(lectureTitle, password) {
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
-    messages: []
+    messages: [],
+    currentSlide: 1,
+    slideBySlide: []
   })
 
   return lecture.save();
@@ -122,6 +124,35 @@ async function joinLecture(lectureId, password) {
   }
 }
 
+async function updateSlide(slideId, pageNum) {
+  try {
+    var slide = await models.Slide.findById(slideId);
+    var lecture = await models.Lecture.findById(slide.lectureId)
+    lecture.currentSlide = pageNum;
+    var updatedLecture = await lecture.save()
+    return updatedLecture
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+async function updateSlideTotal(slideId ,slides) {
+  try {
+    var slide = await models.Slide.findById(slideId);
+    var lecture = await models.Lecture.findById(slide.lectureId)
+    lecture.slideId = slideId;
+    lecture.slideBySlide = [];
+    for(var i =0; i <= slides; i++){
+      lecture.slideBySlide.push({messages: [], reactions: []})
+    }
+    console.log(lecture.slideBySlide)
+    var updatedLecture = await lecture.save()
+    return updatedLecture
+  } catch(e) {
+    console.log(e);
+  }
+}
+
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
@@ -130,5 +161,7 @@ module.exports = {
   updateReaction: updateReaction,
   updateLikes: updateLikes,
   updateReplies: updateReplies,
-  joinLecture: joinLecture
+  joinLecture: joinLecture,
+  updateSlide: updateSlide,
+  updateSlideTotal: updateSlideTotal
 }

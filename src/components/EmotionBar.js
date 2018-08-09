@@ -15,7 +15,7 @@ class Emotion extends React.Component {
   componentDidMount() {
     this.socket.emit('JOIN_ROOM', {
       message: '',
-      class: this.props.class
+      class: this.props.lecture
     })
   }
 
@@ -23,7 +23,7 @@ class Emotion extends React.Component {
     this.socket.emit('REACTION',{
       reaction: 1,
       user: this.props.user._id,
-      class: this.props.class
+      class: this.props.lecture
     })
   }
 
@@ -31,7 +31,7 @@ class Emotion extends React.Component {
     this.socket.emit('REACTION',{
       reaction: 0,
       user: this.props.user._id,
-      class: this.props.class
+      class: this.props.lecture
     })
   }
 
@@ -39,7 +39,7 @@ class Emotion extends React.Component {
     this.socket.emit('REACTION',{
       reaction: -1,
       user: this.props.user._id,
-      class: this.props.class
+      class: this.props.lecture
     })
   }
 
@@ -47,7 +47,7 @@ class Emotion extends React.Component {
     this.socket.emit('REACTION',{
       reaction: -2,
       user: this.props.user._id,
-      class: this.props.class
+      class: this.props.lecture
     })
   }
 
