@@ -110,14 +110,10 @@ async function updateReplies(lectureId, userId, data) {
 
 module.exports = {
   saveLecture: saveLecture,
-<<<<<<< HEAD
-  saveTeacher: saveTeacher
-=======
   saveTeacher: saveTeacher,
   saveStudent: saveStudent,
   updateLecture: updateLecture,
   updateReaction: updateReaction,
   updateLikes: updateLikes,
   updateReplies: updateReplies
->>>>>>> master
 }

@@ -14,7 +14,10 @@ import EmotionBar from './EmotionBar';
 import Comments from './Comments';
 import DashboardGrid from './dashboardGrid';
 import User from './UserGrid';
+import HomePage from './homepage.js'
 import axios from 'axios';
+import Register2 from './testFrontend/register.js'
+import Login2 from './testFrontend/login2.js'
 
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Button,
@@ -63,17 +66,22 @@ export default class App extends Component {
     // const { activeItem } = this.state
     return (
       <BrowserRouter>
+
         <div ref={this.handleContextRef}>
-          <Sticky context={contextRef}>
-            <Navigationbar />
-          </Sticky>
-            <Headercomp />
-            <Divider />
+        <Sticky context={contextRef}>
+          <Navigationbar />
+        </Sticky>
+          <Headercomp />
+
+          <Divider />
+            <Route path = '/landing' render ={() =>
+              <Login2/>
+            }/>
           <Route path='/register' render={() =>
-            <Register />
+            <Register2 />
           } />
           <Route path='/login' render={() =>
-            <Login />
+            <Login2/>
           } />
           <Route path='/dashboard' render={() =>
             <DashboardGrid />
