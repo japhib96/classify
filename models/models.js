@@ -90,6 +90,13 @@ const slideSchema = mongoose.Schema({
   pdf:{
     name: String,
     data: Buffer
+  },
+  slideNumber:{
+    type: Number
+  },
+  lectureId:{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Lecture'
   }
 })
 

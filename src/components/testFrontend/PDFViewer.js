@@ -39,7 +39,7 @@ class MyPdfViewer extends React.Component {
   }
 
   onChange(e) {
-  this.setState({uploadFile: e.target.files[0]})
+  this.setState({uploadFile: e.target.files[0], filePath: ''})
 }
 
   sendFile(e){
@@ -47,6 +47,7 @@ class MyPdfViewer extends React.Component {
         // console.log(req.user)
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
+    data.append("lectureId", this.props.class)
     fetch("/uploadSlide", {
       method:"POST",
       credentials:"same-origin",
@@ -62,7 +63,8 @@ class MyPdfViewer extends React.Component {
         var filePath = 'http://localhost:3001/slide/' + res.id
 
 
-        this.setState({filePath})
+        this.setState({filePath, uploadFile: ''})
+
       }
     })
     .catch(err => {
@@ -76,6 +78,7 @@ class MyPdfViewer extends React.Component {
     if (this.state.pages) {
       pagination = this.renderPagination(this.state.page, this.state.pages);
     }
+    console.log('render', this.state.filePath)
 
     return (
       <div>

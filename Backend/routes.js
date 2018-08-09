@@ -8,7 +8,7 @@ var Slide = models.Slide
 var fs = require('fs');
 var storage = multer.diskStorage({
   destination: path.resolve(__dirname, "../src/slides"),
-  filename: function(req, file, cb){ 
+  filename: function(req, file, cb){
     console.log(file);
     cb(null, Date.now() + "_" + file.originalname);
   }
@@ -46,24 +46,32 @@ router.post('/class/join', async (req, res) => {
 })
 
 router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
-  console.log(req.file)
+  console.log(req.body.lectureId)
     new Slide({
 
       pdf: {
         name: req.file.originalname,
         data: fs.readFileSync(req.file.path)
       },
+      slideNumber: 1,
+      lectureId: req.body.lectureId
 
     }).save(function(err, slide) {
       if (err) {
         res.send(err);
         return;
       }
-      res.json({
-        status: "success",
-        id: slide._id
+      fs.unlink(req.file.path, (err) =>{
+        if(err){
+          console.log(err)
+        }
+        res.json({
+          status: "success",
+          id: slide._id
 
-      });
+        });
+      })
+
     });
   });
 
