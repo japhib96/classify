@@ -17,7 +17,10 @@ import Comments from './Comments';
 import DashboardGrid from './dashboardGrid';
 import User from './UserGrid';
 import Classroom from './testFrontend/Classroom';
+import HomePage from './homepage.js'
 import axios from 'axios';
+import Register2 from './testFrontend/register.js'
+import Login2 from './testFrontend/login2.js'
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Button,

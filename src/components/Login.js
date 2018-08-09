@@ -12,6 +12,7 @@ export default class Login extends React.Component {
       password: '',
       type: 1,
       done: '',
+      isError: 'error'
     }
   }
 
@@ -68,13 +69,16 @@ export default class Login extends React.Component {
             <FormControl type="email" placeholder="Email" />
           </Col>
         </FormGroup> */}
-        <FormGroup controlId="formHorizontalPassword">
-          <Col componentClass={ControlLabel} sm={3}>
+        <FormGroup controlId="formHorizontalPassword" >
+          <ControlLabel>Must be longer than 6 characters</ControlLabel>
+          <Col componentClass={ControlLabel} sm={3} validationState={(this.state.password>6)?'success':'error'}>
             Password
           </Col>
           <Col sm={6}>
             <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })}/>
+              <FormControl.Feedback />
           </Col>
+
         </FormGroup>
         <ToggleButtonGroup type="radio" name="options" block defaultValue={this.state.type}>
           <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
