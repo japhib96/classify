@@ -10,7 +10,7 @@ import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-soli
 import Headercomp from './Headercomponent';
 import Divider from './divider';
 
-library.add(faCheckSquare, faCoffee, faGraduationCap)
+library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
 
 export default class DashboardGridComponent extends Component {
@@ -48,21 +48,21 @@ export default class DashboardGridComponent extends Component {
       <div style={{height: '86.2%'}}>
         <Grid columns={2} doubling stretched className="style" >
             <Grid.Column className="style" stretched width={4} floated='left' >
-              <Container>
+              <Container >
                 <Grid columns={1} centered  textAlign="center" verticalAlign="middle">
-                  <Grid.Row className="menu style" color="pink" width={4} verticalAlign="middle" >
+                  <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
+                      <Container textAlign="center" className="user dashboard menu">
+                        <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
+                      </Container>
+                  </Grid.Row>
+                  <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
                     <Container textAlign="center" className="user dashboard menu">
-                      <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
+                      <FontAwesomeIcon icon="question" size="3x" /> <h2> Most Asked Q´s</h2>
                     </Container>
                   </Grid.Row>
-                  <Grid.Row className="menu style" color="pink" width={4} verticalAlign="middle" >
+                  <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
                     <Container textAlign="center" className="user dashboard menu">
-                      <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
-                    </Container>
-                  </Grid.Row>
-                  <Grid.Row className="menu style" color="pink" width={4} verticalAlign="middle" >
-                    <Container textAlign="center" className="user dashboard menu">
-                      <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
+                      <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Personal Stats</h2>
                     </Container>
                   </Grid.Row>
                 </Grid>

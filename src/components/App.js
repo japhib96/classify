@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
 import Chat from './testFrontend/chatRoom'
-import PDFViewer from './testFrontend/PDFViewer'
-import TeacherView from './testFrontend/teacherView'
+// import PDFViewer from './testFrontend/PDFViewer'
+// import TeacherView from './testFrontend/teacherView'
 import Login from './Login.js';
 import Register from './Register.js';
 import Navigationbar from './Navbar';
@@ -21,6 +21,7 @@ import HomePage from './homepage.js'
 import axios from 'axios';
 import Register2 from './testFrontend/register.js'
 import Login2 from './testFrontend/login2.js'
+import Teacher from './TeacherGrid';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Button,

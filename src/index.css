@@ -210,22 +210,17 @@ body {
   height: 100%;
 }
 
-.dashboard.style {
-  height:20vh;
-  padding: 20px;
-  margin:40px;
+.dashboard.card.style {
+  height:15vh;
+  padding: 10px;
+  margin:20px;
 }
 
 .menu.style {
-  height: 10vh;
-  padding:20px;
-  margin: 40px;
+  /* height: 10vh; */
+  padding:10px;
+  margin: 20px;
 }
-
-/* .icon.cont {
-  align-items: center;
-  justify-content: center;
-} */
 
 .center {
   justify-content: center;
@@ -238,11 +233,17 @@ body {
 }
 
 .user.dashboard.menu {
-  background-color: black;
+  background-color: #b3ee3a;;
   justify-content: center;
   margin-bottom: 0px;
   align-items: center;
 }
+.user.dashboard.menu:hover {
+  background-color: #ef9797;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
 
 h2 {
     margin-top: 0px;
@@ -251,6 +252,69 @@ h2 {
 
 .ui.raised.card.cardItem {
   width: 90%;
+}
+
+.stretched.left.floated.four.wide.column.style {
+  border-right: 1px solid gray;
+}
+
+.stretched.row.toolbar {
+  width: 80%%;
+  height: 5vh;
+  margin-left: 20px;
+  margin bottom: 10px;
+}
+
+.margin.left {
+  padding: 20px;
+}
+
+.style.card.display {
+  background-color: #ddfbff;
+}
+
+.teacher.grid {
+  height:86%;
+  display: flex;
+  flex-direction: row;
+}
+
+.left.col {
+  height: 100%;
+  width: 20%;
+  border: 1px solid gray;
+}
+
+.right.col {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  border: 1px solid gray;
+}
+
+.right.col {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.nav.col {
+  width: 90%;
+}
+
+.pdf.view {
+  height: 100%;
+  width:100%;
+  overflow: scroll;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  width:100%;
+  height: 100%;
 }
