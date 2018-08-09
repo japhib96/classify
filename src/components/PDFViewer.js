@@ -1,11 +1,26 @@
 import React from 'react';
 import PDF from 'react-pdf-js';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExpand } from '@fortawesome/free-solid-svg-icons'
+import Fullscreen from "react-full-screen";
 
+library.add(faExpand)
 
 class MyPdfViewer extends React.Component {
-  state = {
-    filePath: ''
-  };
+
+  constructor(props) {
+    super();
+
+    this.state = {
+      isFull: false,
+      filePath: ""
+    };
+  }
+
+  goFull = () => {
+    this.setState({ isFull: true });
+  }
 
   onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages });
@@ -19,32 +34,36 @@ class MyPdfViewer extends React.Component {
     this.setState({ page: this.state.page + 1 });
   }
 
+
   renderPagination = (page, pages) => {
     let previousButton = <li className="previous" onClick={this.handlePrevious}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     if (page === 1) {
       previousButton = <li className="previous disabled"></li>;
     }
     let nextButton = <li className="next" onClick={this.handleNext}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
+    let fullScreenButton = <button onClick={this.goFull}> <FontAwesomeIcon icon="expand" size="2x"/> Go Fullscreen</button>
     if (page === pages) {
       nextButton = <li className="next disabled"></li>;
     }
     return (
-      <nav>
+      <div className="nav col">
         <ul className="pager">
           {previousButton}
+          {fullScreenButton}
           {nextButton}
+
         </ul>
-      </nav>
-      );
+      </div>
+    );
   }
 
   onChange(e) {
-  this.setState({uploadFile: e.target.files[0], filePath: ''})
-}
+    this.setState({uploadFile: e.target.files[0], filePath: ''})
+  }
 
   sendFile(e){
     e.preventDefault()
-        // console.log(req.user)
+    // console.log(req.user)
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
     data.append("lectureId", this.props.class)
@@ -81,31 +100,35 @@ class MyPdfViewer extends React.Component {
     console.log('render', this.state.filePath)
 
     return (
-      <div>
-      <form >
-        <h1>File Upload</h1>
-        <input
-               type="file"
-               onChange={(e) => this.onChange(e)}
-             />
-        <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
-      </form>
-      {this.state.filePath == '' ?
-        <div>
+
+      <div className="righ col">
+        <form >
+          <h1>File Upload</h1>
+          <input
+            type="file"
+            onChange={(e) => this.onChange(e)}
+          />
+          <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
+        </form>
+        {this.state.filePath == '' ?
+        <div className="right col">
 
         </div>
         :
-        <div>
-        <PDF
-          file={this.state.filePath}
-          onDocumentComplete={this.onDocumentComplete}
-          page={this.state.page}
-        />
-        <h1>Failed</h1>
-        </div>
-      }
-
-        {pagination}
+        <Fullscreen
+          enabled={this.state.isFull}
+          onChange={isFull => this.setState({isFull})}
+          >
+            <div className="pdf view">
+              <PDF
+                file={this.state.filePath}
+                onDocumentComplete={this.onDocumentComplete}
+                page={this.state.page}
+              />
+              {pagination}
+            </div>
+          </Fullscreen>
+        }
       </div>
     )
   }

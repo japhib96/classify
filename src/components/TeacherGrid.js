@@ -7,7 +7,7 @@ import Emotions from './EmotionBar';
 import Statistics from './ClassStatistics';
 import Navigationbar from './Navbar';
 import io from 'socket.io-client';
-
+import Slides from './PDFViewer';
 
 
 
@@ -45,33 +45,28 @@ export default class TeacherInterface extends React.Component {
 
     render() {
       return (
-        <div>
-          <Grid columns='equal'>
+        <div className="teacher grid">
+          <div className="left col">
+
+          </div>
+          <div className="right col">
+            <Slides  class={this.props.class}/>
+          </div>
+          {/* <Grid columns='equal'>
               <Grid.Column stretched>
-                  <Statistics  user={this.props.user} class={this.props.class} />
+
               </Grid.Column>
               <Grid.Column width={8} stretched>
                 <Grid.Row className="usergrid">
-                  <Comment user={this.props.user} class={this.props.class}  />
+
                 </Grid.Row>
                 <Grid.Row className="grid">
                   <Grid columns='equal' >
                     <Grid.Column width={12}>
-                      <Form reply>
-                        <Form.TextArea
-                          autoHeight
-                          placeholder='Type somehting'
-                          rows={1}
-                          style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none'}}
-                          unstackable
-                          onChange={ (e) => this.setState({message: e.target.value})}
-                          value={this.state.message}
-                          onKeyUp = {this.sendMessage}
-                        />
-                      </Form>
+                      <Slides  class={this.props.class}/>
                     </Grid.Column>
                     <Grid.Column width={2}>
-                      <Popup  on='click' trigger={<Button icon='add' circular />} content={<EmojiPicker onEmojiClick={this.showPicker} />} />
+
                     </Grid.Column>
                   </Grid>
                 </Grid.Row>
@@ -79,7 +74,7 @@ export default class TeacherInterface extends React.Component {
               <Grid.Column>
 
               </Grid.Column>
-          </Grid>
+          </Grid> */}
         </div>
       );
     }
