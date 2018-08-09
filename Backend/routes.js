@@ -21,13 +21,32 @@ router.post('/saveLecture', async (req, res) => {
   }
 })
 
-router.post('/class/join', async (req, res) => {
-  console.log('hi')
+router.post('/saveClass', async (req, res) => {
   try {
-    await saveFunctions.joinLecture(req.body.lectureId, req.body.password);
+    await saveFunctions.saveClass(req.body.classTitle, req.body.password);
     res.json({ success: true });
   }
   catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+})
+
+router.post('/class/join', async (req, res) => {
+  console.log('hi')
+  try {
+    await saveFunctions.joinClass(req.user, req.body.lectureId, req.body.password);
+    res.json({ success: true });
+  }
+  catch(error) {
+    res.status(400).json({ error: error.message })
+  }
+})
+
+router.get('/user/classes', async (req, res) => {
+  try {
+    const classes = await saveFunctions.getClasses(req.user._id);
+    res.json({ classes: classes });
+  } catch(error) {
     res.status(400).json({ error: error.message })
   }
 })

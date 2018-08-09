@@ -32,11 +32,14 @@ export default class Register extends React.Component {
         passwordRepeat: this.state.passwordRepeat,
         type: this.state.type
       })
+      .then((res) => {
+        console.log(res.error)
+      })
       console.log('New user saved')
       this.setState({ done: true });
     }
     catch(error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 

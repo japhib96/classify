@@ -1,5 +1,5 @@
+
 import React, { Component } from 'react'
-import axios from 'axios';
 import { Grid, Menu, Segment, Icon, Header, Container } from 'semantic-ui-react'
 import CardGroups from './projectComponent';
 import AddButton from './AddModal';
@@ -13,36 +13,17 @@ library.add(faCheckSquare, faCoffee, faGraduationCap)
 
 
 export default class DashboardGridComponent extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loading: true,
-      classes: null,
-    }
-  }
 
-  componentDidMount() {
-    this.getClasses();
-  }
 
-  async getClasses() {
-    let classes;
-    // const self = this;
-    await axios.get('/user/classes')
-    .then((resp) => {
-      classes = resp.data.classes;
-    });
-    console.log(classes)
-    this.setState({ classes: classes, loading: false })
-  }
+
 
   render() {
-    if (this.state.loading) { return <h2>Retrieving Classes...</h2> }
+
 
     return (
       <div>
-      <Headercomp title={`Hi ${this.props.user.username}!`}
-      description={'Welcome to your Dashboard. You can create and/or join sessions'}/>
+      {/* <Headercomp title={`Hi ${this.props.user.username}!`}
+      description={'Welcome to your Dashboard. You can create and/or join sessions'}/> */}
       <div style={{height: '86.2%'}}>
         <Grid columns={2} doubling stretched className="style" >
             <Grid.Column className="style" stretched width={4} floated='left' >
@@ -69,15 +50,25 @@ export default class DashboardGridComponent extends Component {
             <Grid.Column stretched width={12} floated="right" color="blue" className="style">
               <Container>
                 <Grid>
-                {/* {
-                  this.state.classes.map((class) => {
-                    return (
-                      <Grid.Column className="dashboard style" color="red" width={4}>
-                        <CardGroups />
-                      </Grid.Column>
-                    )
-                  })
-                } */}
+                  <Grid.Column className="dashboard style" color="red" width={4}>
+                    <CardGroups />
+                  </Grid.Column>
+                  <Grid.Column className="dashboard style" color="red" width={4}>
+
+                  </Grid.Column>
+                  <Grid.Column className="dashboard style" color="red" width={4}>
+
+                  </Grid.Column>
+                  <Grid.Column className="dashboard style" color="red" width={4}>
+
+                  </Grid.Column>
+                  <Grid.Column className="dashboard style" color="red" width={4}>
+
+                  </Grid.Column>
+
+                  <Grid.Column className="dashboard style" color="red" width={4}>
+
+                  </Grid.Column>
                 </Grid>
               </Container>
             </Grid.Column>

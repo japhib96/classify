@@ -22,10 +22,31 @@ function saveLecture(lectureTitle, password) {
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
-    messages: []
+    reactions: [],
+    //owner:
   })
 
   return lecture.save();
+}
+
+function saveClass(classTitle, password) {
+  var classroom = new models.Class({
+    name: classTitle,
+    password: password,
+    //owner:
+  })
+
+  return classroom.save();
+}
+
+async function getClasses(userId) {
+  try {
+    const student = await models.Student.findById(userId).populate('classes').exec();
+    console.log(student.classes);
+    return student.classes;
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 async function updateLecture(lectureId, messageData) {
@@ -47,7 +68,6 @@ async function updateLecture(lectureId, messageData) {
 async function updateReaction(lectureId, userId, reaction) {
   try {
     var lecture = await models.Lecture.findById(lectureId);
-    console.log(lecture.reactions)
     if (reaction === '') {
       return lecture.reactions;
     }
@@ -57,7 +77,8 @@ async function updateReaction(lectureId, userId, reaction) {
     if (index === -1) {
       lecture.reactions = [...lecture.reactions, {id: userId, reaction: reaction}];
     } else {
-      lecture.reactions[index] = {id: userId, reaction: reaction};
+      lecture.reactions.splice(index, 1);
+      lecture.reactions = [...lecture.reactions, {id: userId, reaction: reaction}];
     }
     var updatedLecture = await lecture.save();
       return updatedLecture.reactions;
@@ -92,13 +113,11 @@ async function updateLikes(lectureId, userId, data) {
 
 async function updateReplies(lectureId, userId, data) {
   try {
-    console.log(data.reply)
     var lecture = await models.Lecture.findById(lectureId);
     if (data === '') {
       var allMessages = await lecture.getMessages();
       return allMessages;
     }
-    console.log(data.index, lectureId)
     var repliedMessage = await models.Message.findOne({ _id: data.index, lecture: lectureId });
     repliedMessage.replies = [...repliedMessage.replies, { author: userId, reply: data.reply }];
     await repliedMessage.save();
@@ -122,6 +141,22 @@ async function joinLecture(lectureId, password) {
   }
 }
 
+async function joinClass(user, classId, password) {
+  try {
+    var classroom = await models.Class.findById(classId);
+    if (password === classroom.password) {
+      let student = await models.Student.findById(user._id);
+      student.classes = [...student.classes, classId];
+      await student.save();
+      return;
+    } else {
+      throw new Error('Incorrect password');
+    }
+  } catch(e) {
+    console.log(e);
+  }
+}
+
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
@@ -130,5 +165,8 @@ module.exports = {
   updateReaction: updateReaction,
   updateLikes: updateLikes,
   updateReplies: updateReplies,
-  joinLecture: joinLecture
+  joinLecture: joinLecture,
+  saveClass: saveClass,
+  joinClass: joinClass,
+  getClasses: getClasses
 }

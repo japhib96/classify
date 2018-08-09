@@ -56,6 +56,8 @@ export default class UserInterface extends React.Component {
     render() {
       return (
         <div>
+          <Headercomp title={this.props.class}
+          description={this.props.user.username} />
           <Grid columns='equal'>
               <Grid.Column stretched>
                   <Statistics  user={this.props.user} class={this.props.class} />

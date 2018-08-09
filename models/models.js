@@ -36,6 +36,12 @@ const studentSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  classes: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Class'
+    }
+  ]
 })
 
 const lectureSchema = mongoose.Schema({
@@ -86,15 +92,32 @@ const messageSchema = mongoose.Schema({
   lecture: String
 })
 
+const classSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Teacher'
+  }
+})
+
 
 const teacherModel = mongoose.model('Teacher', teacherSchema);
 const studentModel = mongoose.model('Student', studentSchema);
 const lectureModel = mongoose.model('Lecture', lectureSchema);
 const messageModel = mongoose.model('Message', messageSchema);
+const classModel = mongoose.model('Class', classSchema);
 
 module.exports = {
   Teacher: teacherModel,
   Student: studentModel,
   Lecture: lectureModel,
-  Message: messageModel
+  Message: messageModel,
+  Class: classModel
 }

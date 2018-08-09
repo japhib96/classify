@@ -71,7 +71,6 @@ export default class App extends Component {
       <BrowserRouter>
         <div className="style">
           <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
-          <Headercomp />
           <Route path='/register' render={() =>
             this.state.user ? <Redirect to='/dashboard' /> : <Register />
           } />
@@ -79,8 +78,11 @@ export default class App extends Component {
             this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
           } />
           <Route path='/dashboard' render={() =>
-            this.state.user ? <DashboardGrid /> : <Redirect to='/login' />
+            this.state.user ? <DashboardGrid user={this.state.user} /> : <Redirect to='/login' />
           } />
+          {/* <Route path='/class' render={() =>
+            this.state.user ? <Class /> : <Redirect to='/login' />
+          } /> */}
           <Route path='/class/new' render={() =>
             this.state.user ? <RegisterClass /> : <Redirect to='/login' />
           } />
