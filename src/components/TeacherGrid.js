@@ -1,13 +1,17 @@
 import Divider from './divider';
 import Headercomp from './Headercomponent';
 import React from 'react'
-import { Grid, Segment, Sticky, TextArea, Form, Button, Icon, Popup} from 'semantic-ui-react'
+import { Grid, Container} from 'semantic-ui-react'
 import Comment from './Comments';
-import Emotions from './EmotionBar';
 import Statistics from './ClassStatistics';
 import Navigationbar from './Navbar';
 import io from 'socket.io-client';
 import Slides from './PDFViewer';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
 
 
@@ -47,7 +51,26 @@ export default class TeacherInterface extends React.Component {
       return (
         <div className="teacher grid">
           <div className="left col">
-
+            <Container >
+              <Grid columns={1} centered  textAlign="center" verticalAlign="middle">
+                <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
+                    <Container textAlign="center" className="user dashboard menu">
+                      <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Lecture</h2>
+                    </Container>
+                </Grid.Row>
+                <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
+                  <Container textAlign="center" className="user dashboard menu">
+                    <FontAwesomeIcon icon="question" size="3x" /> <h2>Question Forum</h2>
+                  </Container>
+                </Grid.Row>
+                <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
+                  <Container textAlign="center" className="user dashboard menu">
+                    <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Create Form</h2>
+                  </Container>
+                </Grid.Row>
+              </Grid>
+              <Statistics  user={this.props.user} class={this.props.class} />
+            </Container>
           </div>
           <div className="right col">
             <Slides  class={this.props.class}/>
