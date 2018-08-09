@@ -20,9 +20,9 @@ class TeacherView extends React.Component {
 
     return (
       <div>
-        <PDFViewer class={this.props.class}/>
-        <StatisticSection user={this.props.user} class={this.props.class} />
-        <EmotionBar user={this.props.user} class={this.props.class}/>
+        <PDFViewer lecture={this.props.lecture}/>
+        <StatisticSection user={this.props.user} lecture={this.props.lecture} />
+        <EmotionBar user={this.props.user} lecture={this.props.lecture}/>
 
       </div>
     );

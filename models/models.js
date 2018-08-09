@@ -59,9 +59,15 @@ const lectureSchema = mongoose.Schema({
   //     ref: 'Message'
   //   }
   // ],
+  slideId: String,
   reactions: {
     type: Array
   },
+  currentSlide: Number,
+  slideBySlide:[{
+    messages: Array,
+    reactions: Array,
+  }],
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'Teacher'
@@ -118,9 +124,12 @@ const slideSchema = mongoose.Schema({
     name: String,
     data: Buffer
   },
-  slideNumber:{
-    type: Number
-  },
+  // slideNumber:{
+  //   type: Number
+  // },
+  // totalSlides:{
+  //   type: Number
+  // },
   lectureId:{
     type: mongoose.Schema.ObjectId,
     ref: 'Lecture'

@@ -36,7 +36,11 @@ export default class App extends Component {
     this.state = {
       registered: false, // whether to load login screen or registration
       user: '', // account id to pass in when logging in
+<<<<<<< HEAD
       classId: '',
+=======
+      lectureId: '5b6cba6a54e07f950c1eafbc',
+>>>>>>> akirk47
       loading: true
       // activeItem: 'home',
     };
@@ -72,6 +76,7 @@ export default class App extends Component {
 
 
     return (
+<<<<<<< HEAD
       <BrowserRouter>
         <div className="style">
           <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
@@ -108,6 +113,38 @@ export default class App extends Component {
         </div>
       </BrowserRouter>
       // <Chat user={this.state.user}/>
+=======
+      // <BrowserRouter>
+      //   <div className="style">
+      //     <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
+      //     <Headercomp />
+      //     <Route path='/register' render={() =>
+      //       this.state.user ? <Redirect to='/dashboard' /> : <Register />
+      //     } />
+      //     <Route path='/login' render={() =>
+      //       this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
+      //     } />
+      //     <Route path='/dashboard' render={() =>
+      //       this.state.user ? <DashboardGrid /> : <Redirect to='/login' />
+      //     } />
+      //     <Route path='/class/new' render={() =>
+      //       this.state.user ? <RegisterClass /> : <Redirect to='/login' />
+      //     } />
+      //     <Route path='/class/join' render={() =>
+      //       this.state.user ? <JoinClass joinRoom={this.joinRoom.bind(this)} /> : <Redirect to='/login' />
+      //     } />
+      //
+      //     {/* Chat and User are the same, need to be integrated */}
+      //     <Route path='/class/room' render={() =>
+      //       <Chat />
+      //     } />
+      //     <Route path='/user' render={() =>
+      //       this.state.user ? <User user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
+      //     } />
+      //   </div>
+      // </BrowserRouter>
+      <TeacherView user={this.state.user} lecture={this.state.lectureId}/>
+>>>>>>> akirk47
     );
   }
 }

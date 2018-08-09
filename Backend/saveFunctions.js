@@ -24,6 +24,9 @@ function saveLecture(lectureTitle, password) {
     password: password,
     reactions: [],
     //owner:
+    messages: [],
+    currentSlide: 1,
+    slideBySlide: []
   })
 
   return lecture.save();
@@ -152,6 +155,36 @@ async function joinLecture(lectureId, password) {
   }
 }
 
+async function updateSlide(slideId, pageNum) {
+  try {
+    var slide = await models.Slide.findById(slideId);
+    var lecture = await models.Lecture.findById(slide.lectureId)
+    lecture.currentSlide = pageNum;
+    var updatedLecture = await lecture.save()
+    return updatedLecture
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+async function updateSlideTotal(slideId ,slides) {
+  try {
+    var slide = await models.Slide.findById(slideId);
+    var lecture = await models.Lecture.findById(slide.lectureId)
+    lecture.slideId = slideId;
+    lecture.slideBySlide = [];
+    for(var i =0; i <= slides; i++){
+      lecture.slideBySlide.push({messages: [], reactions: []})
+    }
+    console.log(lecture.slideBySlide)
+    var updatedLecture = await lecture.save()
+    return updatedLecture
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
 async function joinClass(user, classId, password) {
   try {
     var classroom = await models.Class.findById(classId);
@@ -180,5 +213,7 @@ module.exports = {
   saveClass: saveClass,
   joinClass: joinClass,
   getClasses: getClasses,
-  getLectures: getLectures
+  getLectures: getLectures,
+  updateSlide: updateSlide,
+  updateSlideTotal: updateSlideTotal
 }
