@@ -10,7 +10,6 @@
     "@fortawesome/react-fontawesome": "0.1.0-11",
     "ajv": "^6.0.0",
     "axios": "^0.18.0",
-    "ajv": "^6.0.0",
     "body-parser": "^1.18.3",
     "connect-mongo": "^2.0.1",
     "cors": "^2.8.4",
