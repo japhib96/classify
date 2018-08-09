@@ -1,15 +1,28 @@
 var express = require('express');
 var router = express.Router();
 const saveFunctions = require('./saveFunctions');
-
-router.use(function(req, res, next){
-  if (!req.user) {
-    console.log('not logged in')
-    res.status(401).json({ success: false, loggedIn: false });
-  } else {
-    return next();
+var path= require("path");
+var multer = require("multer");
+var models =require('../models/models')
+var Slide = models.Slide
+var fs = require('fs');
+var storage = multer.diskStorage({
+  destination: path.resolve(__dirname, "../src/slides"),
+  filename: function(req, file, cb){
+    console.log(file);
+    cb(null, Date.now() + "_" + file.originalname);
   }
-});
+})
+var upload = multer({ storage: storage })
+
+// router.use(function(req, res, next){
+//   if (!req.user) {
+//     console.log('not logged in')
+//     res.json({ success: false, loggedIn: false });
+//   } else {
+//     return next();
+//   }
+// });
 
 router.post('/saveLecture', async (req, res) => {
   try {
@@ -31,6 +44,49 @@ router.post('/class/join', async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 })
+
+router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
+  console.log(req.body.lectureId)
+    new Slide({
+
+      pdf: {
+        name: req.file.originalname,
+        data: fs.readFileSync(req.file.path)
+      },
+      slideNumber: 1,
+      lectureId: req.body.lectureId
+
+    }).save(function(err, slide) {
+      if (err) {
+        res.send(err);
+        return;
+      }
+      fs.unlink(req.file.path, (err) =>{
+        if(err){
+          console.log(err)
+        }
+        res.json({
+          status: "success",
+          id: slide._id
+
+        });
+      })
+
+    });
+  });
+
+  router.get('/slide/:id', function(req, res){
+      Slide.findById(req.params.id, (err, slide)=>{
+        if(err){
+          res.send(err)
+          return
+        }
+        res.contentType('application/pdf')
+        res.end(slide.pdf.data, 'binary')
+        // slide.pdf.data = slide.pdf.data.toString('base64')
+        // res.json(slide)
+      })
+  })
 
 
 
