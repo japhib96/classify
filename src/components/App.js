@@ -78,44 +78,44 @@ export default class App extends Component {
 
 
     return (
+      //
+      // <BrowserRouter>
+      //   <div className="style">
+      //     <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
+      //     <Route path='/register' render={() =>
+      //       this.state.user ? <Redirect to='/dashboard' /> : <Register />
+      //     } />
+      //     <Route path='/login' render={() =>
+      //       this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
+      //     } />
+      //     <Route path='/dashboard' render={() =>
+      //       this.state.user ? <DashboardGrid user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
+      //     } />
+      //     <Route exact={true} path='/class' render={() =>
+      //       this.state.user ?
+      //         this.state.classId
+      //         ? <Classroom classId={this.state.classId} />
+      //         : <Redirect to='/dashboard' />
+      //       : <Redirect to='/login' />
+      //     } />
+      //     <Route path='/class/new' render={() =>
+      //       this.state.user ? <RegisterClass /> : <Redirect to='/login' />
+      //     } />
+      //     <Route path='/class/join' render={() =>
+      //       this.state.user ? <JoinClass setClass={this.setClass.bind(this)} /> : <Redirect to='/login' />
+      //     } />
+      //
+      //     {/* Chat and User are the same, need to be integrated */}
+      //     <Route path='/class/room' render={() =>
+      //       <Chat />
+      //     } />
+      //     <Route path='/user' render={() =>
+      //       this.state.user ? <User user={this.state.user} classId={this.state.classId}/> : <Redirect to='/login' />
+      //     } />
+      //   </div>
+      // </BrowserRouter>
 
-      <BrowserRouter>
-        <div className="style">
-          <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
-          <Route path='/register' render={() =>
-            this.state.user ? <Redirect to='/dashboard' /> : <Register />
-          } />
-          <Route path='/login' render={() =>
-            this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
-          } />
-          <Route path='/dashboard' render={() =>
-            this.state.user ? <DashboardGrid user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
-          } />
-          <Route exact={true} path='/class' render={() =>
-            this.state.user ?
-              this.state.classId
-              ? <Classroom classId={this.state.classId} />
-              : <Redirect to='/dashboard' />
-            : <Redirect to='/login' />
-          } />
-          <Route path='/class/new' render={() =>
-            this.state.user ? <RegisterClass /> : <Redirect to='/login' />
-          } />
-          <Route path='/class/join' render={() =>
-            this.state.user ? <JoinClass setClass={this.setClass.bind(this)} /> : <Redirect to='/login' />
-          } />
-
-          {/* Chat and User are the same, need to be integrated */}
-          <Route path='/class/room' render={() =>
-            <Chat />
-          } />
-          <Route path='/user' render={() =>
-            this.state.user ? <User user={this.state.user} classId={this.state.classId}/> : <Redirect to='/login' />
-          } />
-        </div>
-      </BrowserRouter>
-
-      // <TeacherView user={this.state.user} lecture={this.state.lectureId}/>
+      <TeacherView user={this.state.user} lecture={this.state.lectureId}/>
 
     );
   }
