@@ -1,6 +1,10 @@
 import React from 'react'
 import { Button, Card, Image } from 'semantic-ui-react'
 
+
+
+
+
 const CardGroups = () => (
   <Card.Group  itemsPerRow={3} >
     <Card className='cardItem' raised>
