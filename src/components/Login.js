@@ -24,7 +24,7 @@ export default class Login extends React.Component {
           password: this.state.password,
         })
         // this.setState({ done: 'student' });
-        console.log('hey')
+        console.log('logged in as student')
       } else {
         await axios.post('/loginTeacher', {
           username: this.state.username,

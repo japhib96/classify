@@ -49,6 +49,17 @@ async function getClasses(userId) {
   }
 }
 
+async function getLectures(classId) {
+  try {
+    console.log(classId)
+    const classroom = await models.Class.findById(classId).populate('lectures').exec();
+    console.log(classroom.lectures);
+    return classroom.lectures;
+  } catch(e) {
+    console.log(e);
+  }
+}
+
 async function updateLecture(lectureId, messageData) {
   try {
     var lecture = await models.Lecture.findById(lectureId);
@@ -168,5 +179,6 @@ module.exports = {
   joinLecture: joinLecture,
   saveClass: saveClass,
   joinClass: joinClass,
-  getClasses: getClasses
+  getClasses: getClasses,
+  getLectures: getLectures
 }

@@ -104,7 +104,13 @@ const classSchema = mongoose.Schema({
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'Teacher'
-  }
+  },
+  lectures: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Lecture'
+    }
+  ]
 })
 
 

@@ -14,6 +14,7 @@ import EmotionBar from './EmotionBar';
 import Comments from './Comments';
 import DashboardGrid from './dashboardGrid';
 import User from './UserGrid';
+import Classroom from './testFrontend/Classroom';
 import axios from 'axios';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
@@ -33,7 +34,7 @@ export default class App extends Component {
     this.state = {
       registered: false, // whether to load login screen or registration
       user: '', // account id to pass in when logging in
-      classId: '5b689caf57657f1271f1ae4d',
+      classId: '',
       loading: true
       // activeItem: 'home',
     };
@@ -46,7 +47,8 @@ export default class App extends Component {
     this.getUser();
   }
 
-  joinRoom(classId) {
+  setClass(classId) {
+    console.log(classId)
     this.setState({ classId: classId });
   }
 
@@ -58,11 +60,11 @@ export default class App extends Component {
       user = resp.data;
     });
     console.log(user)
-    this.setState({ user: user, loading: false })
+    this.setState({ user, loading: false })
   }
 
   render() {
-    console.log(this.state.user)
+    // console.log(this.state.user)
     if (this.state.loading) { return <h2>Loading...</h2> }
     const { contextRef } = this.state
 
@@ -78,16 +80,20 @@ export default class App extends Component {
             this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
           } />
           <Route path='/dashboard' render={() =>
-            this.state.user ? <DashboardGrid user={this.state.user} /> : <Redirect to='/login' />
+            this.state.user ? <DashboardGrid user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
           } />
-          {/* <Route path='/class' render={() =>
-            this.state.user ? <Class /> : <Redirect to='/login' />
-          } /> */}
+          <Route exact={true} path='/class' render={() =>
+            this.state.user ?
+              this.state.classId
+              ? <Classroom classId={this.state.classId} />
+              : <Redirect to='/dashboard' />
+            : <Redirect to='/login' />
+          } />
           <Route path='/class/new' render={() =>
             this.state.user ? <RegisterClass /> : <Redirect to='/login' />
           } />
           <Route path='/class/join' render={() =>
-            this.state.user ? <JoinClass joinRoom={this.joinRoom.bind(this)} /> : <Redirect to='/login' />
+            this.state.user ? <JoinClass setClass={this.setClass.bind(this)} /> : <Redirect to='/login' />
           } />
 
           {/* Chat and User are the same, need to be integrated */}
@@ -95,7 +101,7 @@ export default class App extends Component {
             <Chat />
           } />
           <Route path='/user' render={() =>
-            this.state.user ? <User user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
+            this.state.user ? <User user={this.state.user} classId={this.state.classId}/> : <Redirect to='/login' />
           } />
         </div>
       </BrowserRouter>

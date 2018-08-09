@@ -49,6 +49,7 @@ module.exports = function(passport) {
     if (!req.user) {
       res.send('');
     } else {
+      let user = req.user;
       res.send(req.user);
     }
   })

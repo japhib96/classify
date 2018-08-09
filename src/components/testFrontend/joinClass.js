@@ -26,7 +26,7 @@ class JoinClass extends Component {
         lectureId: this.state.classId,
         password: this.state.password,
       })
-      this.props.joinRoom(this.state.classId);
+      // this.props.joinRoom(this.state.classId);
       this.setState({ done: true });
     } catch(error) {
       console.log(error);

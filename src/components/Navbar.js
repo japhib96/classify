@@ -14,6 +14,10 @@ export default class Navigationbar extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({ goHome: false });
+  }
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   logout() {

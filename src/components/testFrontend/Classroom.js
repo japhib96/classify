@@ -1,29 +1,55 @@
 
 import React, { Component } from 'react'
+import axios from 'axios';
 import { Grid, Menu, Segment, Icon, Header, Container } from 'semantic-ui-react'
-import CardGroups from './projectComponent';
-import AddButton from './AddModal';
+import CardGroups from '../projectComponent';
+import { Redirect } from 'react-router-dom';
+// import AddButton from './AddModal';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
-import Headercomp from './Headercomponent';
-import Divider from './divider';
+import Headercomp from '../Headercomponent';
+import Divider from '../divider';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap)
 
 
-export default class DashboardGridComponent extends Component {
+export default class Classroom extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: true,
+      lectures: null,
+    }
+  }
 
+  componentDidMount() {
+    console.log(this.props.classId)
+    this.getLectures();
+  }
+
+  async getLectures() {
+    let lectures;
+    // const self = this;
+    await axios.post('/class/lectures', {
+      classId: this.props.classId
+    })
+    .then((resp) => {
+      lectures = resp.data.lectures;
+    });
+    console.log(lectures)
+    this.setState({ lectures: lectures, loading: false })
+  }
 
 
 
   render() {
-
+    if (this.state.loading) { return <h2>Retrieving Lectures...</h2> }
 
     return (
       <div>
-      {/* <Headercomp title={`Hi ${this.props.user.username}!`}
-      description={'Welcome to your Dashboard. You can create and/or join sessions'}/> */}
+      <Headercomp title={this.props.classId}
+      description={'This is the class homepage. You can view past lectures or join live ones'}/>
       <div style={{height: '86.2%'}}>
         <Grid columns={2} doubling stretched className="style" >
             <Grid.Column className="style" stretched width={4} floated='left' >
@@ -50,25 +76,15 @@ export default class DashboardGridComponent extends Component {
             <Grid.Column stretched width={12} floated="right" color="blue" className="style">
               <Container>
                 <Grid>
-                  <Grid.Column className="dashboard style" color="red" width={4}>
-                    <CardGroups />
-                  </Grid.Column>
-                  <Grid.Column className="dashboard style" color="red" width={4}>
-
-                  </Grid.Column>
-                  <Grid.Column className="dashboard style" color="red" width={4}>
-
-                  </Grid.Column>
-                  <Grid.Column className="dashboard style" color="red" width={4}>
-
-                  </Grid.Column>
-                  <Grid.Column className="dashboard style" color="red" width={4}>
-
-                  </Grid.Column>
-
-                  <Grid.Column className="dashboard style" color="red" width={4}>
-
-                  </Grid.Column>
+                {
+                  this.state.lectures.map((lecture) => {
+                    return (
+                      <Grid.Column className="dashboard style" width={4}>
+                        <CardGroups title={lecture.lectureTitle} />
+                      </Grid.Column>
+                    )
+                  })
+                }
                 </Grid>
               </Container>
             </Grid.Column>

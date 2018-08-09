@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Grid, Menu, Segment, Icon, Header, Container } from 'semantic-ui-react'
 import CardGroups from './projectComponent';
 import AddButton from './AddModal';
+import { Redirect } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
@@ -37,7 +38,8 @@ export default class DashboardGridComponent extends Component {
   }
 
   render() {
-    if (this.state.loading) { return <h2>Retrieving Classes...</h2> }
+    if (this.state.loading) { return <h2>Retrieving Classes...</h2> };
+    if (this.props.classId) { return <Redirect to='/class' />}
 
     return (
       <div>
@@ -69,15 +71,15 @@ export default class DashboardGridComponent extends Component {
             <Grid.Column stretched width={12} floated="right" color="blue" className="style">
               <Container>
                 <Grid>
-                {/* {
-                  this.state.classes.map((class) => {
+                {
+                  this.state.classes.map((classroom) => {
                     return (
-                      <Grid.Column className="dashboard style" color="red" width={4}>
-                        <CardGroups />
+                      <Grid.Column className="dashboard style" width={4}>
+                        <CardGroups title={classroom.name} setClass={this.props.setClass} classId={classroom._id} />
                       </Grid.Column>
                     )
                   })
-                } */}
+                }
                 </Grid>
               </Container>
             </Grid.Column>

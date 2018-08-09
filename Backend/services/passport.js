@@ -10,12 +10,16 @@ passport.serializeUser(function(user, done) {
 })
 
 passport.deserializeUser(async function(id, done) {
-  const teacher = await models.Teacher.findById(id);
+  let teacher = await models.Teacher.findById(id);
   if (!teacher) {
-    const student = await models.Student.findById(id);
-    return done(null, student);
+    let student = await models.Student.findById(id);
+    let stud = student.toObject();
+    stud.teacher = false;
+    return done(null, stud);
   }
-  return done(null, teacher);
+  let teach = teacher.toObject();
+  teach.teacher = true;
+  return done(null, teach);
   // models.Teacher.findById(id, function(err, teacher) {
   //   if (!teacher) {
   //     console.log(teacher)
