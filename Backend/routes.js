@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const saveFunctions = require('./saveFunctions');
+
 var path= require("path");
 var multer = require("multer");
 var models =require('../models/models')
 var Slide = models.Slide
+const saveFunctions= require('./saveFunctions')
 var fs = require('fs');
 var storage = multer.diskStorage({
   destination: path.resolve(__dirname, "../src/slides"),
@@ -27,8 +28,9 @@ var upload = multer({ storage: storage })
 router.post('/saveLecture', async (req, res) => {
   console.log('entered saveLecture')
   try {
-    var updatedClassroom = await saveFunctions.saveLecture(req.body.classId, req.body.lectureTitle, req.body.password);
-    res.json({ success: true });
+    var lectureId = await saveFunctions.saveLecture(req.body.classId, req.body.lectureTitle, req.body.password);
+    console.log('saveLecture', lectureId)
+    res.json({ lectureId: lectureId });
   }
   catch(error) {
     res.status(400).json({ error: error.message })
@@ -94,6 +96,7 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
         if(err){
           console.log(err)
         }
+        // saveFunctions.updateSlideTotal()
         res.json({
           status: "success",
           id: slide._id
