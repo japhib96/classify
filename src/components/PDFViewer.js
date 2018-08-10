@@ -5,7 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 
+
+import io from "socket.io-client";
+import Dropzone from 'react-dropzone'
+
 library.add(faExpand)
+
 
 class MyPdfViewer extends React.Component {
 
@@ -14,7 +19,11 @@ class MyPdfViewer extends React.Component {
 
     this.state = {
       isFull: false,
-      filePath: ""
+
+      filePath: '',
+      slideId: '',
+      pages: 0,
+      uploadName: ''
     };
   }
 
@@ -57,9 +66,15 @@ class MyPdfViewer extends React.Component {
     );
   }
 
-  onChange(e) {
-    this.setState({uploadFile: e.target.files[0], filePath: ''})
-  }
+  onChange(acceptedFiles, rejectedFiles) {
+
+  this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
+}
+
+// onChange1(e) {
+//   console.log(e.target.files[0])
+// this.setState({uploadFile: e.target.files[0], filePath: ''})
+// }
 
   sendFile(e){
     e.preventDefault()
@@ -92,7 +107,7 @@ class MyPdfViewer extends React.Component {
   }
 
   render() {
-
+    var name = this.state.uploadName
     let pagination = null;
     if (this.state.pages) {
       pagination = this.renderPagination(this.state.page, this.state.pages);
@@ -100,18 +115,16 @@ class MyPdfViewer extends React.Component {
     console.log('render', this.state.filePath)
 
     return (
-
-      <div className="righ col">
-        <form >
-          <h1>File Upload</h1>
-          <input
-            type="file"
-            onChange={(e) => this.onChange(e)}
-          />
-          <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
-        </form>
-        {this.state.filePath == '' ?
-        <div className="right col">
+      <div>
+      <div>
+      <Dropzone onDrop={(files) => this.onChange(files)}>
+        <div>Try dropping some files here, or click to select files to upload.</div>
+      </Dropzone>
+      {this.state.uploadName === '' ? '' : <p>{name}</p> }
+      </div>
+      <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
+      {this.state.filePath === '' ?
+        <div>
 
         </div>
         :

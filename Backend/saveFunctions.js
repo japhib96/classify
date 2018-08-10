@@ -18,18 +18,27 @@ function saveStudent(username, password) {
   return student.save();
 }
 
-function saveLecture(lectureTitle, password) {
+async function saveLecture(classId, lectureTitle, password) {
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
     reactions: [],
     //owner:
-    messages: [],
+
     currentSlide: 1,
     slideBySlide: []
   })
 
-  return lecture.save();
+  var lecture = await lecture.save();
+  var classroom = await models.Class.findById(classId);
+  classroom.lectures.push(lecture._id);
+  console.log('test',classroom.lectures, lecture._id)
+  var updatedClassroom = await classroom.save()
+  return updatedClassroom
+
+
+
+
 }
 
 function saveClass(classTitle, password) {
