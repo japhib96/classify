@@ -5,9 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 
-library.add(faExpand)
+
 import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
+
+library.add(faExpand)
 
 
 class MyPdfViewer extends React.Component {

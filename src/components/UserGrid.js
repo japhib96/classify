@@ -60,11 +60,11 @@ export default class UserInterface extends React.Component {
           description={this.props.user.username} />
           <Grid columns='equal'>
               <Grid.Column stretched>
-                  <Statistics  user={this.props.user} class={this.props.classId} />
+                  <Statistics  user={this.props.user} lecture={this.props.classId} />
               </Grid.Column>
               <Grid.Column width={8} stretched>
                 <Grid.Row className="usergrid">
-                  <Comment user={this.props.user} class={this.props.classId}  />
+                  <Comment user={this.props.user} lecture={this.props.classId}  />
                 </Grid.Row>
                 <Grid.Row className="grid">
                   <Grid columns='equal' >
@@ -89,7 +89,7 @@ export default class UserInterface extends React.Component {
                 </Grid.Row>
               </Grid.Column>
               <Grid.Column>
-                  <Emotions user={this.props.user} class={this.props.classId}   />
+                  <Emotions user={this.props.user} lecture={this.props.classId}   />
               </Grid.Column>
           </Grid>
         </div>

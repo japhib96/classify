@@ -71,7 +71,7 @@ class Comments extends React.Component {
       this.socket.emit('SEND_MESSAGE', {
         author: this.props.user.username,
         message: this.state.message,
-        class: this.props.class
+        class: this.props.lecture
       });
       this.setState({message: ''});
     }
@@ -80,7 +80,7 @@ class Comments extends React.Component {
             componentDidMount() {
             this.socket.emit('JOIN_ROOM', {
               message: '',
-              class: this.props.class
+              class: this.props.lecture
             })
           }
 
@@ -89,7 +89,7 @@ class Comments extends React.Component {
               messages: this.state.messages,
               index: id,
               user: this.props.user._id,
-              class: this.props.class
+              class: this.props.lecture
             })
           }
 
@@ -104,7 +104,7 @@ class Comments extends React.Component {
               user: this.props.user.username,
               reply: this.state.reply,
               index: id,
-              class: this.props.class
+              class: this.props.lecture
             })
             this.addReply(index);
           }

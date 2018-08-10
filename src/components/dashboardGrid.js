@@ -6,7 +6,7 @@ import AddButton from './AddModal';
 import { Redirect } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from './Headercomponent';
 import Divider from './divider';
 
