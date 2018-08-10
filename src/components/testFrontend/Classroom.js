@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
-import AddModal from '../AddModal';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap)
 
@@ -21,7 +20,7 @@ export default class Classroom extends Component {
     this.state = {
       loading: true,
       lectures: null,
-      modal: false
+      title: ''
     }
   }
 
@@ -32,29 +31,28 @@ export default class Classroom extends Component {
 
   async getLectures() {
     let lectures;
+    let title;
     // const self = this;
     await axios.post('/class/lectures', {
       classId: this.props.classId
     })
     .then((resp) => {
       lectures = resp.data.lectures;
+      title = resp.data.title;
     });
     console.log(lectures)
-    this.setState({ lectures: lectures, loading: false })
-  }
-
-  createLecture(){
-    this.setState({modal: true})
+    this.setState({ lectures, title, loading: false })
   }
 
 
 
   render() {
     if (this.state.loading) { return <h2>Retrieving Lectures...</h2> }
+    if (this.props.lecture) { return <Redirect to='/user' />}
 
     return (
       <div>
-      <Headercomp title={this.props.classId}
+      <Headercomp title={this.state.title}
       description={'This is the class homepage. You can view past lectures or join live ones'}/>
       <div style={{height: '86.2%'}}>
         <Grid columns={2} doubling stretched className="style" >
@@ -82,14 +80,11 @@ export default class Classroom extends Component {
             <Grid.Column stretched width={12} floated="right" color="blue" className="style">
               <Container>
                 <Grid>
-
-                    <AddModal class={this.props.classId} />
-
                 {
                   this.state.lectures.map((lecture) => {
                     return (
                       <Grid.Column className="dashboard style" width={4}>
-                        <CardGroups title={lecture.lectureTitle} />
+                        <CardGroups title={lecture.lectureTitle} setLecture={this.props.setLecture} lectureId={lecture._id} />
                       </Grid.Column>
                     )
                   })

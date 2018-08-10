@@ -66,7 +66,7 @@ async function getLectures(classId) {
     console.log(classId)
     const classroom = await models.Class.findById(classId).populate('lectures').exec();
     console.log(classroom.lectures);
-    return classroom.lectures;
+    return { lectures: classroom.lectures, title: classroom.name };
   } catch(e) {
     console.log(e);
   }

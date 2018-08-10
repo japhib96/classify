@@ -40,7 +40,7 @@ export default class UserInterface extends React.Component {
           this.socket.emit('SEND_MESSAGE', {
             author: this.props.user.username,
             message: this.state.message,
-            class: this.props.classId
+            class: this.props.lectureId
           });
           this.setState({
             message:""
@@ -56,15 +56,15 @@ export default class UserInterface extends React.Component {
     render() {
       return (
         <div>
-          <Headercomp title={this.props.classId}
+          <Headercomp title={this.props.lectureTitle}
           description={this.props.user.username} />
           <Grid columns='equal'>
               <Grid.Column stretched>
-                  <Statistics  user={this.props.user} lecture={this.props.classId} />
+                  <Statistics  user={this.props.user} lecture={this.props.lectureId} />
               </Grid.Column>
               <Grid.Column width={8} stretched>
                 <Grid.Row className="usergrid">
-                  <Comment user={this.props.user} lecture={this.props.classId}  />
+                  <Comment user={this.props.user} lecture={this.props.lectureId}  />
                 </Grid.Row>
                 <Grid.Row className="grid">
                   <Grid columns='equal' >
@@ -89,7 +89,7 @@ export default class UserInterface extends React.Component {
                 </Grid.Row>
               </Grid.Column>
               <Grid.Column>
-                  <Emotions user={this.props.user} lecture={this.props.classId}   />
+                  <Emotions user={this.props.user} lecture={this.props.lectureId}   />
               </Grid.Column>
           </Grid>
         </div>
