@@ -4,10 +4,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
-
-
-import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
+import io from "socket.io-client";
 
 library.add(faExpand)
 
@@ -67,17 +65,12 @@ class MyPdfViewer extends React.Component {
   }
 
   onChange(acceptedFiles, rejectedFiles) {
-
   this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
+  this.sendFile()
 }
 
-// onChange1(e) {
-//   console.log(e.target.files[0])
-// this.setState({uploadFile: e.target.files[0], filePath: ''})
-// }
-
-  sendFile(e){
-    e.preventDefault()
+  sendFile(){
+    // e.preventDefault()
     // console.log(req.user)
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
@@ -116,32 +109,59 @@ class MyPdfViewer extends React.Component {
 
     return (
       <div>
-      <div>
-      <Dropzone onDrop={(files) => this.onChange(files)}>
-        <div>Try dropping some files here, or click to select files to upload.</div>
-      </Dropzone>
-      {this.state.uploadName === '' ? '' : <p>{name}</p> }
-      </div>
-      <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
-      {this.state.filePath === '' ?
         <div>
-
+        <Dropzone onDrop={(files) => this.onChange(files)}>
+          <div>Try dropping some files here, or click to select files to upload.</div>
+        </Dropzone>
+        {this.state.uploadName === '' ? '' : <p>{name}</p> }
         </div>
-        :
-        <Fullscreen
-          enabled={this.state.isFull}
-          onChange={isFull => this.setState({isFull})}
-          >
-            <div className="pdf view">
-              <PDF
-                file={this.state.filePath}
-                onDocumentComplete={this.onDocumentComplete}
-                page={this.state.page}
-              />
-              {pagination}
-            </div>
-          </Fullscreen>
-        }
+        <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
+        {/* {this.state.filePath === '' ? */}
+
+
+
+         {/* <Dropzone onDrop={(files) => this.onChange(files)}>
+           <div>Try dropping some files here, or click to select files to upload.</div>
+         </Dropzone>
+       {this.state.uploadName === '' ? '' : <p>{name}</p> } */}
+
+          <div className="righ col">
+            <div className="dropzone">
+              <Dropzone
+                onDrop={(files) => this.onChange(files)}
+                >
+                <div>Try dropping some files here, or click to select files to upload.</div>
+              </Dropzone>
+              </div>
+            <form >
+            <h1>Drag and Drop some files</h1>
+            <input
+              type="file"
+              onChange={(e) => this.onChange(e)}
+            />
+            {/* <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button> */}
+            {this.state.uploadName === '' ? '' : <p>{name}</p> }
+          </form>
+          {this.state.filePath == '' ?
+          <div className="right col">
+
+          </div>
+          :
+          <Fullscreen
+            enabled={this.state.isFull}
+            onChange={isFull => this.setState({isFull})}
+            >
+              <div className="pdf view">
+                <PDF
+                  file={this.state.filePath}
+                  onDocumentComplete={this.onDocumentComplete}
+                  page={this.state.page}
+                />
+                {pagination}
+              </div>
+            </Fullscreen>
+          }
+        </div>
       </div>
     )
   }

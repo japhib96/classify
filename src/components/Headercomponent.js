@@ -7,7 +7,7 @@ class Headercomp extends Component {
 
   render() {
     return (
-      <div style={{height: '9%'}} >
+      <div>
         <Header as='h1' textAlign="center">
           {this.props.title}
           <Header.Subheader>{this.props.description}</Header.Subheader>

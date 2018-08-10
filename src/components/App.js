@@ -108,7 +108,7 @@ export default class App extends Component {
             <Chat />
           } />
           <Route path='/user' render={() =>
-            this.state.user ? <User user={this.state.user} classId={'5b689caf57657f1271f1ae4d'}/> : <Redirect to='/login' />
+            this.state.user ? <User  user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
           } />
         </div>
       </BrowserRouter>
