@@ -19,8 +19,6 @@ import User from './UserGrid';
 import Classroom from './testFrontend/Classroom';
 import HomePage from './homepage.js'
 import axios from 'axios';
-import Register2 from './testFrontend/register.js'
-import Login2 from './testFrontend/login2.js'
 import Teacher from './TeacherGrid';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
@@ -72,7 +70,7 @@ export default class App extends Component {
   }
 
   render() {
-    // console.log(this.state.user)
+    console.log(this.state.user)
     if (this.state.loading) { return <h2>Loading...</h2> }
     const { contextRef } = this.state
 

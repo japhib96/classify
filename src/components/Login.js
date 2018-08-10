@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import {FormControl, Form, Col, Button, FormGroup, ControlLabel, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
-
+import React from 'react'
 import axios from 'axios';
+import {Link} from 'react-router-dom'
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
+import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -12,10 +12,11 @@ export default class Login extends React.Component {
       password: '',
       type: 1,
       done: '',
-      isError: 'error'
+      isError: false,
+      errorMsg: '',
+      message: 'ui hidden error message'
     }
   }
-
   async logIn(e) {
     e.preventDefault();
     try {
@@ -24,77 +25,87 @@ export default class Login extends React.Component {
           username: this.state.username,
           password: this.state.password,
         })
-        // this.setState({ done: 'student' });
-        console.log('logged in as student')
+        console.log('logged in as student');
+        // this.setState({ message: 'ui hidden error message', done: 'student' });
       } else {
         await axios.post('/loginTeacher', {
           username: this.state.username,
           password: this.state.password,
         })
         console.log('logged in as teacher');
-        // this.setState({ done: 'teacher' });
+        // this.setState({ message: 'ui hidden error message', done: 'teacher' });
       }
       this.props.setUser();
     } catch(error) {
-      console.log(error);
+        this.setState({ message:'ui visible error message', isError: true, error: error});
+        console.log(error);
     }
   }
+  render(){
+    return(
+      <div className='login-form' style={{backgroundColor: '#feffff'}} >
+        {/*
+          Heads up! The styles below are necessary for the correct render of this example.
+          You can do same with CSS, the main idea is that all the elements up to the `Grid`
+          below must have a height of 100%.
+        */}
+        <style>{`
+          body > div,
+          body > div > div,
+          body > div > div > div.login-form {
+            height: 100%;
+          }
+        `}</style>
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
+              <Icon name='graduation' /> Log-in to your account
+            </Header>
+            <Form size='large'>
+              <Segment stacked style={{background: '#98dafc'}}>
+                <Form.Input
+                  required
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Username'
+                  onChange={(e) => this.setState({ username: e.target.value })}
+                />
+                <Form.Input
+                  required
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  type='password'
+                  onChange={(e) => this.setState({ password: e.target.value })}
+                />
 
-  render() {
-    // if (this.props.user) {
-    //   return <Redirect to='/dashboard' />
-    // }
-    return (
-      <Form horizontal>
-        <FormGroup>
-          <Col smOffset={3} sm={4}>
-            <div className="h1">
-              <h1>Login</h1>
-            </div>
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass={ControlLabel} sm={3}>
-            Username
-          </Col>
-          <Col sm={6}>
-            <FormControl type="text" placeholder="Username" onChange={(e) => this.setState({ username: e.target.value })}/>
-          </Col>
-        </FormGroup>
-        {/* <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass={ControlLabel} sm={3}>
-            Email
-          </Col>
-          <Col sm={6}>
-            <FormControl type="email" placeholder="Email" />
-          </Col>
-        </FormGroup> */}
-        <FormGroup controlId="formHorizontalPassword" >
-          <ControlLabel>Must be longer than 6 characters</ControlLabel>
-          <Col componentClass={ControlLabel} sm={3} validationState={(this.state.password>6)?'success':'error'}>
-            Password
-          </Col>
-          <Col sm={6}>
-            <FormControl type="password" placeholder="Password" onChange={(e) => this.setState({ password: e.target.value })}/>
-              <FormControl.Feedback />
-          </Col>
+                <ToggleButtonGroup type="radio" name="options" inline-block required defaultValue={this.state.type}>
+                  <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
+                  <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
+                </ToggleButtonGroup>
 
-        </FormGroup>
-        <ToggleButtonGroup type="radio" name="options" block defaultValue={this.state.type}>
-          <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
-          <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
-        </ToggleButtonGroup>
-        <FormGroup>
-          <Col smOffset={4} sm={4}>
-            <Button type="submit" bsStyle="primary" bsSize="large" block onClick={(e) => this.logIn(e)} >Login</Button>
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={4} sm={6}>
-            <div>Not a user yet? Click for <Link to={'/register'}>Register</Link></div>
-          </Col>
-        </FormGroup>
-      </Form>
-    );
+                <div className={this.state.message}>
+                  <div className='content'>
+                    <div className='header'>Error</div>
+                    <p>Wrong username or password</p>
+                    </div>
+                </div>
+
+                <div style={{paddingTop: 10}}>
+                    <button class='ui inverted button' fluid size='large' onClick={(e) => this.logIn(e)}>
+                      Log in
+                    </button>
+                </div>
+              </Segment>
+            </Form>
+            <Message>
+              New to us? <Link to={'/register'}>Sign Up</Link>
+            </Message>
+          </Grid.Column>
+        </Grid>
+      </div>)
   }
+
 }
