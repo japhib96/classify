@@ -1,27 +1,61 @@
-import React from 'react'
-import { Table, Grid } from 'semantic-ui-react'
 
-const Lecture = () => (
-  <Grid.Column  width={12} floated="right" className="style">
-    <Table celled>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Lecture Name</Table.HeaderCell>
-          <Table.HeaderCell>Content</Table.HeaderCell>
-          <Table.HeaderCell>Time Created</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
+import React, { Component } from 'react'
+import AddButton from './AddModal';
+import { Grid, Container, Button, Input, Icon } from 'semantic-ui-react'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
+import Divider from './divider';
+import Class from './Classes';
+import Lecture from './Lecture'
+import Modal from './AddModal';
 
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell selectable>Math 1</Table.Cell>
-          <Table.Cell selectable>Linear Algebra</Table.Cell>
-          <Table.Cell selectable>Today 10:08 AM</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table>
-  </Grid.Column>
+library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
-)
 
-export default Lecture;
+export default class DashboardGridComponent extends Component {
+
+
+  render() {
+
+
+    return (
+
+
+      <div className="user grid">
+        {/* <hr></hr> */}
+        <div className="left col">
+          <div>
+            <Container textAlign="center" className="user dashboard menu">
+              <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
+            </Container>
+          </div>
+          <div>
+            <Container textAlign="center" className="user dashboard menu">
+              <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions</h2>
+            </Container>
+          </div>
+          <div>
+            <Container textAlign="center" className="user dashboard menu">
+              <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Class Statistics</h2>
+            </Container>
+          </div>
+        </div>
+        <div className="right col wrapper">
+          <header className="toolbar dashboard">
+            <div className="right part">
+              <div><Modal/></div>
+              <div><h2>Join a Lecture</h2></div>
+            </div>
+            <div>
+              <Input icon='search' placeholder='Search for a Lecture...' />
+            </div>
+          </header>
+          <div className="content dashboard">
+            <Class  class={this.props.class}/>
+          </div>
+      </div>
+    </div>
+      )
+    }
+  }

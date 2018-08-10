@@ -1,13 +1,14 @@
 
 import React, { Component } from 'react'
 import AddButton from './AddModal';
-import { Grid, Container, Button } from 'semantic-ui-react'
+import { Grid, Container, Button, Input, Icon } from 'semantic-ui-react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import Divider from './divider';
 import Class from './Classes';
-import Lecture from './Lecture';
+import Lecture from './Lecture'
+import Modal from './AddModal';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
@@ -19,33 +20,42 @@ export default class DashboardGridComponent extends Component {
 
 
     return (
-      <div style={{height: '83%'}}>
-        <Grid celled columns={2} doubling stretched className="style" >
-            <Grid.Column className="style" stretched width={4} floated='left' >
-              <Container >
-                <Grid columns={1} centered  textAlign="center" verticalAlign="middle">
-                  <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
-                      <Container textAlign="center" className="user dashboard menu">
-                        <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
-                      </Container>
-                  </Grid.Row>
-                  <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
-                    <Container textAlign="center" className="user dashboard menu">
-                      <FontAwesomeIcon icon="question" size="3x" /> <h2> Most Asked Q´s</h2>
-                    </Container>
-                  </Grid.Row>
-                  <Grid.Row className="menu style"  width={4} verticalAlign="middle" >
-                    <Container textAlign="center" className="user dashboard menu">
-                      <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Personal Stats</h2>
-                    </Container>
-                  </Grid.Row>
-                </Grid>
-              </Container>
-            </Grid.Column>
-            <Class />
-            {/* <Lecture /> */}
-        </Grid>
+
+
+      <div className="user grid">
+        {/* <hr></hr> */}
+        <div className="left col">
+          <div>
+            <Container textAlign="center" className="user dashboard menu">
+              <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
+            </Container>
+          </div>
+          <div>
+            <Container textAlign="center" className="user dashboard menu">
+              <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions</h2>
+            </Container>
+          </div>
+          <div>
+            <Container textAlign="center" className="user dashboard menu">
+              <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Class Statistics</h2>
+            </Container>
+          </div>
+        </div>
+        <div className="right col wrapper">
+          <header className="toolbar dashboard">
+            <div className="right part">
+              <div><Modal/></div>
+              <div><h2>Join a Class</h2></div>
+            </div>
+            <div>
+              <Input icon='search' placeholder='Search for a Class...' />
+            </div>
+          </header>
+          <div className="content dashboard">
+            <Class  class={this.props.class}/>
+          </div>
       </div>
-    )
+    </div>
+      )
+    }
   }
-}

@@ -75,6 +75,7 @@ export default class App extends Component {
         <div className="style">
           <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
           <Headercomp />
+          <hr />
           <Route path='/register' render={() =>
             this.state.user ? <Redirect to='/dashboard' /> : <Register />
           } />
@@ -99,7 +100,7 @@ export default class App extends Component {
             this.state.user ? <User user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
           } /> */}
           <Route path='/user' render={() =>
-            this.state.user ? <Teacher  user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
+            this.state.user ? <User  user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
           } />
         </div>
 

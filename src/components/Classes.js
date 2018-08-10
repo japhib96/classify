@@ -6,20 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus} from '@fortawesome/free-solid-svg-icons'
 
 
+
 library.add(faPlus)
 
 
+
 export default class Class extends React.Component {
+
 
   render() {
     return (
         <Grid.Column  width={12} floated="right" className="style">
           <Grid  columns={1} className="head comp" >
-            <Grid.Row stretched className="toolbar" width={12}>
-              <Container textAlign="center" className="user dashboard menu">
-                <FontAwesomeIcon icon="plus" size="3x" /> <h2>Join Class</h2>
-              </Container>
-            </Grid.Row>
             <Grid.Row  stretched verticalAlign="top">
               <Grid.Column className="dashboard card style" width={4}>
                 <CardGroups  />

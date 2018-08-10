@@ -4,8 +4,8 @@ import { Icon, Button, Header, Image, Modal, Form, Checkbox } from 'semantic-ui-
 const AddModal = () => (
 
 
-  <Modal trigger={<Icon bordered circular size="huge" name='add circle' aria-label='Add circle'/>} centered={false} size="large">
-    <Modal.Header>Add a Session</Modal.Header>
+  <Modal trigger={<Icon bordered circular size="big" name='add circle' aria-label='Add circle'/>} centered={false} size="large">
+    <Modal.Header>Add a Lecture</Modal.Header>
     <Modal.Content>
     <Form>
         <Form.Field>
