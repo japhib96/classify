@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
+import AddModal from '../AddModal';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap)
 
@@ -20,6 +21,7 @@ export default class Classroom extends Component {
     this.state = {
       loading: true,
       lectures: null,
+      modal: false
     }
   }
 
@@ -39,6 +41,10 @@ export default class Classroom extends Component {
     });
     console.log(lectures)
     this.setState({ lectures: lectures, loading: false })
+  }
+
+  createLecture(){
+    this.setState({modal: true})
   }
 
 
@@ -76,6 +82,9 @@ export default class Classroom extends Component {
             <Grid.Column stretched width={12} floated="right" color="blue" className="style">
               <Container>
                 <Grid>
+
+                    <AddModal class={this.props.classId} />
+
                 {
                   this.state.lectures.map((lecture) => {
                     return (
