@@ -32,9 +32,8 @@ async function saveLecture(classId, lectureTitle, password) {
   var lecture = await lecture.save();
   var classroom = await models.Class.findById(classId);
   classroom.lectures.push(lecture._id);
-  console.log('test',classroom.lectures, lecture._id)
   var updatedClassroom = await classroom.save()
-  return updatedClassroom
+  return lecture._id
 
 
 
