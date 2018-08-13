@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
-import Modal from '../teacher/CreateLectureModal';
+import CreateLectureModal from '../teacher/CreateLectureModal';
 import Loading from '../Loader';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap)
@@ -76,7 +76,7 @@ export default class Classroom extends Component {
             <div className="right col wrapper">
               <header className="toolbar dashboard">
                 <div className="right part">
-                  <div><Modal/></div>
+                  <div><CreateLectureModal classId ={this.props.classId}/></div>
                   <div><h2>Join a Lecture</h2></div>
                 </div>
                 <div>

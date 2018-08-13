@@ -295,9 +295,9 @@ canvas {
 }
 
 
- .ui.modal {
+ /* .ui.modal {
   height: 300px;
-}
+} */
 
 .ui.loader {
   width: 100%;
