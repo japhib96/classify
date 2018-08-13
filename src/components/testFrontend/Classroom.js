@@ -49,7 +49,7 @@ export default class Classroom extends Component {
 
   render() {
     if (this.props.lecture) { return <Redirect to='/user' />}
-    if (this.state.loading) { return <Loading /> }
+    if (this.state.loading) { return <Loading message={'Retrieving Lectures...'}/> }
 
     return (
 
