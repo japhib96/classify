@@ -21,9 +21,9 @@ body {
     box-shadow: 2px 2px;
     margin-right: 20px;
 }
-.column.menu.bar:hover {
+/* .column.menu.bar:hover {
     background-color: #ddeaff;
-}
+} */
 .column.menu {
   width: 100%;
   height: 100%;
@@ -32,22 +32,13 @@ body {
 .menubar.item {
   font-size: 36px;
 }
-.ui.segment.navbar {
-  background-color: #ececec;
-}
-.segment.user {
-  background-color: #ddeaff;
+
+.user {
   width: 100%;
   height:100%;
 }
-.usergrid {
-  border-left: 1px solid gray;
-  border-right: 1px solid gray;
-  overflow:hidden;
-  max-height: 80vh;
 
-}
-.usergrid:hover {
+.usergrid.main:hover {
   overflow-y:scroll;
 }
 .outer {
@@ -55,13 +46,13 @@ body {
   background-color: ;
   justify-content: center;
 }
-.ui.segment.emoji {
+.ui..emoji {
   background-color: white;
 }
 .ui.segment.emoji.top:hover {
   background-color: green;
   color: black;
-  box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px u#3a7999;
 }
 .ui.segment.emoji.top:focus {
   background-color: green;
@@ -124,7 +115,6 @@ body {
 }
 
 
-
 .row.grid {
   border-left: 1px solid gray;
   border-right: 1px solid gray;
@@ -155,7 +145,6 @@ body {
 
 .ui.threaded.comments {
   display:inline;
-  background-color: white;
 }
 
 
@@ -247,26 +236,12 @@ h2 {
   flex-direction: row;
 }
 
-.left.col {
-  height: 100%;
-  width: 20%;
-  margin-left: 1em;
-  margin-right: 1em;
-  padding-right: 1em;
-  display: block;
-  border-right: 1px solid gray;
-
-
-  /* border: 1px solid gray; */
-}
-
 .right.col {
   height: 100%;
   width: 100%;
   display: inline-block;
-  justify-: center;
+  justify-content: center;
   align-items: center;
-  /* border: 1px solid gray; */
 }
 
 .right.col.wrapper {
@@ -313,11 +288,6 @@ h2 {
   align-items: center;
 }
 
-.footer.dashboard {
-  background-color: #99d9ff;
-}
-
-
 
 canvas {
   width:100%;
@@ -325,6 +295,127 @@ canvas {
 }
 
 
-/* .ui.modal {
+ .ui.modal {
   height: 300px;
-} */
+}
+
+.ui.loader {
+  width: 100%;
+  height:100%;
+}
+
+.userinterface.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: center;
+  justify-content: center;
+  height: 80vh;
+  width:70%;
+}
+
+.userinterface.wrapper > * {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: center;
+  justify-content: center;
+}
+
+.emotiongrid.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: center;
+  height: 83vh;
+  width:100%;
+}
+
+.emotiongrid.wrapper > * {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: center;
+  justify-content: center;
+}
+
+
+.left.col {
+  height: 83vh;
+  width: 30%;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-right: 1em;
+  border-right: 1px solid gray;
+}
+
+.chat.grid {
+  max-height: 80vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.emotion.col {
+  width: 30%;
+  height: 83vh;
+  border-left: 1px solid gray;
+}
+
+.usergrid.main {
+  text-align: left;
+  overflow:hidden;
+  max-height: 73vh;
+}
+
+.emotiongrid.main {
+  text-align: left;
+  overflow:hidden;
+  max-height: 80vh;
+  padding: 1em;
+}
+
+.header {
+  text-align: center;
+  justify-content: center;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+}
+
+.input.textarea {
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.ui.form.input.field {
+  width: 90%;
+  float:left;
+  overflow-y: hidden;
+}
+
+.ui.button.emoji {
+  float:left;
+}
+
+.stats.section {
+  margin-left: 2em;
+}
+
+.ui.button.ui.big.circular.center.aligned.segment.emoji.top {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+.ui.button.ui.big.circular.center.aligned.segment.emoji.good {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+.ui.button.ui.big.circular.center.aligned.segment.emoji.confused {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+.ui.button.ui.big.circular.center.aligned.segment.emoji.out {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}

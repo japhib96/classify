@@ -13,12 +13,6 @@ import io from 'socket.io-client';
 import { Emoji } from 'emoji-mart';
 import JSEMOJI from 'emoji-js';
 
-//  // new instance
-// jsemoji = new JSEMOJI();
-// // set the style to emojione (default - apple)
-// jsemoji.img_set = 'emojione';
-// // set the storage location for all emojis
-// jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
 
 class Comments extends React.Component {
 
@@ -113,11 +107,6 @@ class Comments extends React.Component {
             return (
               <div>
                 <Comment.Group threaded>
-                  <Header as='h1' dividing textAlign="center">
-                    Comments / Questions
-                    <Header.Subheader content='Ask Questions and respond to threads. Btw. Its all anonymous, so don´t shy away PUSSSAY!'/>
-                  </Header>
-
                   {
                     this.state.messages.map( (message, index) => {
                       return (
@@ -192,38 +181,3 @@ class Comments extends React.Component {
         }
 
         export default Comments
-
-                                  // {this.state.pressed[index] ?
-                                  //   <Comment.Action>
-                                  //     <Grid.Column textAlign="left" verticalAlign="center" className="reply">
-                                  //       <Form onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}>
-                                  //         <TextArea type="submit" onSubmit={() => this.sendMessage() } autoHeight placeholder='Type somehting' rows={1} style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none'}} unstackable/>
-                                  //       </Form>
-                                  //     </Grid.Column>
-                                  //       <Grid.Column>
-                                  //         <Button onClick={() => this.sendReply(message._id, index)} as={Icon} name="comment">
-                                  //           Send
-                                  //         </Button>
-                                  //       </Grid.Column>
-                                  //   </Comment.Action>
-                                  //
-                                  //     : null}
-
-
-
-
-          // {this.state.pressed[index] ?
-          //       <div>
-          //       <input type="text" placeholder="Message" className="form-control" onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}/>
-          //       <button onClick={() => this.sendReply(message._id, index)} >Send Reply</button>
-          //     </div>
-          //     : <div></div>
-          //   }
-
-
-            {/*
-              <ul>
-              {this.state.messages[index].replies.map((replies) =>
-              <li>{replies.author}: {replies.reply}</li>
-            )}
-          </ul> */}
