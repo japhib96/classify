@@ -20,6 +20,7 @@ import Classroom from './testFrontend/Classroom';
 import HomePage from './homepage.js'
 import axios from 'axios';
 import TeacherDashboard from './teacher/TeacherDash';
+import TeacherStats from './testFrontend/TeacherStats.js'
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Button,
@@ -85,6 +86,11 @@ export default class App extends Component {
       <BrowserRouter>
         <div className="style">
           <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
+
+          <Route exact={true} path='/' render={ () =>
+            <TeacherStats/>
+          } />
+
           <Route path='/register' render={() =>
             this.state.user ? <Redirect to='/dashboard' /> : <Register />
           } />

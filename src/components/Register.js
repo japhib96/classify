@@ -45,22 +45,23 @@ export default class Register extends React.Component {
     }
     if(this.state.password.length>6 && this.email1(this.state.email) && this.state.password===this.state.confirmP){
       this.setState({ message:'ui hidden error message', done: true })
+      console.log('3')
+      e.preventDefault();
+      try {
+        await axios.post('/saveUser', {
+          username: this.state.username,
+          password: this.state.password,
+          passwordRepeat: this.state.passwordRepeat,
+          type: this.state.type
+        })
+        console.log('New user saved')
+        this.setState({ done: true });
+      }
+      catch(error) {
+        console.log(error);
+      }
     }
-    e.preventDefault();
-    try {
-      await axios.post('/saveUser', {
-        username: this.state.username,
-        password: this.state.password,
-        passwordRepeat: this.state.passwordRepeat,
-        type: this.state.type
-      })
-      console.log('New user saved')
-      this.setState({ done: true });
-    }
-    catch(error) {
-      console.log(error);
-    }
-  }
+}
   confirm1 = (password, confirm) => {
     (password===confirm)?  'yo': <span className="error">Passwords are not equal.</span>
   }
@@ -148,7 +149,7 @@ export default class Register extends React.Component {
                       </div>
                     </div>
                     <div style={{paddingTop: 10}}>
-                      <button class='ui inverted button' fluid size='large' onClick={(e) => this.makeAccount(e)}>
+                      <button className='ui inverted button' fluid size='large' onClick={(e) => this.makeAccount(e)}>
                         Register
                       </button>
                     </div>
