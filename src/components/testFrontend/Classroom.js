@@ -11,6 +11,7 @@ import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-soli
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
 import AddModal from '../AddModal';
+import Loading from '../Loader';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap)
 
@@ -50,7 +51,7 @@ export default class Classroom extends Component {
 
 
   render() {
-    if (this.state.loading) { return <h2>Retrieving Lectures...</h2> }
+    if (this.state.loading) { return <Loading /> }
 
     return (
       <div>
