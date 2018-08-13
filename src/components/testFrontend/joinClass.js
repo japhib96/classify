@@ -8,6 +8,7 @@ PageHeader,
 Modal,
 FormGroup,
 FormControl } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 class JoinClass extends Component {
   constructor(props) {
@@ -15,22 +16,27 @@ class JoinClass extends Component {
     this.state = {
       classId: '',
       password: '',
+      done: false
     };
   }
 
   async join() {
     try {
-      await axios.post('/join', {
-        classId: this.state.classId,
+      await axios.post('/class/join', {
+        lectureId: this.state.classId,
         password: this.state.password,
       })
-      console.log('logged in as student');
+      // this.props.joinRoom(this.state.classId);
+      this.setState({ done: true });
     } catch(error) {
       console.log(error);
     }
   }
 
   render() {
+    if (this.state.done) {
+      return <Redirect to='/user' />
+    }
     return (
       <div className="App">
 
@@ -46,7 +52,7 @@ class JoinClass extends Component {
             />
             <h4>Document Password:</h4>
             <FormControl
-              type="text"
+              type="password"
               value={this.state.password}
               onChange={(e)=>this.setState({
                   password: e.target.value

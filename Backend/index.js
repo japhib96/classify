@@ -36,76 +36,62 @@ app.use(passport.session());
 require('./services/passport');
 
 app.use('/', auth(passport));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use('/', routes);
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
-// if (app.get('env') === 'development') {
-//   app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('error', {
-//       message: err.message,
-//       error: err
-//     });
-//   });
-// }
-
-// production error handler
-// no stacktraces leaked to user
-// app.use(function(err, req, res, next) {
-//   res.status(err.status || 500);
-//   res.render('error', {
-//     message: err.message,
-//     error: {}
-//   });
-// });
 var socket = require('socket.io');
 io = socket(server);
 
 io.on('connection', (socket) => {
 
   socket.on('JOIN_ROOM', async function(data){
-    var startMessages = await saveFunctions.updateLecture("5b689caf57657f1271f1ae4d", data.message)
+    socket.join(data.class);
+    var startMessages = await saveFunctions.updateLecture(data.class, data.message)
 
-    io.emit('UPDATE_MESSAGE', startMessages )
+    socket.emit('UPDATE_MESSAGE', startMessages )
   })
 
-    socket.on('REACTION', async function(data){
-        var reactions = await saveFunctions.updateReaction("5b689caf57657f1271f1ae4d", data.user, data.reaction)
-        io.emit('ALL_REACTIONS', reactions)
-    })
+  socket.on('REACTION', async function(data){
+    var reactions = await saveFunctions.updateReaction(data.class, data.user, data.reaction)
+    io.to(data.class).emit('ALL_REACTIONS', reactions)
+  })
 
-    socket.on('SEND_MESSAGE', async function(data) {
-      var message = {
-        author: data.author,
-        message: data.message,
-        date: new Date(),
-        likes: [],
-        replies: [],
-        lecture: "5b689caf57657f1271f1ae4d"
-      }
-      var messages = await saveFunctions.updateLecture("5b689caf57657f1271f1ae4d", message)
-      io.emit('RECEIVE_MESSAGE', messages);
-    })
+  socket.on('SEND_MESSAGE', async function(data) {
+    var message = {
+      author: data.author,
+      message: data.message,
+      date: new Date(),
+      likes: [],
+      replies: [],
+      lecture: data.class
+    }
+    var messages = await saveFunctions.updateLecture(data.class, message)
+    io.to(data.class).emit('RECEIVE_MESSAGE', messages);
+  })
 
-    socket.on('LIKE_MESSAGE', async function(data){
-      var messages = await saveFunctions.updateLikes("5b689caf57657f1271f1ae4d", data.user, data)
-      io.emit('UPDATE_LIKES', messages)
-    })
+  socket.on('LIKE_MESSAGE', async function(data){
+    var messages = await saveFunctions.updateLikes(data.class, data.user, data)
+    io.to(data.class).emit('UPDATE_LIKES', messages)
+  })
 
-    socket.on('ADD_REPLY', async function(data) {
-      var messages = await saveFunctions.updateReplies("5b689caf57657f1271f1ae4d", data.user, data)
-      io.emit('UPDATE_REPLIES', messages)
-    })
+  socket.on('ADD_REPLY', async function(data) {
+    var messages = await saveFunctions.updateReplies(data.class, data.user, data)
+    io.to(data.class).emit('UPDATE_REPLIES', messages)
+  })
+
+  socket.on('UPDATE_SLIDE', async function(data) {
+    var slide = await saveFunctions.updateSlide(data.slideId, data.page)
+    io.to(data.class).emit('UPDATE_SLIDES', slide)
+  })
+
+  socket.on('TOTAL_SLIDES', async function(data) {
+    var slides = await saveFunctions.updateSlideTotal(data.slideId, data.slides)
+  })
 });
 
 server.listen(3001, () => console.log('Example app listening on port 3001!'))

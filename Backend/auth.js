@@ -36,7 +36,7 @@ module.exports = function(passport) {
   });
 
   router.post('/loginStudent', passport.authenticate('local-student'), (req, res) => {
-    console.log(req.user)
+    console.log('aye', req.user)
     res.status(200).json({ success: true });
   });
 
@@ -47,15 +47,18 @@ module.exports = function(passport) {
 
   router.get('/currentUser', (req, res) => {
     if (!req.user) {
-      res.send('error');
+      res.send('');
+    } else {
+      let user = req.user;
+      res.send(req.user);
     }
-    res.send(req.user);
   })
 
 
   // GET Logout page
   router.get('/logout', function(req, res) {
     req.logout();
+    res.send('logged out')
     // res.redirect('/login');
   });
 

@@ -1,8 +1,24 @@
 import React from 'react'
-import { Button, Comment, Form, Header, Icon} from 'semantic-ui-react'
+import {
+  Button,
+  Comment,
+  Form,
+  Header,
+  Container,
+  Label,
+  Grid,
+  TextArea,
+  Icon} from 'semantic-ui-react'
 import io from 'socket.io-client';
+import { Emoji } from 'emoji-mart';
+import JSEMOJI from 'emoji-js';
 
-
+//  // new instance
+// jsemoji = new JSEMOJI();
+// // set the style to emojione (default - apple)
+// jsemoji.img_set = 'emojione';
+// // set the storage location for all emojis
+// jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
 
 class Comments extends React.Component {
 
@@ -54,93 +70,160 @@ class Comments extends React.Component {
       ev.preventDefault();
       this.socket.emit('SEND_MESSAGE', {
         author: this.props.user.username,
-        message: this.state.message
+        message: this.state.message,
+        class: this.props.lecture
       });
       this.setState({message: ''});
     }
   }
 
-  componentDidMount() {
-    this.socket.emit('JOIN_ROOM', {
-      message: '',
-    })
-  }
+            componentDidMount() {
+            this.socket.emit('JOIN_ROOM', {
+              message: '',
+              class: this.props.lecture
+            })
+          }
 
-  likeMessage = (id) =>{
-    this.socket.emit('LIKE_MESSAGE',{
-      messages: this.state.messages,
-      index: id,
-      user: this.props.user._id
-    })
-  }
+          likeMessage = (id) =>{
+            this.socket.emit('LIKE_MESSAGE',{
+              messages: this.state.messages,
+              index: id,
+              user: this.props.user._id,
+              class: this.props.lecture
+            })
+          }
 
-  addReply(index) {
-    var arr = this.state.pressed.slice();
-    arr[index] = !arr[index];
-    this.setState({ pressed : arr })
-  }
+          addReply(index) {
+            var arr = this.state.pressed.slice();
+            arr[index] = !arr[index];
+            this.setState({ pressed : arr })
+          }
 
-  sendReply(id, index) {
-    this.socket.emit('ADD_REPLY', {
-      user: this.props.user.username,
-      reply: this.state.reply,
-      index: id
-    })
-    this.addReply(index);
-  }
+          sendReply(id, index) {
+            this.socket.emit('ADD_REPLY', {
+              user: this.props.user.username,
+              reply: this.state.reply,
+              index: id,
+              class: this.props.lecture
+            })
+            this.addReply(index);
+          }
 
-  render() {
-    return (
-      <div>
-        <Comment.Group threaded>
-          <Header as='h1' dividing textAlign="center">
-            Comments / Questions
-            <Header.Subheader content='Ask Questions and respond to threads. Btw. Its all anonymous, so don´t shy away PUSSSAY!'/>
-          </Header>
+          render() {
+            return (
+              <div>
+                <Comment.Group threaded>
+                  <Header as='h1' dividing textAlign="center">
+                    Comments / Questions
+                    <Header.Subheader content='Ask Questions and respond to threads. Btw. Its all anonymous, so don´t shy away PUSSSAY!'/>
+                  </Header>
 
-          {
-            this.state.messages.map( (message, index) => {
-              return (
-                <Comment key={index}>
-                  <Comment.Avatar as='a' src='/images/avatar/small/matt.jpg' />
-                  <Comment.Content>
-                    <Comment.Author  as='a'>{message.author}</Comment.Author>
-                    <Comment.Metadata>
-                      <span>{message.date ? message.date.substring(0,21) : ''}</span>
-                    </Comment.Metadata>
-                    <Comment.Text>{message.message}</Comment.Text>
-                    <ul>
-                      {this.state.messages[index].replies.map((replies) =>
-                        <li>{replies.author}: {replies.reply}</li>
-                      )}
-                    </ul>
-                    <Comment.Actions>
-                      <Button onClick={() => this.likeMessage(message._id) }>
-                        <Icon  name="smile" content="Likes" />
-                      </Button>
-                      {message.likes.length}
-                      <button onClick={() => this.addReply(index)}>Add Reply</button>
-                      {this.state.pressed[index] ?
-                        <div>
-                          <input type="text" placeholder="Message" className="form-control" onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}/>
-                          <button onClick={() => this.sendReply(message._id, index)} >Send Reply</button>
-                        </div>
-                        : <div></div>
-                      }
-                    </Comment.Actions>
-                  </Comment.Content>
-                </Comment>
-              )
-            })}
-            <Form reply>
-              <Form.TextArea onChange={ (e) => this.setState({message: e.target.value})} value={this.state.message}/>
-              <Button content='Add Reply' labelPosition='center' icon='edit' primary onClick={this.sendMessage} />
-            </Form>
-          </Comment.Group>
-        </div>
-      );
-    }
+                  {
+                    this.state.messages.map( (message, index) => {
+                      return (
+                        <Container className="container">
+                          <Comment key={index}>
+                            <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg'  />
+                            <Comment.Content>
+                              <Comment.Author  as='a'>{message.author}</Comment.Author>
+                              <Comment.Metadata>
+                                <span>{message.date ? message.date.substring(0,21) : ''}</span>
+                              </Comment.Metadata>
+                              <Comment.Text>
+                                <div id="styling">
+                                  {message.message}
+                                </div>
 
-  }
+                              </Comment.Text>
+                              <Comment.Actions>
+                                <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label>
+                                <Label as={Button} onClick={() => this.likeMessage(message._id) } circular attached bottom right>
+                                  <Emoji emoji="thumbsup" set='facebook' skin="4" size={12} />
+                                  I like it
+                                </Label>
+                                <Label as={Button} onClick={() => this.addReply(index)} circular attached bottom right >
+                                  <i class="fas fa-comment"></i>
+                                  Thread
+                                </Label>
+                              </Comment.Actions>
 
-  export default Comments
+                            {this.state.pressed[index] ?
+                                <Comment.Action>
+                                  <Grid.Column textAlign="left" verticalAlign="center" className="reply" >
+                                    <Form onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}>
+                                      <TextArea type="submit" onSubmit={() => this.sendMessage() } autoHeight placeholder='Type somehting' rows={1} style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none'}} unstackable/>
+                                    </Form>
+                                  </Grid.Column>
+                                  <Grid.Column>
+                                      <Button onClick={() => this.sendReply(message._id, index)}>
+                                        <i class="fas fa-reply"></i>
+                                        Reply
+                                      </Button>
+                                  </Grid.Column>
+                                </Comment.Action>
+                                  : null}
+                              </Comment.Content>
+
+                            {this.state.messages[index].replies.map((replies) =>
+                              <Comment.Group>
+                                <Comment>
+                                  <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
+                                  <Comment.Content>
+                                    <Comment.Author as='a'>{replies.author}</Comment.Author>
+                                    <Comment.Metadata>
+                                      <span>{message.date ? message.date.substring(0,21) : ''}</span>
+                                    </Comment.Metadata>
+                                    <Comment.Text>{replies.reply}</Comment.Text>
+                                  </Comment.Content>
+                                </Comment>
+                              </Comment.Group>
+                                )}
+                          </Comment>
+                      </Container>
+                    )
+                  }
+                )
+              }
+              </Comment.Group>
+            </div>
+
+            );
+          }
+        }
+
+        export default Comments
+
+                                  // {this.state.pressed[index] ?
+                                  //   <Comment.Action>
+                                  //     <Grid.Column textAlign="left" verticalAlign="center" className="reply">
+                                  //       <Form onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}>
+                                  //         <TextArea type="submit" onSubmit={() => this.sendMessage() } autoHeight placeholder='Type somehting' rows={1} style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none'}} unstackable/>
+                                  //       </Form>
+                                  //     </Grid.Column>
+                                  //       <Grid.Column>
+                                  //         <Button onClick={() => this.sendReply(message._id, index)} as={Icon} name="comment">
+                                  //           Send
+                                  //         </Button>
+                                  //       </Grid.Column>
+                                  //   </Comment.Action>
+                                  //
+                                  //     : null}
+
+
+
+
+          // {this.state.pressed[index] ?
+          //       <div>
+          //       <input type="text" placeholder="Message" className="form-control" onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}/>
+          //       <button onClick={() => this.sendReply(message._id, index)} >Send Reply</button>
+          //     </div>
+          //     : <div></div>
+          //   }
+
+
+            {/*
+              <ul>
+              {this.state.messages[index].replies.map((replies) =>
+              <li>{replies.author}: {replies.reply}</li>
+            )}
+          </ul> */}

@@ -55,12 +55,13 @@ class Chat extends React.Component{
     this.sendMessage = ev => {
       ev.preventDefault();
 
-      this.socket.emit('SEND_MESSAGE', {
-        author: this.props.user._id,
-        message: this.state.message
-      });
-      this.setState({message: ''});
-      // axios.get('/logout')
+      // this.socket.emit('SEND_MESSAGE', {
+      //   author: this.props.user._id,
+      //   message: this.state.message
+      // });
+      // this.setState({message: ''});
+      console.log('hi')
+      axios.get('/logout')
     }
 
     this.socket.on("ALL_REACTIONS", function(reactions){
@@ -74,9 +75,11 @@ class Chat extends React.Component{
   componentDidMount(){
     this.socket.emit('JOIN_ROOM', {
       message: '',
+      class: '5b689caf57657f1271f1ae4d'
     })
     this.socket.emit('REACTION',{
-      reaction: ''
+      reaction: '',
+      class: '5b689caf57657f1271f1ae4d'
     })
 
   }

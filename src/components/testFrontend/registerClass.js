@@ -8,15 +8,15 @@ class RegisterClass extends Component {
   constructor(props){
     super(props);
     this.state = {
-      lectureTitle: '',
+      classTitle: '',
       password: '',
     };
   }
 
-  async saveLecture() {
+  async saveClass() {
     try {
-      await axios.post('/saveLecture', {
-        lectureTitle: this.state.lectureTitle,
+      await axios.post('/saveClass', {
+        classTitle: this.state.classTitle,
         password: this.state.password
       })
       console.log('classroom saved')
@@ -35,14 +35,14 @@ class RegisterClass extends Component {
             <h4>Classroom Title:</h4>
             <FormControl
               type="text"
-              value={this.state.lectureTitle}
+              value={this.state.classTitle}
               onChange={(e)=>this.setState({
-                lectureTitle: e.target.value
+                classTitle: e.target.value
                 })}
             />
             <h4>Document Password:</h4>
             <FormControl
-              type="text"
+              type="password"
               value={this.state.password}
               onChange={(e)=>this.setState({
                   password: e.target.value
@@ -50,12 +50,10 @@ class RegisterClass extends Component {
             />
           </FormGroup>
         </form>
-       <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.saveLecture()}>Register</Button>
+       <Button type="submit" bsStyle="primary" bsSize="large" block onClick={() => this.saveClass()}>Register</Button>
       </div>
     );
   }
 }
 
 export default RegisterClass;
-
-                

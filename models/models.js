@@ -36,6 +36,12 @@ const studentSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  classes: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Class'
+    }
+  ]
 })
 
 const lectureSchema = mongoose.Schema({
@@ -53,9 +59,15 @@ const lectureSchema = mongoose.Schema({
   //     ref: 'Message'
   //   }
   // ],
+  slideId: String,
   reactions: {
     type: Array
   },
+  currentSlide: Number,
+  slideBySlide:[{
+    messages: Array,
+    reactions: Array,
+  }],
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'Teacher'
@@ -86,15 +98,58 @@ const messageSchema = mongoose.Schema({
   lecture: String
 })
 
+const classSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  owner: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Teacher'
+  },
+  lectures: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Lecture'
+    }
+  ]
+})
+
+const slideSchema = mongoose.Schema({
+  pdf:{
+    name: String,
+    data: Buffer
+  },
+  // slideNumber:{
+  //   type: Number
+  // },
+  // totalSlides:{
+  //   type: Number
+  // },
+  lectureId:{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Lecture'
+  }
+})
+
+
 
 const teacherModel = mongoose.model('Teacher', teacherSchema);
 const studentModel = mongoose.model('Student', studentSchema);
 const lectureModel = mongoose.model('Lecture', lectureSchema);
 const messageModel = mongoose.model('Message', messageSchema);
+const classModel = mongoose.model('Class', classSchema);
+const slideModel = mongoose.model('Slide', slideSchema);
 
 module.exports = {
   Teacher: teacherModel,
   Student: studentModel,
   Lecture: lectureModel,
-  Message: messageModel
+  Message: messageModel,
+  Class: classModel,
+  Slide: slideModel
 }

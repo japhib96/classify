@@ -1,10 +1,12 @@
 import _ from 'underscore';
 import { Grid, Header, Image, Rail, Segment, Sticky } from 'semantic-ui-react'
-import { Menu, Input, Dropdown, Icon} from 'semantic-ui-react'
+import { Menu, Input, Dropdown, Icon } from 'semantic-ui-react'
 import React, { Component } from 'react';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
 import Chat from './testFrontend/chatRoom'
+// import PDFViewer from './testFrontend/PDFViewer'
+// import TeacherView from './testFrontend/teacherView'
 import Login from './Login.js';
 import Register from './Register.js';
 import Navigationbar from './Navbar';
@@ -12,14 +14,14 @@ import Divider from './divider';
 import Headercomp from './Headercomponent';
 import EmotionBar from './EmotionBar';
 import Comments from './Comments';
-import DashboardGrid from './dashboardGrid';
-import User from './UserGrid';
+import StudentDashboard from './student/StudentDash';
+import StudentLecture from './student/StudentLecture';
+import Classroom from './testFrontend/Classroom';
 import HomePage from './homepage.js'
 import axios from 'axios';
-import Register2 from './testFrontend/register.js'
-import Login2 from './testFrontend/login2.js'
+import TeacherDashboard from './teacher/TeacherDash';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Button,
 ButtonGroup,
 DropdownButton,
@@ -35,57 +37,75 @@ export default class App extends Component {
     super(props);
     this.state = {
       registered: false, // whether to load login screen or registration
-      user: {}, // account id to pass in when logging in
+      user: '', // account id to pass in when logging in
       classId: '',
+      lectureId: '',
+
+      loading: true
       // activeItem: 'home',
     };
 
     const handleContextRef = contextRef => this.setState({ contextRef })
 
-    // handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    this.getUser();
+  }
+
+  setClass(classId) {
+    console.log(classId)
+    this.setState({ classId: classId });
+  }
+
+  setLecture(lectureId, lectureTitle) {
+    console.log(lectureId)
+    this.setState({ lecture: { id: lectureId, title: lectureTitle }});
+  }
+
+  async getUser() {
+    let user;
     const self = this;
-    axios.get('/currentUser')
+    await axios.get('/currentUser')
     .then((resp) => {
-      self.setState({ user: resp.data });
+      user = resp.data;
     });
+    console.log(user)
+    this.setState({ user, loading: false })
   }
-
-  // getUser() {
-  //   console.log('hi')
-  //   axios.get('/currentUser')
-  //   .then(resp => console.log(resp.data))
-  // }
 
   render() {
     console.log(this.state.user)
+    if (this.state.loading) { return <h2>Loading...</h2> }
     const { contextRef } = this.state
 
-    // const { activeItem } = this.state
+
     return (
+
       <BrowserRouter>
-
-        <div ref={this.handleContextRef}>
-
-            <Route path = '/landing' render ={() =>
-              <HomePage/>
-            }/>
+        <div className="style">
+          <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
           <Route path='/register' render={() =>
-            <Register2 />
+            this.state.user ? <Redirect to='/dashboard' /> : <Register />
           } />
           <Route path='/login' render={() =>
-            <Login2/>
+            this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
           } />
           <Route path='/dashboard' render={() =>
-            <DashboardGrid />
+            this.state.user ? <StudentDashboard user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
+          } />
+          <Route exact={true} path='/class' render={() =>
+            this.state.user ?
+              this.state.classId
+              ? <Classroom classId={this.state.classId} lecture={this.state.lecture} setLecture={this.setLecture.bind(this)} />
+              : <Redirect to='/dashboard' />
+            : <Redirect to='/login' />
           } />
           <Route path='/class/new' render={() =>
-            <RegisterClass />
+            this.state.user ? <RegisterClass /> : <Redirect to='/login' />
           } />
           <Route path='/class/join' render={() =>
-            <JoinClass />
+            this.state.user ? <JoinClass setClass={this.setClass.bind(this)} /> : <Redirect to='/login' />
           } />
 
           {/* Chat and User are the same, need to be integrated */}
@@ -93,11 +113,17 @@ export default class App extends Component {
             <Chat />
           } />
           <Route path='/user' render={() =>
-            <User user={this.state.user}/>
+            this.state.user ?
+              this.state.lecture.id
+              ? <StudentLecture user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
+              : <Redirect to='/dashboard' />
+            : <Redirect to='/login' />
           } />
         </div>
       </BrowserRouter>
-      // <Chat user={this.state.user}/>
+
+      // <TeacherView user={this.state.user} lecture={this.state.lectureId}/>
+
     );
   }
 }

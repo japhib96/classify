@@ -1,19 +1,18 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: komet-sc, sans-serif;
-  font-style: italic;
-  font-weight: 900;
+  font-family: Raleway, sans-serif;
   background-color: #fffaf0;
+  height:100%;
 }
 .ui.navbar {
-  background-color: #b3ee3a;
+  background-color: #98dafc;
   box-shadow: 2px 2px;
 }
 .ui.icon:hover {
   background-color: #f64c72;
   color: #3a7999;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment {
     border-top-right-radius: 5px;
@@ -29,9 +28,7 @@ body {
   width: 100%;
   height: 100%;
 }
-.ui.centered.cards {
-  justify-content: left;
-}
+
 .menubar.item {
   font-size: 36px;
 }
@@ -44,9 +41,14 @@ body {
   height:100%;
 }
 .usergrid {
-  background-color: #fffaf0;
   border-left: 1px solid gray;
   border-right: 1px solid gray;
+  overflow:hidden;
+  max-height: 80vh;
+
+}
+.usergrid:hover {
+  overflow-y:scroll;
 }
 .outer {
   justify-content: center;
@@ -59,20 +61,270 @@ body {
 .ui.segment.emoji.top:hover {
   background-color: green;
   color: black;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+.ui.segment.emoji.top:focus {
+  background-color: green;
+  color: black;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment.emoji.good:hover {
   background-color: #bdffb2;
   color: #3a7999;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+.ui.segment.emoji.good:focus {
+  background-color: #bdffb2;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment.emoji.confused:hover {
   background-color: #ef9797;
   color: #3a7999;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+.ui.segment.emoji.confused:focus {
+  background-color: #ef9797;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 .ui.segment.emoji.out:hover {
   background-color: #fc0000;
   color: black;
-    box-shadow: inset 0 0 0 3px #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
+
+.ui.segment.emoji.out:focus {
+  background-color: #fc0000;
+  color: black;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+.button.likes {
+  background-color: #fffaf0;
+}
+
+#form-textarea-control-opinion {
+  margin-top: 10px;
+
+}
+
+#form-button-control-public {
+  margin-bottom: 30px;
+}
+
+
+.reply.styling {
+  border-radius: 10px;
+}
+
+.ui.form.textarea {
+  background-color: white;
+  overflow:hidden;
+  border-color: red;
+}
+
+
+
+.row.grid {
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+
+.eight.wide.column {
+  background-color: white;
+}
+
+.twelve.wide.column {
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui.button.ui.circular.label:hover {
+  background-color: #f64c72;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+
+.left.aligned.center.aligned.column.reply {
+  margin-top: 10px;
+}
+
+
+.ui.threaded.comments {
+  display:inline;
+  background-color: white;
+}
+
+
+.ui.container.container {
+  margin-bottom: 15px;
+}
+
+
+.ui.container {
+  justify-content: center;
+  align-items: center;
+}
+
+.uicentered.center.aligned.center.aligned.one.column.grid {
+  padding: 30px;
+}
+
+
+#root {
+  height: 100%;
+}
+
+.style {
+  height: 100%;
+  display: block;
+}
+
+.dashboard.card.style {
+  height:15vh;
+  padding: 10px;
+  margin:20px;
+}
+
+.menu.style {
+  padding:10px;
+  margin: 20px;
+}
+
+.user.dashboard.menu {
+  background-color: #98dafc;
+  justify-content: center;
+  margin-bottom: 2em;
+  align-items: center;
+}
+.user.dashboard.menu:hover {
+  background-color: #ef9797;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+
+h2 {
+    margin-top: 0px;
+    margin-left: 25px;
+}
+
+.ui.raised.card.cardItem {
+  width: 90%;
+}
+
+.stretched.left.floated.four.wide.column.style {
+  border-right: 1px solid gray;
+}
+
+.stretched.row.toolbar {
+  width: 80%%;
+  height: 5vh;
+  margin-left: 20px;
+  margin bottom: 10px;
+}
+
+.margin.left {
+  padding: 20px;
+}
+
+.style.card.display {
+  background-color: #ddfbff;
+}
+
+.teacher.grid {
+  height:86%;
+  display: flex;
+  flex-direction: row;
+}
+
+.user.grid {
+  max-height: 85%;
+  display: flex;
+  flex-direction: row;
+}
+
+.left.col {
+  height: 100%;
+  width: 20%;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-right: 1em;
+  display: block;
+  border-right: 1px solid gray;
+
+
+  /* border: 1px solid gray; */
+}
+
+.right.col {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  justify-: center;
+  align-items: center;
+  /* border: 1px solid gray; */
+}
+
+.right.col.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: left;
+}
+.right.col.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+.nav.col {
+  width: 90%;
+}
+
+.content.dashboard {
+  text-align: left;
+}
+.pdf.view {
+  height: 100%;
+  width:100%;
+  overflow: scroll;
+  justify-content: center;
+  align-items: center;
+}
+
+.toolbar.dashboard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #98dafc;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.content.dashboard:hover {
+  background-color: #fcfdff;
+  color: #3a7999;
+  overflow: scroll;
+}
+
+.right.part {
+  display: flex;
+  align-items: center;
+}
+
+.footer.dashboard {
+  background-color: #99d9ff;
+}
+
+
+
+canvas {
+  width:100%;
+  height: 100%;
+}
+
+
+/* .ui.modal {
+  height: 300px;
+} */

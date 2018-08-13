@@ -1,6 +1,7 @@
 import React from 'react'
-import { Header, Segment } from 'semantic-ui-react'
+import { Header, Segment, Container, Label, Grid } from 'semantic-ui-react'
 import io from 'socket.io-client';
+import { Emoji } from 'emoji-mart';
 
 
 
@@ -23,8 +24,15 @@ class StatisticSection extends React.Component {
   }
 
   componentDidMount() {
+    this.socket.emit('JOIN_ROOM', {
+      message: '',
+      class: this.props.lecture
+    })
+
     this.socket.emit('REACTION',{
-      reaction: ''
+      reaction: '',
+      user: this.props.user._id,
+      class: this.props.lecture
     })
   }
 
@@ -55,16 +63,51 @@ class StatisticSection extends React.Component {
           <Header as='h1' dividing textAlign="center">
             Stats Section
             <Header.Subheader content='Check out your stats!' />
-            <Segment centered>
-              <Header >{thumbsUp} </Header>
-              <Header >{okay} </Header>
-              <Header >{thumbsDown} </Header>
-              <Header >{confused} </Header>
-            </Segment>
-          </Header>
+            </Header>
+            <Grid stretched verticalAlign="bottom">
+              <Grid columns="equal" >
+                <Grid.Row centered>
+                  <Header> How your peers are feeling...</Header>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column textAlign="center" verticalAlign="middle">
+                    <Emoji  emoji='thumbsup' set='apple' skin="6" size={36} />
+                  </Grid.Column>
+                  <Grid.Column  textAlign="center" verticalAlign="middle">
+                    <Label size="massive">{thumbsUp}</Label>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column textAlign="center" verticalAlign="middle">
+                    <Emoji  emoji='ok_hand' set='apple' skin="6" size={36} />
+                  </Grid.Column>
+                  <Grid.Column  textAlign="center" verticalAlign="middle">
+                    <Label size="massive" >{okay}</Label>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column textAlign="center" verticalAlign="middle">
+                    <Emoji  emoji='thumbsdown' set='apple' skin="6" size={36} />
+                  </Grid.Column>
+                  <Grid.Column  textAlign="center" verticalAlign="middle">
+                    <Label size="massive">{thumbsDown}</Label>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column textAlign="center" verticalAlign="middle">
+                    <Emoji  emoji='exploding_head' set='apple' skin="6" size={36} />
+                  </Grid.Column>
+                  <Grid.Column  textAlign="center" verticalAlign="middle">
+                    <Label size="massive">{confused}</Label>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
+            </Grid>
         </div>
-      );
+    );
   }
 }
+
 
 export default StatisticSection
