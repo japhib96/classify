@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import {Menu, Segment, Icon, Header } from 'semantic-ui-react'
+import {Menu, Segment, Icon, Header,Grid, Container, Button, Input} from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
-import { Grid, Container, Button, Input } from 'semantic-ui-react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
-import Modal from '../teacher/CreateLectureModal';
+import JoinClassModal from './JoinClassModal';
 import CardGroups from '../projectComponent';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
@@ -44,7 +43,7 @@ export default class StudentDashboard extends Component {
 
     return (
       <div>
-        <Headercomp title={`Hi ${this.props.user.username}!`} />
+        <Headercomp title={`Hi ${this.props.user.username}! Welcome to your Dashboard`} />
           <div className="user grid">
             <div className="left col">
               <div>
@@ -66,7 +65,7 @@ export default class StudentDashboard extends Component {
             <div className="right col wrapper">
               <header className="toolbar dashboard">
                 <div className="right part">
-                  <div><Modal/></div>
+                  <div><JoinClassModal/></div>
                   <div><h2>Join a Class</h2></div>
                 </div>
                 <div>

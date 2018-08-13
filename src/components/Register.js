@@ -61,7 +61,7 @@ export default class Register extends React.Component {
         console.log(error);
       }
     }
-}
+    
   confirm1 = (password, confirm) => {
     (password===confirm)?  'yo': <span className="error">Passwords are not equal.</span>
   }

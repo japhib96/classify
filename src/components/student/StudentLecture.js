@@ -1,37 +1,27 @@
 import Divider from '../divider';
 import Headercomp from '../Headercomponent';
 import React from 'react'
-import { Grid, Segment, Sticky, TextArea, Form, Button, Icon, Popup} from 'semantic-ui-react'
+import { Grid, Segment, Sticky, TextArea, Form, Button, Icon, Popup, Header} from 'semantic-ui-react'
 import Comment from '../Comments';
 import Emotions from '../EmotionBar';
 import Statistics from '../ClassStatistics';
 import Navigationbar from '../Navbar';
 import io from 'socket.io-client';
 import EmojiPicker from 'emoji-picker-react';
-import jsemoji from 'emoji-js';
-
-//  // new instance
-// jsemoji = new JSEMOJI();
-// // set the style to emojione (default - apple)
-// jsemoji.img_set = 'emojione';
-// // set the storage location for all emojis
-// jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
-
-
-
+import JSEMOJI from 'emoji-js';
 
 
 export default class UserInterface extends React.Component {
-    constructor(props){
-      super(props);
+  constructor(props){
+    super(props);
 
-      this.state = {
-        message: '',
-      };
+    this.state = {
+      message: '',
+    };
 
-      var self = this;
+    var self = this;
 
-      this.socket = io('localhost:3001');
+    this.socket = io('localhost:3001');
 
 
       this.sendMessage = ev => {
@@ -49,49 +39,60 @@ export default class UserInterface extends React.Component {
       }
     }
 
-    showPicker = (emojiCode, emojiObj) => {
-      console.log(emojiCode,emojiObj);
-    }
 
-    render() {
-      return (
-        <div>
-          <Headercomp title={this.props.lectureTitle}
+  showPicker = (emojiCode, emojiObj) => {
+    console.log(emojiObj);
+    var emoji = new JSEMOJI();
+    this.setState({message: this.state.message + emoji.replace_colons(`:${emojiObj.name}:`)})
+  }
+
+
+
+  render() {
+
+    return (
+
+
+      <div>
+        <Headercomp
+          title={this.props.lectureTitle}
           description={this.props.user.username} />
-          <Grid columns='equal'>
-              <Grid.Column stretched>
-                  <Statistics  user={this.props.user} lecture={this.props.lectureId} />
-              </Grid.Column>
-              <Grid.Column width={8} stretched>
-                <Grid.Row className="usergrid">
-                  <Comment user={this.props.user} lecture={this.props.lectureId}  />
-                </Grid.Row>
-                <Grid.Row className="grid">
-                  <Grid columns='equal' >
-                    <Grid.Column width={12}>
-                      <Form reply>
-                        <Form.TextArea
-                          autoHeight
-                          placeholder='Type somehting'
-                          rows={1}
-                          style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none'}}
-                          unstackable
-                          onChange={ (e) => this.setState({message: e.target.value})}
-                          value={this.state.message}
-                          onKeyUp = {this.sendMessage}
-                        />
-                      </Form>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                      <Popup  on='click' trigger={<Button icon='add' circular />} content={<EmojiPicker onEmojiClick={this.showPicker} />} />
-                    </Grid.Column>
-                  </Grid>
-                </Grid.Row>
-              </Grid.Column>
-              <Grid.Column>
-                  <Emotions user={this.props.user} lecture={this.props.lectureId}   />
-              </Grid.Column>
-          </Grid>
+
+          <div className="chat grid">
+            <div className="left col">
+              <Statistics  user={this.props.user} lecture={this.props.lectureId}/>
+            </div>
+            <div className="userinterface wrapper">
+              <header class="header">
+                <Header as='h1' dividing textAlign="center">
+                Questions for {this.props.lectureId}
+                  <Header.Subheader content='Ask Questions and respond to threads.'/>
+                </Header>
+              </header>
+              <div className="usergrid main">
+                <Comment user={this.props.user} lecture={this.props.lectureId}  />
+              </div>
+              <footer class="footer">
+                <Form reply className="input field">
+                  <Form.TextArea
+                    autoHeight
+                    placeholder='Type somehting'
+                    rows={1}
+                    style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none', width: '90%', overflowY: 'hidden'}}
+                    unstackable
+                    onChange={ (e) => this.setState({message: e.target.value})}
+                    value={this.state.message}
+                    onKeyUp = {this.sendMessage}
+                    className="input textarea"
+                  />
+                </Form>
+                <Popup  on='click' trigger={<Button className="emoji" icon='smile' circular />} content={<EmojiPicker onEmojiClick={this.showPicker} />} />
+              </footer>
+            </div>
+            <div className="emotion col">
+              <Emotions user={this.props.user} lecture={this.props.lectureId}   />
+            </div>
+          </div>
         </div>
       );
     }

@@ -59,7 +59,7 @@ class StatisticSection extends React.Component {
   )
 
       return (
-        <div>
+        <div className="stats section">
           <Header as='h1' dividing textAlign="center">
             Stats Section
             <Header.Subheader content='Check out your stats!' />

@@ -95,7 +95,8 @@ export default class App extends Component {
             this.state.user ? <Redirect to='/dashboard' /> : <Register />
           } />
           <Route path='/login' render={() =>
-            this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
+             this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
+            // <Login setUser={this.getUser.bind(this)} />
           } />
           <Route path='/dashboard' render={() =>
             this.state.user ? <StudentDashboard user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
@@ -120,7 +121,7 @@ export default class App extends Component {
           } />
           <Route path='/user' render={() =>
             this.state.user ?
-              this.state.lecture.id
+             this.state.lecture &&  this.state.lecture.id
               ? <StudentLecture user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
               : <Redirect to='/dashboard' />
             : <Redirect to='/login' />
