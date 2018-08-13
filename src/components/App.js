@@ -20,6 +20,7 @@ import TeacherDashboard from './teacher/TeacherDash';
 // import TeacherLecture from './teacher/TeacherLecture';
 import Classroom from './testFrontend/Classroom';
 import HomePage from './homepage.js'
+import Loading from './Loader';
 import axios from 'axios';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
@@ -77,7 +78,7 @@ export default class App extends Component {
 
   render() {
     console.log(this.state.user)
-    if (this.state.loading) { return <h2>Loading...</h2> }
+    if (this.state.loading) { return <Loading message={'Loading...'}/> }
     const { contextRef } = this.state
 
 

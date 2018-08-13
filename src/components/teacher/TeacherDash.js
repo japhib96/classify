@@ -11,8 +11,9 @@ import Slides from '../testFrontend/PDFViewer';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
-import Modal from '../teacher/CreateLectureModal';
+import CreateClass from '../teacher/CreateClassModal';
 import CardGroups from '../projectComponent';
+import Loading from '../Loader';
 import axios from 'axios';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
@@ -44,7 +45,7 @@ export default class TeacherInterface extends React.Component {
   }
 
     render() {
-      if (this.state.loading) { return <h2>Retrieving Classes...</h2> };
+      if (this.state.loading) { return <Loading message={'Retrieving Classes...'} /> };
       if (this.props.classId) { return <Redirect to='/class' />}
 
       return (
@@ -70,7 +71,7 @@ export default class TeacherInterface extends React.Component {
           <div className="right col">
             <header className="toolbar dashboard">
               <div className="right part">
-                <div><Modal/></div>
+                <div><CreateClass /></div>
                 <div><h2>Create a Class</h2></div>
               </div>
               <div>
