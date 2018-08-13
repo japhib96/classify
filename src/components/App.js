@@ -68,14 +68,9 @@ export default class App extends Component {
       <BrowserRouter>
 
         <div ref={this.handleContextRef}>
-        <Sticky context={contextRef}>
-          <Navigationbar />
-        </Sticky>
-          <Headercomp />
 
-          <Divider />
             <Route path = '/landing' render ={() =>
-              <Login2/>
+              <HomePage/>
             }/>
           <Route path='/register' render={() =>
             <Register2 />

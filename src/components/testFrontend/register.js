@@ -19,14 +19,36 @@ export default class Register extends React.Component {
       type: 1,
       error: false,
       done: false,
-      message: 'ui hidden error message'
-
+      message: 'ui hidden error message',
+      emailMsg: 'ui hidden error message',
+      lengthP: 'ui hidden error message',
+      passwords: 'ui hidden error message'
     }
   }
   async makeAccount(e) {
-    if(!this.email1(this.state.email) || this.state.password!==this.state.confirmP){
-      this.setState({ message:'ui visible error message' })
-    }else{
+    if(this.state.password.length<6){
+      if(this.email1(this.state.email)){
+        this.setState({ emailMsg: 'ui hidden error message'})
+      }
+      if(this.state.password===this.state.confirmP){
+        this.setState({ passwords: 'ui hidden error message'})
+      }
+      this.setState({ lengthP: 'ui visible error message', message: 'ui visible error message'} )
+
+    }
+    if(!this.email1(this.state.email)){
+      if(this.state.password===this.state.confirmP){
+        this.setState({ passwords: 'ui hidden error message'})
+      }
+      if(this.state.password.length>6){
+        this.setState({ lengthP: 'ui hidden error message'})
+      }
+      this.setState({ message:'ui visible error message', emailMsg: 'ui visible error message' })
+    }
+    if(this.state.password!==this.state.confirmP){
+      this.setState({ message:'ui visible error message', passwords: 'ui visible error message' })
+    }
+    if(this.state.password.length>6 && this.email1(this.state.email) && this.state.password===this.state.confirmP){
       this.setState({ message:'ui hidden error message', done: true })
 
     }
@@ -123,9 +145,19 @@ export default class Register extends React.Component {
             <div className={this.state.message}>
               <div className='content'>
                 <div className='header'>Error</div>
-                <p>Either email is invalid or passwords do not match</p>
+                <div className={this.state.emailMsg}>
+                  <p>Email is invalid</p>
+                </div>
+                <div className={this.state.passwords}>
+                  <p>Passwords do not match</p>
+                </div>
+                <div className={this.state.lengthP}>
+                  <p>Password Must be 6 or more characters</p>
+                </div>
                 </div>
             </div>
+
+
 
             <div style={{paddingTop: 10}}>
                 <button class='ui inverted button' fluid size='large' onClick={(e) => this.makeAccount(e)}>
