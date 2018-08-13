@@ -21,9 +21,7 @@ body {
     box-shadow: 2px 2px;
     margin-right: 20px;
 }
-/* .column.menu.bar:hover {
-    background-color: #ddeaff;
-} */
+
 .column.menu {
   width: 100%;
   height: 100%;
@@ -224,12 +222,6 @@ h2 {
   background-color: #ddfbff;
 }
 
-.teacher.grid {
-  height:86%;
-  display: flex;
-  flex-direction: row;
-}
-
 .user.grid {
   max-height: 85%;
   display: flex;
@@ -418,4 +410,53 @@ canvas {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+}
+
+.teacher.grid {
+  height:93%;
+  display: flex;
+  flex-direction: row;
+}
+
+.left.column.teacher.lecture {
+  width: 50%;
+  height: 100vh;
+}
+
+.right.column.teacher.lecture{
+  width: 50%;
+  height: 100vh;
+}
+
+.most.viewed.questions {
+  height:50%;
+  width: 100%;
+}
+
+.emotions.teacher.view {
+  height:50%;
+  width: 100%;
+  text-align: center;
+}
+
+.header.questions {
+  text-align: center;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.main.list.content {
+  width:100%;
+  height:100%;
+}
+
+.list.content {
+  height: 30%;
+  width:100%;
+}
+
+.main.emoji.content  {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
