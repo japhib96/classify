@@ -51,7 +51,7 @@ export default class Register extends React.Component {
       await axios.post('/saveUser', {
         username: this.state.username,
         password: this.state.password,
-        passwordRepeat: this.state.passwordRepeat,
+        passwordRepeat: this.state.confirmP,
         type: this.state.type
       })
       console.log('New user saved')

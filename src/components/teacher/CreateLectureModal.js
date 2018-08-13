@@ -29,9 +29,9 @@ class CreateLectureModal extends React.Component {
       await axios.post('/saveLecture', {
         classId : this.props.class,
         lectureTitle: this.state.lectureTitle,
-        password: this.state.password
+        password: this.state.password,
+        owner: ''
       }).then( (res) =>{
-        console.log('then', res)
         self.setState({lectureId: res.data.lectureId})
       })
 
@@ -61,14 +61,9 @@ class CreateLectureModal extends React.Component {
       })
       .then((res) => res.json() )
       .then((res) => {
-        console.log(res)
         if(res.status === 'success'){
           var filePath = 'http://localhost:3001/slide/' + res.id
-
-
           this.setState({filePath, uploadFile: '', slideId: res.id})
-
-
         }
       })
       .catch(err => {
@@ -127,29 +122,3 @@ class CreateLectureModal extends React.Component {
 }
 
 export default CreateLectureModal
-
-
-// const AddModal = () => (
-//
-//
-//   <Modal trigger={<Icon bordered circular size="big" name='add circle' aria-label='Add circle'/>} centered={false} size="large">
-//     <Modal.Header>Add a Lecture</Modal.Header>
-//     <Modal.Content>
-//     <Form>
-//         <Form.Field>
-//           <label>Document Name</label>
-//           <input placeholder='Document Name' />
-//         </Form.Field>
-//         <Form.Field>
-//           <label>Document Code</label>
-//           <input required placeholder='Document Code' />
-//         </Form.Field>
-//         <Modal.Actions centered>
-//         <Button type='submit' onClick={this.handleClose}>Submit</Button>
-//         </Modal.Actions>
-//       </Form>
-//     </Modal.Content>
-//   </Modal>
-// )
-//
-// export default AddModal
