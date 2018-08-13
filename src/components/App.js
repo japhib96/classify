@@ -14,12 +14,12 @@ import Divider from './divider';
 import Headercomp from './Headercomponent';
 import EmotionBar from './EmotionBar';
 import Comments from './Comments';
-import DashboardGrid from './dashboardGrid';
-import User from './UserGrid';
+import StudentDashboard from './student/StudentDash';
+import StudentLecture from './student/StudentLecture';
 import Classroom from './testFrontend/Classroom';
 import HomePage from './homepage.js'
 import axios from 'axios';
-import Teacher from './TeacherGrid';
+import TeacherDashboard from './teacher/TeacherDash';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Button,
@@ -92,7 +92,7 @@ export default class App extends Component {
             this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
           } />
           <Route path='/dashboard' render={() =>
-            this.state.user ? <DashboardGrid user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
+            this.state.user ? <StudentDashboard user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
           } />
           <Route exact={true} path='/class' render={() =>
             this.state.user ?
@@ -115,7 +115,7 @@ export default class App extends Component {
           <Route path='/user' render={() =>
             this.state.user ?
               this.state.lecture.id
-              ? <User user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
+              ? <StudentLecture user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
               : <Redirect to='/dashboard' />
             : <Redirect to='/login' />
           } />

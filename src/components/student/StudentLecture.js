@@ -1,11 +1,11 @@
-import Divider from './divider';
-import Headercomp from './Headercomponent';
+import Divider from '../divider';
+import Headercomp from '../Headercomponent';
 import React from 'react'
 import { Grid, Segment, Sticky, TextArea, Form, Button, Icon, Popup} from 'semantic-ui-react'
-import Comment from './Comments';
-import Emotions from './EmotionBar';
-import Statistics from './ClassStatistics';
-import Navigationbar from './Navbar';
+import Comment from '../Comments';
+import Emotions from '../EmotionBar';
+import Statistics from '../ClassStatistics';
+import Navigationbar from '../Navbar';
 import io from 'socket.io-client';
 import EmojiPicker from 'emoji-picker-react';
 import jsemoji from 'emoji-js';

@@ -1,23 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import {Menu, Segment, Icon, Header } from 'semantic-ui-react'
-import CardGroups from './projectComponent';
-import AddButton from './AddModal';
 import { Redirect } from 'react-router-dom';
 import { Grid, Container, Button, Input } from 'semantic-ui-react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
-import Headercomp from './Headercomponent';
-import Divider from './divider';
-import Class from './Classes';
-import Lecture from './Lecture'
-import Modal from './AddModal';
+import Headercomp from '../Headercomponent';
+import Divider from '../divider';
+import Modal from '../teacher/CreateLectureModal';
+import CardGroups from '../projectComponent';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
 
-export default class DashboardGridComponent extends Component {
+export default class StudentDashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
