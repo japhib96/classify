@@ -7,6 +7,7 @@ import Statistics from '../ClassStatistics';
 import Navigationbar from '../Navbar';
 import io from 'socket.io-client';
 import Slides from '../testFrontend/PDFViewer';
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'

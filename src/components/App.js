@@ -16,6 +16,7 @@ import EmotionBar from './EmotionBar';
 import Comments from './Comments';
 import StudentDashboard from './student/StudentDash';
 import StudentLecture from './student/StudentLecture';
+import TeacherLecture from './teacher/TeacherLecture';
 import Classroom from './testFrontend/Classroom';
 import HomePage from './homepage.js'
 import axios from 'axios';
@@ -40,9 +41,7 @@ export default class App extends Component {
       user: '', // account id to pass in when logging in
       classId: '',
       lectureId: '',
-
       loading: true
-      // activeItem: 'home',
     };
 
     const handleContextRef = contextRef => this.setState({ contextRef })
@@ -120,6 +119,9 @@ export default class App extends Component {
               : <Redirect to='/dashboard' />
             : <Redirect to='/login' />
           } />
+          <Route path='/teacher' render={() =>
+            <TeacherLecture  user={this.state.user} lectureId={'5b6dfa84a756233375d939f8'} /> }
+           />
         </div>
       </BrowserRouter>
 

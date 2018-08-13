@@ -6,6 +6,7 @@ import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 import Dropzone from 'react-dropzone'
 import io from "socket.io-client";
+import { Button} from 'semantic-ui-react'
 
 library.add(faExpand)
 
@@ -99,6 +100,10 @@ class MyPdfViewer extends React.Component {
     })
   }
 
+  componentDidMount() {
+
+  }
+
   render() {
     var name = this.state.uploadName
     let pagination = null;
@@ -110,41 +115,18 @@ class MyPdfViewer extends React.Component {
     return (
       <div>
         <div>
-        <Dropzone onDrop={(files) => this.onChange(files)}>
-          <div>Try dropping some files here, or click to select files to upload.</div>
-        </Dropzone>
-        {this.state.uploadName === '' ? '' : <p>{name}</p> }
-        </div>
-        <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
-        {/* {this.state.filePath === '' ? */}
-
-
-
-         {/* <Dropzone onDrop={(files) => this.onChange(files)}>
-           <div>Try dropping some files here, or click to select files to upload.</div>
-         </Dropzone>
-       {this.state.uploadName === '' ? '' : <p>{name}</p> } */}
-
           <div className="righ col">
-            <div className="dropzone">
-              <Dropzone
-                onDrop={(files) => this.onChange(files)}
-                >
-                <div>Try dropping some files here, or click to select files to upload.</div>
-              </Dropzone>
-              </div>
-            <form >
+            {/* <form >
             <h1>Drag and Drop some files</h1>
             <input
               type="file"
               onChange={(e) => this.onChange(e)}
             />
-            {/* <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button> */}
             {this.state.uploadName === '' ? '' : <p>{name}</p> }
-          </form>
-          {this.state.filePath == '' ?
+          </form> */}
+          {this.props.slideId == '' ?
           <div className="right col">
-
+            <Button>Start Lecture</Button>
           </div>
           :
           <Fullscreen
@@ -163,6 +145,7 @@ class MyPdfViewer extends React.Component {
           }
         </div>
       </div>
+    </div>
     )
   }
 }
