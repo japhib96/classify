@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import {Menu, Segment, Icon, Header } from 'semantic-ui-react'
+import {Menu, Segment, Icon, Header,Grid, Container, Button, Input} from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
-import { Grid, Container, Button, Input } from 'semantic-ui-react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
@@ -44,7 +43,7 @@ export default class StudentDashboard extends Component {
 
     return (
       <div>
-        <Headercomp title={`Hi ${this.props.user.username}!`} />
+        <Headercomp title={`Hi ${this.props.user.username}! Welcome to your Dashboard`} />
           <div className="user grid">
             <div className="left col">
               <div>
