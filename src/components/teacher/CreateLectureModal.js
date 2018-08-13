@@ -27,10 +27,10 @@ class CreateLectureModal extends React.Component {
     var self = this;
     try {
       await axios.post('/saveLecture', {
-        classId : this.props.class,
+        classId : this.props.classId,
         lectureTitle: this.state.lectureTitle,
         password: this.state.password,
-        owner: ''
+
       }).then( (res) =>{
         self.setState({lectureId: res.data.lectureId})
       })
