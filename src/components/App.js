@@ -16,10 +16,11 @@ import EmotionBar from './EmotionBar';
 import Comments from './Comments';
 import StudentDashboard from './student/StudentDash';
 import StudentLecture from './student/StudentLecture';
+import TeacherDashboard from './teacher/TeacherDash';
+// import TeacherLecture from './teacher/TeacherLecture';
 import Classroom from './testFrontend/Classroom';
 import HomePage from './homepage.js'
 import axios from 'axios';
-import TeacherDashboard from './teacher/TeacherDash';
 
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { Button,
@@ -86,19 +87,20 @@ export default class App extends Component {
         <div className="style">
           <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
           <Route path='/register' render={() =>
-            this.state.user ? <Redirect to='/dashboard' /> : <Register />
+            this.state.user ? <Redirect to='/login' /> : <Register />
           } />
           <Route path='/login' render={() =>
-            this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
-          } />
-          <Route path='/dashboard' render={() =>
-            this.state.user ? <StudentDashboard user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />
+            this.state.user
+              ? this.state.user.teacher
+                ? <Redirect to='/teacher/dashboard' />
+                : <Redirect to='/student/dashboard' />
+              : <Login setUser={this.getUser.bind(this)} />
           } />
           <Route exact={true} path='/class' render={() =>
             this.state.user ?
               this.state.classId
               ? <Classroom classId={this.state.classId} lecture={this.state.lecture} setLecture={this.setLecture.bind(this)} />
-              : <Redirect to='/dashboard' />
+              : <Redirect to='/student/dashboard' />
             : <Redirect to='/login' />
           } />
           <Route path='/class/new' render={() =>
@@ -112,12 +114,36 @@ export default class App extends Component {
           <Route path='/class/room' render={() =>
             <Chat />
           } />
-          <Route path='/user' render={() =>
-            this.state.user ?
-              this.state.lecture.id
+          <Route path='/student' render={() =>
+            this.state.user
+              ? this.state.user.teacher
+                ? <Redirect to='/teacher/dashboard' />
+                : null
+              : <Redirect to='/login' />
+          } />
+          <Route path='/student/dashboard' render={() =>
+            <StudentDashboard user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} />
+          } />
+          <Route path='/student/lecture' render={() =>
+            this.state.lecture
               ? <StudentLecture user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
-              : <Redirect to='/dashboard' />
-            : <Redirect to='/login' />
+              : <Redirect to='/student/dashboard' />
+          } />
+          <Route path='/teacher' render={() =>
+            this.state.user
+              ? !this.state.user.teacher
+                ? <Redirect to='/student/dashboard' />
+                : null
+              : <Redirect to='/login' />
+          } />
+          <Route path='/teacher/dashboard' render={() =>
+            <TeacherDashboard user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} />
+          } />
+          <Route path='/teacher/lecture' render={() =>
+            this.state.lecture
+              // ? <TeacherLecture user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
+              ? <div>TeacherLecture coming soon</div>
+              : <Redirect to='/teacher/dashboard' />
           } />
         </div>
       </BrowserRouter>

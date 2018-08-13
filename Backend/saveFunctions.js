@@ -50,11 +50,17 @@ function saveClass(classTitle, password) {
   return classroom.save();
 }
 
-async function getClasses(userId) {
+async function getClasses(userId, teacher) {
   try {
-    const student = await models.Student.findById(userId).populate('classes').exec();
-    console.log(student.classes);
-    return student.classes;
+    if (teacher) {
+      const teacher = await models.Teacher.findById(userId).populate('classes').exec();
+      console.log(teacher.classes);
+      return teacher.classes;
+    } else {
+      const student = await models.Student.findById(userId).populate('classes').exec();
+      console.log(student.classes);
+      return student.classes;
+    }
   } catch(e) {
     console.log(e);
   }

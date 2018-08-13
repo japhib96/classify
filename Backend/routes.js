@@ -60,7 +60,7 @@ router.post('/class/join', async (req, res) => {
 
 router.get('/user/classes', async (req, res) => {
   try {
-    const classes = await saveFunctions.getClasses(req.user._id);
+    const classes = await saveFunctions.getClasses(req.user._id, req.user.teacher);
     res.json({ classes: classes });
   } catch(error) {
     res.status(400).json({ error: error.message })
