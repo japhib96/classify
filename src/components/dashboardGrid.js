@@ -12,7 +12,7 @@ import Headercomp from './Headercomponent';
 import Divider from './divider';
 import Class from './Classes';
 import Lecture from './Lecture'
-import Modal from './AddModal';
+import CreateLectureModal from './CreateLectureModal';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 

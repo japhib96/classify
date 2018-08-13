@@ -5,7 +5,7 @@ import Dropzone from 'react-dropzone'
 import io from "socket.io-client";
 import PDF from 'react-pdf-js';
 
-class AddModal extends React.Component {
+class CreateLectureModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -126,7 +126,7 @@ class AddModal extends React.Component {
   }
 }
 
-export default AddModal
+export default CreateLectureModal
 
 
 // const AddModal = () => (
