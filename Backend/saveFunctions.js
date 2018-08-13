@@ -18,14 +18,14 @@ function saveStudent(username, password) {
   return student.save();
 }
 
-async function saveLecture(classId, teacherId, lectureTitle, password) {
+async function saveLecture(classId, teacher, lectureTitle, password) {
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
     reactions: [],
     currentSlide: 1,
     slideBySlide: [],
-    onwer: teacherId
+    owner: teacher._id
   })
   var lecture = await lecture.save();
   var classroom = await models.Class.findById(classId);
@@ -34,11 +34,11 @@ async function saveLecture(classId, teacherId, lectureTitle, password) {
   return lecture._id
 }
 
-async function saveClass(classTitle, teacherId, password) {
+async function saveClass(classTitle, teacher, password) {
   var classroom = new models.Class({
     name: classTitle,
     password: password,
-    owner: teacherId,
+    owner: teacher._id,
     lectures: []
   })
 

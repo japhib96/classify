@@ -23,7 +23,7 @@ class JoinClassModal extends React.Component {
   async joinClass() {
     var self = this;
     try {
-    
+
       await axios.post('/class/join', {
         classId: this.state.classID,
         password: this.state.password

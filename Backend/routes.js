@@ -28,7 +28,7 @@ var upload = multer({ storage: storage })
 router.post('/saveLecture', async (req, res) => {
   console.log('entered saveLecture')
   try {
-    var lectureId = await saveFunctions.saveLecture(req.body.classId, req.body.owner, req.body.lectureTitle, req.body.password);
+    var lectureId = await saveFunctions.saveLecture(req.body.classId, req.user, req.body.lectureTitle, req.body.password);
     console.log('saveLecture', lectureId)
     res.json({ lectureId: lectureId });
   }
@@ -39,7 +39,7 @@ router.post('/saveLecture', async (req, res) => {
 
 router.post('/saveClass', async (req, res) => {
   try {
-    var classId = await saveFunctions.saveClass(req.body.classTitle, req.body.owner, req.body.password);
+    var classId = await saveFunctions.saveClass(req.body.classTitle, req.user, req.body.password);
     res.json({ classId: classId });
   }
   catch(error) {
