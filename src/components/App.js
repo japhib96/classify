@@ -38,8 +38,8 @@ export default class App extends Component {
     this.state = {
       registered: false, // whether to load login screen or registration
       user: '', // account id to pass in when logging in
-
-      lectureId: '5b6cba6a54e07f950c1eafbc',
+      classId: '',
+      lectureId: '',
 
       loading: true
       // activeItem: 'home',
@@ -56,6 +56,11 @@ export default class App extends Component {
   setClass(classId) {
     console.log(classId)
     this.setState({ classId: classId });
+  }
+
+  setLecture(lectureId, lectureTitle) {
+    console.log(lectureId)
+    this.setState({ lecture: { id: lectureId, title: lectureTitle }});
   }
 
   async getUser() {
@@ -92,7 +97,7 @@ export default class App extends Component {
           <Route exact={true} path='/class' render={() =>
             this.state.user ?
               this.state.classId
-              ? <Classroom classId={this.state.classId} />
+              ? <Classroom classId={this.state.classId} lecture={this.state.lecture} setLecture={this.setLecture.bind(this)} />
               : <Redirect to='/dashboard' />
             : <Redirect to='/login' />
           } />
@@ -108,7 +113,11 @@ export default class App extends Component {
             <Chat />
           } />
           <Route path='/user' render={() =>
-            this.state.user ? <User  user={this.state.user} class={this.state.classId}/> : <Redirect to='/login' />
+            this.state.user ?
+              this.state.lecture.id
+              ? <User user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
+              : <Redirect to='/dashboard' />
+            : <Redirect to='/login' />
           } />
         </div>
       </BrowserRouter>

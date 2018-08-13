@@ -69,8 +69,8 @@ router.get('/user/classes', async (req, res) => {
 
 router.post('/class/lectures', async (req, res) => {
   try {
-    const lectures = await saveFunctions.getLectures(req.body.classId);
-    res.json({ lectures: lectures });
+    const info = await saveFunctions.getLectures(req.body.classId);
+    res.json({ lectures: info.lectures, title: info.title });
   } catch(error) {
     res.status(400).json({ error: error.message })
   }
