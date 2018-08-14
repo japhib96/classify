@@ -105,7 +105,7 @@ class Comments extends React.Component {
 
           render() {
             return (
-              <div>
+              <div className="main comment wrapper">
                 <Comment.Group threaded>
                   {
                     this.state.messages.map( (message, index) => {

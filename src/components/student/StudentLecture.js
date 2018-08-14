@@ -60,11 +60,11 @@ export default class UserInterface extends React.Component {
 
           <div className="chat grid">
             <div className="left col">
-              <Statistics  user={this.props.user} lecture={this.props.lectureId}/>
+              {/* <Statistics  user={this.props.user} lecture={this.props.lectureId}/> */}
             </div>
             <div className="userinterface wrapper">
               <header class="header">
-                <Header as='h1' dividing textAlign="center">
+                <Header as='h1' textAlign="center">
                 Questions for {this.props.lectureId}
                   <Header.Subheader content='Ask Questions and respond to threads.'/>
                 </Header>
@@ -72,7 +72,7 @@ export default class UserInterface extends React.Component {
               <div className="usergrid main">
                 <Comment user={this.props.user} lecture={this.props.lectureId}  />
               </div>
-              <footer class="footer">
+              <footer class="footer student">
                 <Form reply className="input field">
                   <Form.TextArea
                     autoHeight
@@ -86,7 +86,7 @@ export default class UserInterface extends React.Component {
                     className="input textarea"
                   />
                 </Form>
-                <Popup  on='click' trigger={<Button className="emoji" icon='smile' circular />} content={<EmojiPicker onEmojiClick={this.showPicker} />} />
+                <Popup  on='click' trigger={<Button className="emoji picker" icon='smile' circular />} content={<EmojiPicker onEmojiClick={this.showPicker} />} />
               </footer>
             </div>
             <div className="emotion col">

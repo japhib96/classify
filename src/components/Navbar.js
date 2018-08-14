@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Menu, Segment, Input, Dropdown, Icon} from 'semantic-ui-react';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-
+library.add(faUser)
 
 export default class Navigationbar extends Component {
   constructor(props) {
