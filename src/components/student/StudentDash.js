@@ -11,7 +11,6 @@ import Divider from '../divider';
 import JoinClassModal from './JoinClassModal';
 import CardGroups from '../projectComponent';
 import Loading from '../Loader';
-import JoinClassModal from './JoinClassModal'
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
@@ -47,7 +46,7 @@ export default class StudentDashboard extends Component {
 
   render() {
     if (this.state.loading) { return <Loading message={'Retrieving Classes...'} /> };
-    if (this.props.classId) { return <Redirect to='/class' />}
+    if (this.props.classId) { return <Redirect to='/student/class' />}
 
     return (
       <div>
