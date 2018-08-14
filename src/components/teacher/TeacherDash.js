@@ -47,9 +47,12 @@ export default class TeacherInterface extends React.Component {
 
     render() {
       if (this.state.loading) { return <Loading message={'Retrieving Classes...'} /> };
-      if (this.props.classId) { return <Redirect to='/class' />}
+      if (this.props.classId) { return <Redirect to='/teacher/class' />}
 
       return (
+        <div>
+        <Headercomp title={`Hi ${this.props.user.username}!`}
+          description={'Welcome to your Dashboard. You can view your classes and create new ones'}/>
         <div className="teacher grid">
           <div className="left col">
             <div>
@@ -98,6 +101,7 @@ export default class TeacherInterface extends React.Component {
             </div>
           </div>
         </div>
+      </div>
       );
     }
   }

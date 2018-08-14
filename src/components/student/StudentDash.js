@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
-import Modal from '../teacher/CreateLectureModal';
+import JoinClassModal from './JoinClassModal';
 import CardGroups from '../projectComponent';
 import Loading from '../Loader';
 
@@ -50,7 +50,8 @@ export default class StudentDashboard extends Component {
 
     return (
       <div>
-        <Headercomp title={`Hi ${this.props.user.username}!`} />
+        <Headercomp title={`Hi ${this.props.user.username}!`}
+          description={'Welcome to your Dashboard. You can view your classes and join new ones'}/>
           <div className="user grid">
             <div className="left col">
               <div>

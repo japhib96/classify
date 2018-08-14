@@ -5,44 +5,44 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
-import { Button} from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'
-
 library.add(faExpand)
-
-
 class MyPdfViewer extends React.Component {
-
   constructor(props) {
     super();
-
     this.state = {
       isFull: false,
-
       filePath: '',
       slideId: '',
       pages: 0,
       uploadName: ''
     };
+    this.socket = io('localhost:3001');
   }
-
   goFull = () => {
     this.setState({ isFull: true });
   }
-
   onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages });
+    this.socket.emit('TOTAL_SLIDES',{
+      slideId: this.state.slideId,
+      slides: pages,
+    })
   }
-
   handlePrevious = () => {
+    this.socket.emit('TOTAL_SLIDES',{
+      slideId: this.state.slideId,
+      page: this.state.page -1,
+    })
     this.setState({ page: this.state.page - 1 });
   }
-
   handleNext = () => {
+    this.socket.emit('TOTAL_SLIDES',{
+      slideId: this.state.slideId,
+      page: this.state.page +1,
+    })
     this.setState({ page: this.state.page + 1 });
   }
-
-
   renderPagination = (page, pages) => {
     let previousButton = <li className="previous" onClick={this.handlePrevious}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     if (page === 1) {
@@ -59,28 +59,23 @@ class MyPdfViewer extends React.Component {
           {previousButton}
           {fullScreenButton}
           {nextButton}
-
         </ul>
       </div>
     );
   }
-
   onChange(acceptedFiles, rejectedFiles) {
-
   this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
 }
-
 // onChange1(e) {
 //   console.log(e.target.files[0])
 // this.setState({uploadFile: e.target.files[0], filePath: ''})
 // }
-
   sendFile(e){
     e.preventDefault()
     // console.log(req.user)
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
-    data.append("lectureId", this.props.class)
+    data.append("lectureId", this.props.lectureId)
     fetch("/uploadSlide", {
       method:"POST",
       credentials:"same-origin",
@@ -94,21 +89,14 @@ class MyPdfViewer extends React.Component {
         // var filePath = res.event.pdf
         // var url = `url(../../slides/${filePath && filePath.filename})`
         var filePath = 'http://localhost:3001/slide/' + res.id
-
-
-        this.setState({filePath, uploadFile: ''})
-
+        var slideId = res.id
+        this.setState({filePath, uploadFile: '', slideId})
       }
     })
     .catch(err => {
       console.log("Error: ", err)
     })
   }
-
-  componentDidMount() {
-
-  }
-
   render() {
     var name = this.state.uploadName
     let pagination = null;
@@ -116,7 +104,6 @@ class MyPdfViewer extends React.Component {
       pagination = this.renderPagination(this.state.page, this.state.pages);
     }
     console.log('render', this.state.filePath)
-
     return (
       <div>
       <div>
@@ -128,34 +115,6 @@ class MyPdfViewer extends React.Component {
       <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
       {this.state.filePath === '' ?
         <div>
-          <div className="righ col">
-            {/* <form >
-            <h1>Drag and Drop some files</h1>
-            <input
-              type="file"
-              onChange={(e) => this.onChange(e)}
-            />
-            {this.state.uploadName === '' ? '' : <p>{name}</p> }
-          </form> */}
-          {this.props.slideId == '' ?
-          <div className="right col">
-            <Button>Start Lecture</Button>
-          </div>
-          :
-          <Fullscreen
-            enabled={this.state.isFull}
-            onChange={isFull => this.setState({isFull})}
-            >
-              <div className="pdf view">
-                <PDF
-                  file={this.state.filePath}
-                  onDocumentComplete={this.onDocumentComplete}
-                  page={this.state.page}
-                />
-                {pagination}
-              </div>
-            </Fullscreen>
-          }
         </div>
         :
         <Fullscreen
@@ -173,9 +132,7 @@ class MyPdfViewer extends React.Component {
           </Fullscreen>
         }
       </div>
-    </div>
     )
   }
 }
-
 export default MyPdfViewer;
