@@ -67,7 +67,6 @@ export default class TeacherInterface extends React.Component {
                 <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Class Statistics</h2>
               </Container>
             </div>
-              {/* <Statistics  user={this.props.user} class={this.props.class} /> */}
           </div>
           <div className="right col">
             <header className="toolbar dashboard">
@@ -83,18 +82,13 @@ export default class TeacherInterface extends React.Component {
               {
                 this.state.classes.map((classroom) => {
                   return (
-                    <Grid.Column  width={12} floated="right" className="style">
-                      <Grid  columns={1} className="head comp" >
-                        <Grid.Row  stretched verticalAlign="top">
-                          <Grid.Column className="dashboard card style" width={4}>
-                            <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} />
-                          </Grid.Column>
-                        </Grid.Row>
-                      </Grid>
-                    </Grid.Column>
+                    <div>
+                      <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} />
+                    </div>
                   )
-                })
-              }
+                }
+              )
+            }
             </div>
           </div>
         </div>

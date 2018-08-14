@@ -11,6 +11,7 @@ import Divider from '../divider';
 import Modal from '../teacher/CreateLectureModal';
 import CardGroups from '../projectComponent';
 import Loading from '../Loader';
+import JoinClassModal from './JoinClassModal'
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 

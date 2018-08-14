@@ -22,7 +22,8 @@ class MyPdfViewer extends React.Component {
       filePath: '',
       slideId: '',
       pages: 0,
-      uploadName: ''
+      uploadName: '',
+      slideId: ''
     };
   }
 
@@ -67,13 +68,13 @@ class MyPdfViewer extends React.Component {
 
   onChange(acceptedFiles, rejectedFiles) {
 
-  this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
-}
+    this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
+  }
 
-// onChange1(e) {
-//   console.log(e.target.files[0])
-// this.setState({uploadFile: e.target.files[0], filePath: ''})
-// }
+  // onChange1(e) {
+  //   console.log(e.target.files[0])
+  // this.setState({uploadFile: e.target.files[0], filePath: ''})
+  // }
 
   sendFile(e){
     e.preventDefault()
@@ -96,7 +97,7 @@ class MyPdfViewer extends React.Component {
         var filePath = 'http://localhost:3001/slide/' + res.id
 
 
-        this.setState({filePath, uploadFile: ''})
+        this.setState({filePath, uploadFile: '', slideId: res.id})
 
       }
     })
@@ -116,25 +117,14 @@ class MyPdfViewer extends React.Component {
 
     return (
       <div>
-      <div>
-      <Dropzone onDrop={(files) => this.onChange(files)}>
-        <div>Try dropping some files here, or click to select files to upload.</div>
-      </Dropzone>
-      {this.state.uploadName === '' ? '' : <p>{name}</p> }
-      </div>
-      <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
-      {this.state.filePath === '' ?
         <div>
-          <div className="righ col">
-            {/* <form >
-            <h1>Drag and Drop some files</h1>
-            <input
-              type="file"
-              onChange={(e) => this.onChange(e)}
-            />
-            {this.state.uploadName === '' ? '' : <p>{name}</p> }
-          </form> */}
-          {this.props.slideId == '' ?
+          <Dropzone onDrop={(files) => this.onChange(files)}>
+            <div>Try dropping some files here, or click to select files to upload.</div>
+          </Dropzone>
+          {this.state.uploadName === '' ? '' : <p>{name}</p> }
+        </div>
+        <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
+          {this.state.slideId == '' ?
           <div className="right col">
             <Button>Start Lecture</Button>
           </div>
@@ -154,25 +144,9 @@ class MyPdfViewer extends React.Component {
             </Fullscreen>
           }
         </div>
-        :
-        <Fullscreen
-          enabled={this.state.isFull}
-          onChange={isFull => this.setState({isFull})}
-          >
-            <div className="pdf view">
-              <PDF
-                file={this.state.filePath}
-                onDocumentComplete={this.onDocumentComplete}
-                page={this.state.page}
-              />
-              {pagination}
-            </div>
-          </Fullscreen>
-        }
-      </div>
-    </div>
-    )
+      )
+    }
   }
-}
+
 
 export default MyPdfViewer;

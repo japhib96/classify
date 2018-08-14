@@ -97,7 +97,8 @@ export default class App extends Component {
               ? this.state.user.teacher
                 ? <Redirect to='/teacher/dashboard' />
                 : <Redirect to='/student/dashboard' />
-              : <Login setUser={this.getUser.bind(this)} />
+              : 
+              <Login setUser={this.getUser.bind(this)} />
           } />
           <Route exact={true} path='/class' render={() =>
             this.state.user ?
