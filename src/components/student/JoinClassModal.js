@@ -31,8 +31,11 @@ class JoinClassModal extends React.Component {
         classId: this.state.classID,
         password: this.state.password
       }).then( (res) =>{
-        console.log('Class Sucessfully Joined');
-        self.props.setClass(res.data.id);
+        if(res.data.result.error === ''){
+          self.props.setClass(res.data.result.id);
+        } else{
+          alert(res.data.result.error)
+        }
       })
     }
     catch(error) {
