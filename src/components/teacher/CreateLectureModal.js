@@ -4,6 +4,7 @@ import axios from 'axios';
 import Dropzone from 'react-dropzone'
 import io from "socket.io-client";
 import PDF from 'react-pdf-js';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 class CreateLectureModal extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class CreateLectureModal extends React.Component {
       filePath: '',
       uploadName: '',
       lectureId: '',
-      slideId: ''
+      slideId: '',
+      modalOpen: false,
+      redirect: false
 
 
     };
@@ -34,7 +37,8 @@ class CreateLectureModal extends React.Component {
       }).then( (res) =>{
         self.setState({lectureId: res.data.lectureId})
       })
-
+      this.handleClose();
+      this.props.setLecture(this.state.lectureId, this.state.lectureTitle)
       this.sendFile()
     }
     catch(error) {
@@ -42,15 +46,17 @@ class CreateLectureModal extends React.Component {
     }
   }
 
-    onChange(acceptedFiles, rejectedFiles) {
+    handleClose = () => this.setState({ modalOpen: false })
+    handleOpen = () => this.setState({ modalOpen: true })
 
+    onChange(acceptedFiles, rejectedFiles) {
     this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
   }
 
     sendFile(){
       // e.preventDefault()
       // console.log(req.user)
-      console.log('classroom saved', this.state.lectureId)
+      console.log('lecture saved', this.state.lectureId)
       var data = new FormData()
       data.append("uploadFile", this.state.uploadFile)
       data.append("lectureId", this.state.lectureId)
@@ -62,8 +68,10 @@ class CreateLectureModal extends React.Component {
       .then((res) => res.json() )
       .then((res) => {
         if(res.status === 'success'){
+          console.log('it worked', res.id)
           var filePath = 'http://localhost:3001/slide/' + res.id
           this.setState({filePath, uploadFile: '', slideId: res.id})
+
         }
       })
       .catch(err => {
@@ -81,10 +89,11 @@ class CreateLectureModal extends React.Component {
 
 
   render() {
+
     var name = this.state.uploadName
     return (
-      <Modal trigger={<Icon bordered circular size="big" name='add circle' aria-label='Add circle'/>} centered={false} size="large">
-        <Modal.Header>Add a Session</Modal.Header>
+      <Modal trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen}>
+        <Modal.Header>Create A Lecture</Modal.Header>
         <Modal.Content>
         <Form>
             <Form.Field>
@@ -98,24 +107,12 @@ class CreateLectureModal extends React.Component {
             <Dropzone onDrop={(files) => this.onChange(files)}>
               <div>Try dropping some files here, or click to select files to upload.</div>
             </Dropzone>
-            {this.state.uploadName === '' ? '' : <p>{name}</p> }
+            {this.state.uploadName === '' ? '' : <div><p>{name}</p> <Button type='submit' onClick={() => this.saveLecture()}>Submit</Button></div> }
             <Modal.Actions centered>
-            <Button type='submit' onClick={() => this.saveLecture()}>Submit</Button>
             </Modal.Actions>
           </Form>
         </Modal.Content>
-        {this.state.filePath === '' ?
-          <div>
 
-          </div>
-          :
-                <PDF
-                  style={{display: 'none'}}
-                  file={this.state.filePath}
-                  onDocumentComplete={this.onDocumentComplete}
-                  page={this.state.page}
-                />
-          }
       </Modal>
     );
   }

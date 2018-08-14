@@ -90,7 +90,7 @@ export default class App extends Component {
           } />
           <Route path='/login' render={() =>
              this.state.user ? <Redirect to='/dashboard' /> : <Login setUser={this.getUser.bind(this)} />
-            // <Login setUser={this.getUser.bind(this)} />
+             // <Login setUser={this.getUser.bind(this)} />
           } />
           <Route path='/dashboard' render={() =>
             this.state.user ? <StudentDashboard user={this.state.user} setClass={this.setClass.bind(this)} classId={this.state.classId} /> : <Redirect to='/login' />

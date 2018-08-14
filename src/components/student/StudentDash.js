@@ -19,6 +19,7 @@ export default class StudentDashboard extends Component {
     this.state = {
       loading: true,
       classes: null,
+      rerender: ''
     }
   }
 
@@ -35,6 +36,10 @@ export default class StudentDashboard extends Component {
     });
     console.log(classes)
     this.setState({ classes: classes, loading: false })
+  }
+
+  rerender(){
+    this.setState({rerender: Math.random()})
   }
 
   render() {
@@ -65,7 +70,7 @@ export default class StudentDashboard extends Component {
             <div className="right col wrapper">
               <header className="toolbar dashboard">
                 <div className="right part">
-                  <div><JoinClassModal/></div>
+                  <div><JoinClassModal setClass={this.props.setClass} /></div>
                   <div><h2>Join a Class</h2></div>
                 </div>
                 <div>
