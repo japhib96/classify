@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "prop-types": "^15.6.2",
+    "randomcolor": "^0.5.3",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-sidebar": "0.0.1",

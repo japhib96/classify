@@ -58,17 +58,17 @@ export default class StudentClassroom extends Component {
         <div className="user grid">
           <div className="left col">
             <div>
-              <Container textAlign="center" className="user dashboard menu">
+              <Container textAlign="center" className="teacher dashboard menu">
                 <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Lectures</h2>
               </Container>
             </div>
             <div>
-              <Container textAlign="center" className="user dashboard menu">
+              <Container textAlign="center" className="teacher dashboard menu">
                 <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions of {this.state.title} </h2>
               </Container>
             </div>
             <div>
-              <Container textAlign="center" className="user dashboard menu">
+              <Container textAlign="center" className="teacher dashboard menu">
                 <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> {this.state.title} Statistics</h2>
               </Container>
             </div>
