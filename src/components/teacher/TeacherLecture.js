@@ -3,19 +3,27 @@ import StatisticSection from '../ClassStatistics'
 import PDFViewer from '../testFrontend/PDFViewer';
 import EmotionBar from '../EmotionBar'
 import Headercomp from '../Headercomponent';
+import Loading from '../Loader';
 import io from 'socket.io-client';
-import { Header, List, Label} from 'semantic-ui-react'
+import { Button, Header, List, Label } from 'semantic-ui-react'
 import { Emoji } from 'emoji-mart';
-
-
-
+import axios from 'axios'
 
 class TeacherView extends React.Component {
   constructor(props) {
     super(props);
 
+    let statusMessage;
+    if (this.props.lecture.active) {
+      statusMessage = 'Pause Lecture';
+    } else {
+      statusMessage = 'Go Live'
+    }
+    console.log(statusMessage)
     this.state = {
-      allReactions: []
+      allReactions: [],
+      statusMessage: statusMessage,
+      loading: true
     };
 
     var self = this;
@@ -32,18 +40,38 @@ class TeacherView extends React.Component {
   componentDidMount() {
     this.socket.emit('JOIN_ROOM', {
       message: '',
-      class: this.props.lectureId
+      class: this.props.lecture.id
     })
 
     this.socket.emit('REACTION',{
       reaction: '',
       user: this.props.user._id,
-      class: this.props.lectureId
+      class: this.props.lecture.id
     })
   }
 
+  async toggleLecture() {
+    let active;
+    try {
+      await axios.post('/lecture/toggle', {
+        lectureId: this.props.lecture.id
+      }).then((resp) => {
+        active = resp.data.status;
+      })
+      console.log('Lecture toggled')
+      if (active) {
+        this.setState({ statusMessage: 'Pause Lecture', loading: false });
+      } else {
+        this.setState({ statusMessage: 'Go Live', loading: false });
+      }
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+
   render() {
-    console.log('render')
+    console.log(this.props.lecture.active)
     var thumbsUp=0;
     var okay=0;
     var thumbsDown=0;
@@ -68,7 +96,7 @@ class TeacherView extends React.Component {
 
     return (
       <div className="viewport">
-        <Headercomp title={this.props.lectureTitle}
+        <Headercomp title={this.props.lecture.title}
         description={this.props.user.username} />
       <div className="teacher grid">
         <div className="left column teacher lecture">
@@ -106,8 +134,9 @@ class TeacherView extends React.Component {
         </div>
 
         <div className="right column teacher lecture">
-           <PDFViewer lectureId={this.props.lectureId}/>
+           <PDFViewer lectureId={this.props.lecture.id}/>
         </div>
+        <Button onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
       </div>
     </div>
     );
