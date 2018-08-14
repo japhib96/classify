@@ -23,6 +23,7 @@ class TeacherView extends React.Component {
     this.socket = io('localhost:3001');
 
     this.socket.on("ALL_REACTIONS", function(reactions){
+      console.log('all reactions')
       self.setState({allReactions: reactions})
     })
 
@@ -42,6 +43,7 @@ class TeacherView extends React.Component {
   }
 
   render() {
+    console.log('render')
     var thumbsUp=0;
     var okay=0;
     var thumbsDown=0;

@@ -198,18 +198,20 @@ async function updateSlideTotal(slideId ,slides) {
 
 async function joinClass(user, classId, password) {
   try {
-    console.log('joinclasss', classId)
+
     var classroom = await models.Class.findById(classId);
+
     if (password === classroom.password) {
       let student = await models.Student.findById(user._id);
       student.classes = [...student.classes, classId];
       await student.save();
-      return classroom._id;
+      return {id: classroom._id, error: ''};
     } else {
-      throw new Error('Incorrect password');
+      return {id: '', error: 'Incorrect Password'};
     }
   } catch(e) {
-    console.log(e);
+    
+    return {id: '', error: 'Incorrect Class ID'};
   }
 }
 
