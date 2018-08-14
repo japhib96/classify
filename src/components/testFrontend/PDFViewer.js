@@ -105,9 +105,6 @@ class MyPdfViewer extends React.Component {
     })
   }
 
-  componentDidMount() {
-
-  }
 
   render() {
     var name = this.state.uploadName
