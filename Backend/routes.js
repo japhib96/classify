@@ -141,5 +141,13 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
   })
 
 
+  router.post('/lecture/toggle', async (req, res) => {
+    try {
+      const status = await saveFunctions.toggleLecture(req.body.lectureId);
+      res.json({ status: status });
+    } catch(error) {
+      res.status(400).json({ error: error.message })
+    }
+  })
 
 module.exports = router;

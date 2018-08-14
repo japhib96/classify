@@ -11,7 +11,7 @@ class CardGroups extends React.Component {
       console.log('class')
       this.props.setClass(this.props.classId);
     } else {
-      this.props.setLecture(this.props.lectureId, this.props.title);
+      this.props.setLecture(this.props.lectureId, this.props.title, this.props.date, this.props.active);
     }
   }
 
@@ -22,7 +22,7 @@ class CardGroups extends React.Component {
           <Card.Content>
             <Image floated='right' size='mini' src='https://react.semantic-ui.com/images/avatar/large/steve.jpg' />
             <Card.Header>{this.props.title}</Card.Header>
-            <Card.Meta>Friends of Elliot</Card.Meta>
+            <Card.Meta>{this.props.active ? 'LIVE' : `Created ${this.props.date.substring(4,15)}`}</Card.Meta>
             <Card.Description>
               Steve wants to add you to the group <strong>best friends</strong>
             </Card.Description>

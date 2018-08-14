@@ -49,6 +49,7 @@ export default class Register extends React.Component {
       e.preventDefault();
       try {
         await axios.post('/saveUser', {
+          email: this.state.email,
           username: this.state.username,
           password: this.state.password,
           passwordRepeat: this.state.confirmP,
