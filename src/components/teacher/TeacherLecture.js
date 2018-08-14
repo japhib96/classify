@@ -69,12 +69,12 @@ class TeacherView extends React.Component {
     return (
       <div className="viewport">
         <Headercomp title={this.props.lectureTitle}
-        description={this.props.user.username} />
+        description= {this.props.user.username} />
       <div className="teacher grid">
         <div className="left column teacher lecture">
           <div className="most viewed questions">
             <header class="header questions">
-              <Header as='h1' dividing textAlign="center">
+              <Header as='h1' textAlign="center">
               Top 3 rated questions in the lecture:
               </Header>
             </header>
@@ -86,20 +86,28 @@ class TeacherView extends React.Component {
           </div>
           <div className="emotions teacher view">
             <header class="header questions">
-              <Header as='h1' dividing textAlign="center">
+              <Header as='h1'  textAlign="center">
               How your class is feeling about the content:
               </Header>
             </header>
             <div className="main emoji content">
-              <div>
-                <Emoji  emoji='thumbsup' set='apple' skin="6" size={36} />
-                <Label size="massive" >{thumbsUp}</Label>
-                <Emoji  emoji='thumbsdown' set='apple' skin="6" size={36} />
-                <Label size="massive" >{okay}</Label>
-                <Emoji  emoji='ok_hand' set='apple' skin="6" size={36} />
-                <Label size="massive" >{thumbsDown}</Label>
-                <Emoji  emoji='exploding_head' set='apple' skin="6" size={36} />
-                <Label size="massive" >{confused}</Label>
+              <div className="emoji container">
+                <div className="emoji content">
+                  <Emoji  emoji='thumbsup' set='apple' skin="1" size={50} />
+                  <Label size="massive" >{thumbsUp}</Label>
+                </div>
+                <div className="emoji content">
+                  <Emoji  emoji='ok_hand' set='apple' skin="2" size={50} />
+                  <Label size="massive" >{okay}</Label>
+                </div>
+                <div className="emoji content">
+                  <Emoji  emoji='thumbsdown' set='apple' skin="3" size={50} />
+                  <Label size="massive" >{thumbsDown}</Label>
+                </div>
+                <div className="emoji content">
+                  <Emoji  emoji='exploding_head' set='apple' skin="1" size={50} />
+                  <Label size="massive" >{confused}</Label>
+                </div>
               </div>
             </div>
           </div>

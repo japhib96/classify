@@ -74,7 +74,7 @@ export default class StudentClassroom extends Component {
             </div>
           </div>
           <div className="right col wrapper">
-            <header className="toolbar dashboard">
+            <header className="toolbar teacher dashboard">
               <div className="right part">
                 <div><CreateLectureModal classId ={this.props.classId}/></div>
                 <div><h2>Join a Lecture</h2></div>
