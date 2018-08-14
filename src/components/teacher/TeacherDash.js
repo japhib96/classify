@@ -74,7 +74,7 @@ export default class TeacherInterface extends React.Component {
           <div className="right col">
             <header className="toolbar dashboard">
               <div className="right part">
-                <div><CreateClass /></div>
+                <div><CreateClass setClass={this.props.setClass} /></div>
                 <div><h2>Create a Class</h2></div>
               </div>
               <div>

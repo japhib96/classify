@@ -49,8 +49,8 @@ router.post('/saveClass', async (req, res) => {
 
 router.post('/class/join', async (req, res) => {
   try {
-    await saveFunctions.joinClass(req.user, req.body.classId, req.body.password);
-    res.json({ success: true });
+    var classId = await saveFunctions.joinClass(req.user, req.body.classId, req.body.password);
+    res.json({ id: classId });
   }
   catch(error) {
     res.status(400).json({ error: error.message })

@@ -19,6 +19,7 @@ function saveStudent(username, password) {
 }
 
 async function saveLecture(classId, teacher, lectureTitle, password) {
+  models.Lecture
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
@@ -203,7 +204,7 @@ async function joinClass(user, classId, password) {
       let student = await models.Student.findById(user._id);
       student.classes = [...student.classes, classId];
       await student.save();
-      return;
+      return classroom._id;
     } else {
       throw new Error('Incorrect password');
     }

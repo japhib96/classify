@@ -40,7 +40,7 @@ class CreateClassModal extends React.Component {
 
   handleClose = (id) =>{
     this.setState({ modalOpen: false })
-    alert(`Class Successfully Created, your Class ID is: ${id}`)
+    this.props.setClass(id)
   }
   handleOpen = () => this.setState({ modalOpen: true })
 
