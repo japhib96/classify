@@ -18,43 +18,46 @@ function saveStudent(username, password) {
   return student.save();
 }
 
-async function saveLecture(classId, lectureTitle, password) {
+async function saveLecture(classId, teacher, lectureTitle, password) {
+  models.Lecture
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
     reactions: [],
-    //owner:
-
     currentSlide: 1,
-    slideBySlide: []
+    slideBySlide: [],
+    owner: teacher._id
   })
-
   var lecture = await lecture.save();
   var classroom = await models.Class.findById(classId);
   classroom.lectures.push(lecture._id);
   var updatedClassroom = await classroom.save()
   return lecture._id
-
-
-
-
 }
 
-function saveClass(classTitle, password) {
+async function saveClass(classTitle, teacher, password) {
   var classroom = new models.Class({
     name: classTitle,
     password: password,
-    //owner:
+    owner: teacher._id,
+    lectures: []
   })
 
-  return classroom.save();
+  var classroom = await classroom.save();
+  return classroom._id
 }
 
-async function getClasses(userId) {
+async function getClasses(user) {
   try {
-    const student = await models.Student.findById(userId).populate('classes').exec();
-    console.log(student.classes);
-    return student.classes;
+    if (user.teacher) {
+      const classes = await models.Class.find({ owner: user });
+      console.log(classes);
+      return classes;
+    } else {
+      const student = await models.Student.findById(user._id).populate('classes').exec();
+      console.log(student.classes);
+      return student.classes;
+    }
   } catch(e) {
     console.log(e);
   }
@@ -195,12 +198,13 @@ async function updateSlideTotal(slideId ,slides) {
 
 async function joinClass(user, classId, password) {
   try {
+    console.log('joinclasss', classId)
     var classroom = await models.Class.findById(classId);
     if (password === classroom.password) {
       let student = await models.Student.findById(user._id);
       student.classes = [...student.classes, classId];
       await student.save();
-      return;
+      return classroom._id;
     } else {
       throw new Error('Incorrect password');
     }

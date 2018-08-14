@@ -28,7 +28,7 @@ var upload = multer({ storage: storage })
 router.post('/saveLecture', async (req, res) => {
   console.log('entered saveLecture')
   try {
-    var lectureId = await saveFunctions.saveLecture(req.body.classId, req.body.lectureTitle, req.body.password);
+    var lectureId = await saveFunctions.saveLecture(req.body.classId, req.user, req.body.lectureTitle, req.body.password);
     console.log('saveLecture', lectureId)
     res.json({ lectureId: lectureId });
   }
@@ -39,8 +39,8 @@ router.post('/saveLecture', async (req, res) => {
 
 router.post('/saveClass', async (req, res) => {
   try {
-    await saveFunctions.saveClass(req.body.classTitle, req.body.password);
-    res.json({ success: true });
+    var classId = await saveFunctions.saveClass(req.body.classTitle, req.user, req.body.password);
+    res.json({ classId: classId });
   }
   catch(error) {
     res.status(400).json({ error: error.message })
@@ -48,10 +48,9 @@ router.post('/saveClass', async (req, res) => {
 })
 
 router.post('/class/join', async (req, res) => {
-  console.log('hi')
   try {
-    await saveFunctions.joinClass(req.user, req.body.lectureId, req.body.password);
-    res.json({ success: true });
+    var classId = await saveFunctions.joinClass(req.user, req.body.classId, req.body.password);
+    res.json({ id: classId });
   }
   catch(error) {
     res.status(400).json({ error: error.message })
@@ -60,7 +59,7 @@ router.post('/class/join', async (req, res) => {
 
 router.get('/user/classes', async (req, res) => {
   try {
-    const classes = await saveFunctions.getClasses(req.user._id);
+    const classes = await saveFunctions.getClasses(req.user);
     res.json({ classes: classes });
   } catch(error) {
     res.status(400).json({ error: error.message })

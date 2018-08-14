@@ -51,7 +51,7 @@ export default class Register extends React.Component {
         await axios.post('/saveUser', {
           username: this.state.username,
           password: this.state.password,
-          passwordRepeat: this.state.passwordRepeat,
+          passwordRepeat: this.state.confirmP,
           type: this.state.type
         })
         console.log('New user saved')
@@ -61,7 +61,8 @@ export default class Register extends React.Component {
         console.log(error);
       }
     }
-}
+  }
+
   confirm1 = (password, confirm) => {
     (password===confirm)?  'yo': <span className="error">Passwords are not equal.</span>
   }

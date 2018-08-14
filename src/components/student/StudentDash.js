@@ -8,8 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
-import Modal from '../teacher/CreateLectureModal';
+import JoinClassModal from './JoinClassModal';
 import CardGroups from '../projectComponent';
+import Loading from '../Loader';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
@@ -20,6 +21,7 @@ export default class StudentDashboard extends Component {
     this.state = {
       loading: true,
       classes: null,
+      rerender: ''
     }
   }
 
@@ -38,13 +40,18 @@ export default class StudentDashboard extends Component {
     this.setState({ classes: classes, loading: false })
   }
 
+  rerender(){
+    this.setState({rerender: Math.random()})
+  }
+
   render() {
-    if (this.state.loading) { return <h2>Retrieving Classes...</h2> };
-    if (this.props.classId) { return <Redirect to='/class' />}
+    if (this.state.loading) { return <Loading message={'Retrieving Classes...'} /> };
+    if (this.props.classId) { return <Redirect to='/student/class' />}
 
     return (
-      <div>
-        <Headercomp title={`Hi ${this.props.user.username}!`} />
+      <div className="viewport">
+        <Headercomp title={`Hi ${this.props.user.username}!`}
+          description={'Welcome to your Dashboard. You can view your classes and join new ones'}/>
           <div className="user grid">
             <div className="left col">
               <div>
@@ -66,7 +73,7 @@ export default class StudentDashboard extends Component {
             <div className="right col wrapper">
               <header className="toolbar dashboard">
                 <div className="right part">
-                  <div><Modal/></div>
+                  <div><JoinClassModal setClass={this.props.setClass} /></div>
                   <div><h2>Join a Class</h2></div>
                 </div>
                 <div>
@@ -77,15 +84,9 @@ export default class StudentDashboard extends Component {
                 {
                   this.state.classes.map((classroom) => {
                     return (
-                      <Grid.Column  width={12} floated="right" className="style">
-                        <Grid  columns={1} className="head comp" >
-                          <Grid.Row  stretched verticalAlign="top">
-                            <Grid.Column className="dashboard card style" width={4}>
-                              <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} />
-                            </Grid.Column>
-                          </Grid.Row>
-                        </Grid>
-                      </Grid.Column>
+                      <div className="card container" >
+                        <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} />
+                      </div>
                     )
                   })
                 }
