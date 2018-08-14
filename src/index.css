@@ -251,6 +251,8 @@ h2 {
 
 .content.dashboard {
   text-align: left;
+  display: flex;
+  height: 73vh;
 }
 .pdf.view {
   height: 100%;

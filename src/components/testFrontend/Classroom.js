@@ -87,15 +87,9 @@ export default class Classroom extends Component {
                 {
                   this.state.lectures.map((lecture) => {
                     return (
-                      <Grid.Column  width={12} floated="right" className="style">
-                        <Grid  columns={1} className="head comp" >
-                          <Grid.Row  stretched verticalAlign="top">
-                            <Grid.Column className="dashboard card style" width={4}>
-                              <CardGroups title={lecture.lectureTitle} setLecture={this.props.setLecture} lectureId={lecture._id} />
-                            </Grid.Column>
-                          </Grid.Row>
-                        </Grid>
-                      </Grid.Column>
+                      <div>
+                        <CardGroups title={lecture.lectureTitle} setLecture={this.props.setLecture} lectureId={lecture._id} />
+                      </div>
                     )
                   })
                 }
