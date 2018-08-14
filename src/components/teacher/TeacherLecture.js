@@ -104,7 +104,7 @@ class TeacherView extends React.Component {
         </div>
 
         <div className="right column teacher lecture">
-           <PDFViewer lecture={this.props.lectureId}/>
+           <PDFViewer lectureId={this.props.lectureId}/>
         </div>
       </div>
     </div>
