@@ -229,7 +229,7 @@ h2 {
 }
 
 .right.col {
-  height: 100%;
+  height: 80vh;
   width: 100%;
   display: inline-block;
   justify-content: center;
@@ -252,7 +252,14 @@ h2 {
 .content.dashboard {
   text-align: left;
   display: flex;
+  flex-wrap: wrap;
   height: 73vh;
+}
+
+.card.container {
+  height: 18%;
+  width: 30%;
+  margin: 1em;
 }
 .pdf.view {
   height: 100%;
@@ -331,7 +338,7 @@ canvas {
 
 
 .left.col {
-  height: 83vh;
+  height: 80vh;
   width: 30%;
   margin-left: 1em;
   margin-right: 1em;
@@ -461,4 +468,8 @@ canvas {
   height: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.viewport {
+  height: 87vh;
 }

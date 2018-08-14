@@ -50,7 +50,7 @@ export default class TeacherInterface extends React.Component {
       if (this.props.classId) { return <Redirect to='/teacher/class' />}
 
       return (
-        <div>
+        <div className="viewport">
         <Headercomp title={`Hi ${this.props.user.username}!`}
           description={'Welcome to your Dashboard. You can view your classes and create new ones'}/>
         <div className="teacher grid">
@@ -85,7 +85,7 @@ export default class TeacherInterface extends React.Component {
               {
                 this.state.classes.map((classroom) => {
                   return (
-                    <div>
+                    <div className="card container">
                       <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} />
                     </div>
                   )

@@ -53,7 +53,7 @@ export default class UserInterface extends React.Component {
     return (
 
 
-      <div>
+      <div className="viewport">
         <Headercomp
           title={this.props.lectureTitle}
           description={this.props.user.username} />
