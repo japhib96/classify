@@ -9,13 +9,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
-import CreateLectureModal from '../teacher/CreateLectureModal';
+import CreateLectureModal from './CreateLectureModal';
 import Loading from '../Loader';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap)
 
 
-export default class Classroom extends Component {
+export default class TeacherClassroom extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -52,13 +52,13 @@ export default class Classroom extends Component {
 
 
   render() {
-    if (this.props.lecture) { return <Redirect to='/user' />}
+    if (this.props.lecture) { return <Redirect to='/teacher/lecture' />}
     if (this.state.loading) { return <Loading message={'Retrieving Lectures...'}/> }
 
     return (
 
       <div>
-        <Headercomp title={` Welcome to class ${this.state.title}`} />
+        <Headercomp title={this.state.title} />
           <div className="user grid">
             <div className="left col">
               <div>

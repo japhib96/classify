@@ -2,6 +2,7 @@ import React from 'react';
 import StatisticSection from '../ClassStatistics'
 import PDFViewer from '../testFrontend/PDFViewer';
 import EmotionBar from '../EmotionBar'
+import Headercomp from '../Headercomponent';
 import io from 'socket.io-client';
 import { Header, List, Label} from 'semantic-ui-react'
 import { Emoji } from 'emoji-mart';
@@ -64,9 +65,9 @@ class TeacherView extends React.Component {
 
 
     return (
-
-       // user={this.props.user} lecture={this.props.lectureId}
-
+      <div>
+        <Headercomp title={this.props.lectureTitle}
+        description={this.props.user.username} />
       <div className="teacher grid">
         <div className="left column teacher lecture">
           <div className="most viewed questions">
@@ -106,6 +107,7 @@ class TeacherView extends React.Component {
            <PDFViewer lecture={this.props.lectureId}/>
         </div>
       </div>
+    </div>
     );
   }
 }
