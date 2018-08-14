@@ -8,6 +8,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faUser)
 
+
 export default class Navigationbar extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,6 @@ export default class Navigationbar extends Component {
     this.setState({ goHome: false });
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   logout() {
     const self = this;
@@ -31,23 +31,35 @@ export default class Navigationbar extends Component {
     })
   }
 
+
   render() {
     const { activeItem } = this.state
+
+    const trigger = (
+      <span>
+        <Icon name="user" />
+          Hello, {this.props.user.username}
+      </span>
+    )
+
+    const options = [
+      {key: 'user',
+       text: (
+         <span>
+           Signed in as <strong>{this.props.user.username}</strong>
+         </span>
+       ),disabled: true,},
+      { key: 'user', text: 'Account', icon: 'user'},
+      { key: 'settings', text: 'Settings', icon: 'settings' },
+      { key: 'sign-out', text: 'Sign Out', icon: 'sign out', onClick: () => this.logout() },
+    ]
 
     return (
       <div>
         <Menu className='ui navbar' size='massive'>
           <Menu.Item header name='Classify' active={activeItem === 'home'} onClick={() => this.setState({ goHome: true })} />
           <Menu.Menu position='right'>
-            <Dropdown  className='ui icon' icon='user' floating labeled button className='icon' text='Settings' active={activeItem === 'logout'}
-              onClick={this.handleItemClick}>
-              <Dropdown.Menu>
-                <Dropdown.Header content='Settings' />
-                <Dropdown.Item >User Settings <Icon disabled name='user secret' /></Dropdown.Item>
-                <Dropdown.Item >Information <Icon disabled name='info' /></Dropdown.Item>
-                <Dropdown.Item onClick={() => this.logout()}> Logout <Icon disabled name='power off' /></Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Dropdown trigger={trigger} options={options} pointing='top right' className="user dropdown"/>
           </Menu.Menu>
         </Menu>
         {this.state.goHome ? <Redirect to='/' /> : null }
