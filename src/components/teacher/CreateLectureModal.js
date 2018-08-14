@@ -39,7 +39,7 @@ class CreateLectureModal extends React.Component {
       })
       this.handleClose();
       this.props.setLecture(this.state.lectureId, this.state.lectureTitle)
-      this.sendFile()
+      // this.sendFile()
     }
     catch(error) {
       console.log('catch', error);
@@ -49,42 +49,42 @@ class CreateLectureModal extends React.Component {
     handleClose = () => this.setState({ modalOpen: false })
     handleOpen = () => this.setState({ modalOpen: true })
 
-    onChange(acceptedFiles, rejectedFiles) {
-    this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
-  }
+  //   onChange(acceptedFiles, rejectedFiles) {
+  //   this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
+  // }
 
-    sendFile(){
-      // e.preventDefault()
-      // console.log(req.user)
-      console.log('lecture saved', this.state.lectureId)
-      var data = new FormData()
-      data.append("uploadFile", this.state.uploadFile)
-      data.append("lectureId", this.state.lectureId)
-      fetch("/uploadSlide", {
-        method:"POST",
-        credentials:"same-origin",
-        body: data
-      })
-      .then((res) => res.json() )
-      .then((res) => {
-        if(res.status === 'success'){
-          console.log('it worked', res.id)
-          var filePath = 'http://localhost:3001/slide/' + res.id
-          this.setState({filePath, uploadFile: '', slideId: res.id})
-
-        }
-      })
-      .catch(err => {
-        console.log("Error: ", err)
-      })
-    }
-
-    onDocumentComplete = (pages) => {
-      this.socket.emit('TOTAL_SLIDES', {
-        slideId: this.state.slideId,
-        slides: pages,
-      })
-    }
+    // sendFile(){
+    //   // e.preventDefault()
+    //   // console.log(req.user)
+    //   console.log('lecture saved', this.state.lectureId)
+    //   var data = new FormData()
+    //   data.append("uploadFile", this.state.uploadFile)
+    //   data.append("lectureId", this.state.lectureId)
+    //   fetch("/uploadSlide", {
+    //     method:"POST",
+    //     credentials:"same-origin",
+    //     body: data
+    //   })
+    //   .then((res) => res.json() )
+    //   .then((res) => {
+    //     if(res.status === 'success'){
+    //       console.log('it worked', res.id)
+    //       var filePath = 'http://localhost:3001/slide/' + res.id
+    //       this.setState({filePath, uploadFile: '', slideId: res.id})
+    //
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log("Error: ", err)
+    //   })
+    // }
+    //
+    // onDocumentComplete = (pages) => {
+    //   this.socket.emit('TOTAL_SLIDES', {
+    //     slideId: this.state.slideId,
+    //     slides: pages,
+    //   })
+    // }
 
 
 
@@ -92,7 +92,7 @@ class CreateLectureModal extends React.Component {
 
     var name = this.state.uploadName
     return (
-      <Modal trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen}>
+      <Modal closeIcon trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen} >
         <Modal.Header>Create A Lecture</Modal.Header>
         <Modal.Content>
         <Form>
@@ -104,10 +104,11 @@ class CreateLectureModal extends React.Component {
               <label>Lecture Password</label>
               <input required placeholder='Lecture Password' onChange={ (e)=> this.setState({password: e.target.value}) }/>
             </Form.Field>
-            <Dropzone onDrop={(files) => this.onChange(files)}>
+            <Button type='submit' onClick={() => this.saveLecture()}>Submit</Button>
+          {/*  <Dropzone onDrop={(files) => this.onChange(files)}>
               <div>Try dropping some files here, or click to select files to upload.</div>
             </Dropzone>
-            {this.state.uploadName === '' ? '' : <div><p>{name}</p> <Button type='submit' onClick={() => this.saveLecture()}>Submit</Button></div> }
+            {this.state.uploadName === '' ? '' : <div><p>{name}</p> <Button type='submit' onClick={() => this.saveLecture()}>Submit</Button></div> } */}
             <Modal.Actions centered>
             </Modal.Actions>
           </Form>
