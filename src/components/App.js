@@ -88,7 +88,7 @@ export default class App extends Component {
           <Navigationbar  setUser={this.getUser.bind(this)} user={this.state.user}/>
 
           <Route exact={true} path='/' render={ () =>
-            <TeacherStats/>
+            <HomePage/>
           } />
 
           <Route path='/register' render={() =>
