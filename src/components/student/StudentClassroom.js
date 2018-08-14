@@ -48,7 +48,13 @@ export default class StudentClassroom extends Component {
 
 
   render() {
-    if (this.props.lecture) { return <Redirect to='/student/lecture' />}
+    if (this.props.lecture) {
+      if (this.props.lecture.active) {
+        return <Redirect to='/student/lecture' />
+      } else {
+        return <Redirect to='/student/feedback' />
+      }
+    }
     if (this.state.loading) { return <Loading message={'Retrieving Lectures...'}/> }
 
     return (
@@ -88,7 +94,13 @@ export default class StudentClassroom extends Component {
                 this.state.lectures.map((lecture) => {
                   return (
                     <div>
-                      <CardGroups title={lecture.lectureTitle} setLecture={this.props.setLecture} lectureId={lecture._id} />
+                      <CardGroups
+                        title={lecture.lectureTitle}
+                        setLecture={this.props.setLecture}
+                        lectureId={lecture._id}
+                        active={lecture.active}
+                        date={lecture.created}
+                      />
                     </div>
                   )
                 })

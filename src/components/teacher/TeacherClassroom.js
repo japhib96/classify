@@ -92,7 +92,13 @@ export default class TeacherClassroom extends Component {
                   this.state.lectures.map((lecture) => {
                     return (
                       <div>
-                        <CardGroups title={lecture.lectureTitle} setLecture={this.props.setLecture} lectureId={lecture._id} />
+                        <CardGroups
+                          title={lecture.lectureTitle}
+                          setLecture={this.props.setLecture}
+                          lectureId={lecture._id}
+                          active={lecture.active}
+                          date={lecture.created}
+                        />
                       </div>
                     )
                   })

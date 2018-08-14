@@ -1,7 +1,8 @@
 const models = require('../models/models')
 
-function saveTeacher(username, password) {
+function saveTeacher(email, username, password) {
   var teacher = new models.Teacher({
+    email: email,
     username: username,
     password: password
   })
@@ -9,8 +10,9 @@ function saveTeacher(username, password) {
   return teacher.save();
 }
 
-function saveStudent(username, password) {
+function saveStudent(email, username, password) {
   var student = new models.Student({
+    email: email,
     username: username,
     password: password
   })
@@ -23,10 +25,12 @@ async function saveLecture(classId, teacher, lectureTitle, password) {
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
+    created: new Date(),
     reactions: [],
     currentSlide: 1,
     slideBySlide: [],
-    owner: teacher._id
+    owner: teacher._id,
+    active: false
   })
   var lecture = await lecture.save();
   var classroom = await models.Class.findById(classId);
@@ -39,6 +43,7 @@ async function saveClass(classTitle, teacher, password) {
   var classroom = new models.Class({
     name: classTitle,
     password: password,
+    created: new Date(),
     owner: teacher._id,
     lectures: []
   })
@@ -69,6 +74,18 @@ async function getLectures(classId) {
     const classroom = await models.Class.findById(classId).populate('lectures').exec();
     console.log(classroom.lectures);
     return { lectures: classroom.lectures, title: classroom.name };
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+async function toggleLecture(lectureId) {
+  try {
+    const lecture = await models.Lecture.findById(lectureId);
+    lecture.active = !lecture.active;
+    console.log(lecture.active);
+    await lecture.save();
+    return lecture.active;
   } catch(e) {
     console.log(e);
   }
@@ -198,18 +215,20 @@ async function updateSlideTotal(slideId ,slides) {
 
 async function joinClass(user, classId, password) {
   try {
-    console.log('joinclasss', classId)
+
     var classroom = await models.Class.findById(classId);
+
     if (password === classroom.password) {
       let student = await models.Student.findById(user._id);
       student.classes = [...student.classes, classId];
       await student.save();
-      return classroom._id;
+      return {id: classroom._id, error: ''};
     } else {
-      throw new Error('Incorrect password');
+      return {id: '', error: 'Incorrect Password'};
     }
   } catch(e) {
-    console.log(e);
+    
+    return {id: '', error: 'Incorrect Class ID'};
   }
 }
 
@@ -227,5 +246,6 @@ module.exports = {
   getClasses: getClasses,
   getLectures: getLectures,
   updateSlide: updateSlide,
-  updateSlideTotal: updateSlideTotal
+  updateSlideTotal: updateSlideTotal,
+  toggleLecture: toggleLecture
 }

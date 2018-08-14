@@ -29,7 +29,8 @@ class CreateClassModal extends React.Component {
         password: this.state.password,
         owner: '5b71e7a768c4108fe464e55e'
       }).then( (res) =>{
-        this.handleClose(res.data.classId);
+        // this.handleClose(res.data.classId);
+        this.props.setClass(res.data.classId)
         // alert(`Class Successfully Created, your Class ID is: ${res.data.classId}`)
       })
     }
@@ -40,8 +41,8 @@ class CreateClassModal extends React.Component {
 
   handleClose = (id) =>{
     this.setState({ modalOpen: false })
-    this.props.setClass(id)
   }
+
   handleOpen = () => this.setState({ modalOpen: true })
 
 
@@ -49,7 +50,7 @@ class CreateClassModal extends React.Component {
   render() {
     var name = this.state.uploadName
     return (
-      <Modal trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen}>
+      <Modal trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen} onClose={()=>this.handleClose()}>
         <Modal.Header>Create A Class</Modal.Header>
         <Modal.Content>
         <Form>
