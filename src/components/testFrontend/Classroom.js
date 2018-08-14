@@ -45,11 +45,15 @@ export default class Classroom extends Component {
     this.setState({ lectures, title, loading: false })
   }
 
+  rerender(){
+    this.forceUpdate()
+  }
+
 
 
   render() {
     if (this.props.lecture) { return <Redirect to='/user' />}
-    if (this.state.loading) { return <Loading /> }
+    if (this.state.loading) { return <Loading message={'Retrieving Lectures...'}/> }
 
     return (
 
@@ -76,8 +80,8 @@ export default class Classroom extends Component {
             <div className="right col wrapper">
               <header className="toolbar dashboard">
                 <div className="right part">
-                  <div><CreateLectureModal classId ={this.props.classId}/></div>
-                  <div><h2>Join a Lecture</h2></div>
+                  <div><CreateLectureModal classId ={this.props.classId} lecture={this.props.lecture} setLecture={this.props.setLecture}/></div>
+                  <div><h2>Create a Lecture</h2></div>
                 </div>
                 <div>
                   <Input icon='search' placeholder='Search for a Lecture...' />

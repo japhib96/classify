@@ -13,7 +13,8 @@ class CreateClassModal extends React.Component {
       filePath: '',
       uploadName: '',
       lectureId: '',
-      slideId: ''
+      slideId: '',
+      modalOpen: false
 
 
     };
@@ -28,7 +29,8 @@ class CreateClassModal extends React.Component {
         password: this.state.password,
         owner: '5b71e7a768c4108fe464e55e'
       }).then( (res) =>{
-        alert(`Class Successfully Created, your Class ID is: ${res.data.classId}`)
+        this.handleClose(res.data.classId);
+        // alert(`Class Successfully Created, your Class ID is: ${res.data.classId}`)
       })
     }
     catch(error) {
@@ -36,12 +38,18 @@ class CreateClassModal extends React.Component {
     }
   }
 
+  handleClose = (id) =>{
+    this.setState({ modalOpen: false })
+    alert(`Class Successfully Created, your Class ID is: ${id}`)
+  }
+  handleOpen = () => this.setState({ modalOpen: true })
+
 
 
   render() {
     var name = this.state.uploadName
     return (
-      <Modal trigger={<Icon bordered circular size="big" name='add circle' aria-label='Add circle'/>} centered={false} size="large">
+      <Modal trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen}>
         <Modal.Header>Create A Class</Modal.Header>
         <Modal.Content>
         <Form>

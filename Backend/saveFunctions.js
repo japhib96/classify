@@ -46,11 +46,17 @@ async function saveClass(classTitle, teacher, password) {
   return classroom._id
 }
 
-async function getClasses(userId) {
+async function getClasses(user) {
   try {
-    const student = await models.Student.findById(userId).populate('classes').exec();
-    console.log(student.classes);
-    return student.classes;
+    if (user.teacher) {
+      const classes = await models.Class.find({ owner: user });
+      console.log(classes);
+      return classes;
+    } else {
+      const student = await models.Student.findById(user._id).populate('classes').exec();
+      console.log(student.classes);
+      return student.classes;
+    }
   } catch(e) {
     console.log(e);
   }

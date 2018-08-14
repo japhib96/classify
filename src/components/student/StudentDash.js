@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import {Menu, Segment, Icon, Header,Grid, Container, Button, Input} from 'semantic-ui-react'
+import {Menu, Segment, Icon, Header } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom';
+import { Grid, Container, Button, Input } from 'semantic-ui-react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import Headercomp from '../Headercomponent';
 import Divider from '../divider';
-import JoinClassModal from './JoinClassModal';
+import Modal from '../teacher/CreateLectureModal';
 import CardGroups from '../projectComponent';
+import Loading from '../Loader';
 
 library.add(faCheckSquare, faCoffee, faGraduationCap, faQuestion, faChartLine)
 
@@ -19,6 +21,7 @@ export default class StudentDashboard extends Component {
     this.state = {
       loading: true,
       classes: null,
+      rerender: ''
     }
   }
 
@@ -37,13 +40,17 @@ export default class StudentDashboard extends Component {
     this.setState({ classes: classes, loading: false })
   }
 
+  rerender(){
+    this.setState({rerender: Math.random()})
+  }
+
   render() {
-    if (this.state.loading) { return <h2>Retrieving Classes...</h2> };
+    if (this.state.loading) { return <Loading message={'Retrieving Classes...'} /> };
     if (this.props.classId) { return <Redirect to='/class' />}
 
     return (
       <div>
-        <Headercomp title={`Hi ${this.props.user.username}! Welcome to your Dashboard`} />
+        <Headercomp title={`Hi ${this.props.user.username}!`} />
           <div className="user grid">
             <div className="left col">
               <div>
@@ -65,7 +72,7 @@ export default class StudentDashboard extends Component {
             <div className="right col wrapper">
               <header className="toolbar dashboard">
                 <div className="right part">
-                  <div><JoinClassModal/></div>
+                  <div><JoinClassModal setClass={this.props.setClass} /></div>
                   <div><h2>Join a Class</h2></div>
                 </div>
                 <div>

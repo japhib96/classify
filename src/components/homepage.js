@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import scrollToComponent from 'react-scroll-to-component';
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import image from '../images/chalk.jpg'
 import {
   Button,
   Container,
@@ -22,36 +22,43 @@ import {
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
  * such things.
  */
+
 const HomepageHeading = ({ mobile }) => (
-  <Container text style={{backgroundColor: '#312c32'}}>
-    <Header
-      as='h1'
-      content='Classify'
-      inverted
-      style={{
-        fontSize: mobile ? '2em' : '4em',
-        fontWeight: 'normal',
-        color: '#98dafc',
-        marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em',
-      }}
-    />
-    <Header
-      as='h2'
-      content='Do whatever you want when you want to.'
-      inverted
-      style={{
-        fontSize: mobile ? '1.5em' : '1.7em',
-        fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em',
-      }}
-    />
-    <Button primary size='huge'>
-      Get Started
-      <Icon name='right arrow' />
-    </Button>
-  </Container>
+
+  <div style={{backgroundImage: `url(${image})`, height: 600}}>
+    <Container text>
+      <Header
+        as='h1'
+        content='Classify'
+        inverted
+        style={{
+          fontSize: mobile ? '2em' : '4em',
+          fontWeight: 'normal',
+          marginBottom: 0,
+          marginTop: mobile ? '1.5em' : '3em',
+        }}
+      />
+      <Header
+        as='h2'
+        content='Do whatever you want when you want to.'
+        inverted
+        style={{
+          fontSize: mobile ? '1.5em' : '1.7em',
+          fontWeight: 'normal',
+          marginTop: mobile ? '0.5em' : '1.5em',
+        }}
+      />
+      <Link to={'/register'}>
+      <Button primary size='huge'>
+        Get Started
+        <Icon name='right arrow' />
+      </Button>
+      </Link>
+    </Container>
+  </div>
+
 )
+
 
 HomepageHeading.propTypes = {
   mobile: PropTypes.bool,
@@ -81,7 +88,7 @@ class DesktopContainer extends Component {
           <Segment
             inverted
             textAlign='center'
-            style={{ color:'#feffff', minHeight: 700, padding: '1em 0em' }}
+            style={{ minHeight: 700, padding: '1em 0em' }}
             vertical
           >
             <Menu
@@ -92,27 +99,24 @@ class DesktopContainer extends Component {
               size='large'
             >
               <Container>
-                <Menu.Item as='a' active>
-                  Home
-                </Menu.Item>
-                <Menu.Item as='a'>Work</Menu.Item>
-                <Menu.Item as='a'>Company</Menu.Item>
-                <Menu.Item as='a'>Careers</Menu.Item>
+
                 <Menu.Item position='right'>
-                <Link to={'/login'}>
+                  <Link to={'/login'}>
                   <Button as='a' inverted={!fixed}>
                     Log in
                   </Button>
-                </Link>
-                <Link to='/register'>
+                  </Link>
+                  <Link to={'/register'}>
                   <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                     Sign Up
                   </Button>
-                </Link>
+                  </Link>
                 </Menu.Item>
               </Container>
             </Menu>
-            <HomepageHeading />
+
+              <HomepageHeading />
+
           </Segment>
         </Visibility>
 
@@ -144,16 +148,7 @@ class MobileContainer extends Component {
     return (
       <Responsive maxWidth={Responsive.onlyMobile.maxWidth}>
         <Sidebar.Pushable>
-          <Sidebar as={Menu} animation='uncover' inverted vertical visible={sidebarOpened}>
-            <Menu.Item as='a' active>
-              Home
-            </Menu.Item>
-            <Menu.Item as='a'>Work</Menu.Item>
-            <Menu.Item as='a'>Company</Menu.Item>
-            <Menu.Item as='a'>Careers</Menu.Item>
-            <Menu.Item as='a'>Log in</Menu.Item>
-            <Menu.Item as='a'>Sign Up</Menu.Item>
-          </Sidebar>
+
 
           <Sidebar.Pusher
             dimmed={sidebarOpened}
@@ -172,12 +167,16 @@ class MobileContainer extends Component {
                     <Icon name='sidebar' />
                   </Menu.Item>
                   <Menu.Item position='right'>
+                    <Link to={'/login'}>
                     <Button as='a' inverted>
                       Log in
                     </Button>
+                    </Link>
+                    <Link to={'/register'}>
                     <Button as='a' inverted style={{ marginLeft: '0.5em' }}>
                       Sign Up
                     </Button>
+                    </Link>
                   </Menu.Item>
                 </Menu>
               </Container>
@@ -209,17 +208,19 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => (
   <ResponsiveContainer>
-    <Segment id='section1' style={{ padding: '8em 0em', backgroundColor: '#feffff' }} vertical>
-      <Grid container stackable verticalAlign='middle' style={{backgroundColor: '#feffff'}}>
-        <Grid.Row style={{backgroundColor:'#daad86'}}>
-          <Grid.Column width={8} style={{color: '#98dafc'}}>
+    <Segment style={{ padding: '8em 0em' }} vertical>
+      <Grid container stackable verticalAlign='middle'>
+        <Grid.Row>
+          <Grid.Column width={8}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              We Help Companies and Companions
+              Designed to help students and professors alike!
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              We can give your company superpowers to do things that they never thought possible.
-              Let us delight your customers and empower your needs... through pure data analytics.
+
             </p>
+            <Header as='h3' style={{ fontSize: '2em' }}>
+              Check out our video demonstration!
+            </Header>
             <Header as='h3' style={{ fontSize: '2em' }}>
               We Make Bananas That Can Dance
             </Header>
@@ -244,17 +245,23 @@ const HomepageLayout = () => (
         <Grid.Row textAlign='center'>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              "What a Company"
+              Our Story
             </Header>
-            <p style={{ fontSize: '1.33em' }}>That is what they all say about us</p>
+            <p style={{ fontSize: '1.33em' }}>
+                As students at accredited universities our founders have noticed the lack of
+                communication between students and professors during class.
+                This often leads to less student engagement and interest.
+                If students are able to give live feedback to professors and ask
+                questions they are stumped on without interrupting the flow of the class,
+                then our belief is that the learning process for students will become more active. 
+           </p>
           </Grid.Column>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              "I shouldn't have gone with their competitor."
+              Our Vision
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src='/images/avatar/large/nan.jpg' />
-              <b>Nan</b> Chief Fun Officer Acme Toys
+            Simply put we see a future where students can easily have their questions answered and professors can have a better understanding of their class. As well as a world where participation counts. Professors will be able to keep track of student participation on our platform to include in distributing participation grades. 
             </p>
           </Grid.Column>
         </Grid.Row>
