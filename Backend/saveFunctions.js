@@ -83,6 +83,8 @@ async function updateLecture(lectureId, messageData) {
     }
     var message = new models.Message(messageData);
     await message.save()
+    lecture.slideBySlide[lecture.currentSlide].messages.push(messageData);
+    await lecture.save();
     var allMessages = await lecture.getMessages();
     return allMessages;
   } catch(e) {
@@ -210,7 +212,7 @@ async function joinClass(user, classId, password) {
       return {id: '', error: 'Incorrect Password'};
     }
   } catch(e) {
-    
+
     return {id: '', error: 'Incorrect Class ID'};
   }
 }

@@ -119,6 +119,27 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
       })
   })
 
+  router.get('/getSlides', function(req, res){
+      models.Lecture.findById(req.body.lectureID, (err, lecture)=>{
+        if(err){
+          res.send(err)
+          return
+        }
+        if(lecture.slideId){
+          res.json({
+            slideId: lecture.slideId,
+            currentSlide: lecture.currentSlide,
+          })
+        } else{
+          res.json({
+            lectureId: '',
+
+          })
+        }
+
+      })
+  })
+
 
 
 module.exports = router;

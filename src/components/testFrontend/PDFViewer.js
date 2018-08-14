@@ -6,7 +6,10 @@ import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
+import axios from 'axios';
+
 library.add(faExpand)
+
 class MyPdfViewer extends React.Component {
   constructor(props) {
     super();
@@ -19,6 +22,28 @@ class MyPdfViewer extends React.Component {
     };
     this.socket = io('localhost:3001');
   }
+
+  componentDidMount(){
+    this.checkSlides()
+  }
+
+  async checkSlides(){
+    let slide;
+    await axios.post('/getSlides', {
+      lectureId : this.props.lectureId
+    })
+    .then((resp) => {
+      if(resp.data.slideId !== ''){
+        var filePath = 'http://localhost:3001/slide/' + resp.data.slideId
+        var slideId = resp.data.slideId
+        var page = resp.data.currentSlide
+        this.setState({filePath, uploadFile: '', slideId, page})
+      }
+    }).catch((e)=>{
+      alert(e)
+    });
+  }
+
   goFull = () => {
     this.setState({ isFull: true });
   }
@@ -30,14 +55,14 @@ class MyPdfViewer extends React.Component {
     })
   }
   handlePrevious = () => {
-    this.socket.emit('TOTAL_SLIDES',{
+    this.socket.emit('UPDATE_SLIDE',{
       slideId: this.state.slideId,
       page: this.state.page -1,
     })
     this.setState({ page: this.state.page - 1 });
   }
   handleNext = () => {
-    this.socket.emit('TOTAL_SLIDES',{
+    this.socket.emit('UPDATE_SLIDE',{
       slideId: this.state.slideId,
       page: this.state.page +1,
     })
@@ -106,16 +131,15 @@ class MyPdfViewer extends React.Component {
     console.log('render', this.state.filePath)
     return (
       <div>
+
+
+      {this.state.filePath === '' ?
       <div>
       <Dropzone onDrop={(files) => this.onChange(files)}>
         <div>Try dropping some files here, or click to select files to upload.</div>
       </Dropzone>
-      {this.state.uploadName === '' ? '' : <p>{name}</p> }
+      {this.state.uploadName === '' ? '' : <div><p>{name}</p><button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button></div> }
       </div>
-      <button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</button>
-      {this.state.filePath === '' ?
-        <div>
-        </div>
         :
         <Fullscreen
           enabled={this.state.isFull}
