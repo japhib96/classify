@@ -52,7 +52,7 @@ class JoinClassModal extends React.Component {
         <Modal.Content>
         <Form>
             <Form.Field>
-              <label>Class Name</label>
+              <label>Class ID</label>
               <input placeholder='Class ID' onChange={ (e)=> this.setState({classID: e.target.value}) } />
             </Form.Field>
             <Form.Field>

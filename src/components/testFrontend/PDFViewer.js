@@ -5,45 +5,45 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
-import { Button} from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'
-
 library.add(faExpand)
-
-
 class MyPdfViewer extends React.Component {
-
   constructor(props) {
     super();
-
     this.state = {
       isFull: false,
-
       filePath: '',
       slideId: '',
       pages: 0,
       uploadName: '',
       slideId: ''
     };
+    this.socket = io('localhost:3001');
   }
-
   goFull = () => {
     this.setState({ isFull: true });
   }
-
   onDocumentComplete = (pages) => {
     this.setState({ page: 1, pages });
+    this.socket.emit('TOTAL_SLIDES',{
+      slideId: this.state.slideId,
+      slides: pages,
+    })
   }
-
   handlePrevious = () => {
+    this.socket.emit('TOTAL_SLIDES',{
+      slideId: this.state.slideId,
+      page: this.state.page -1,
+    })
     this.setState({ page: this.state.page - 1 });
   }
-
   handleNext = () => {
+    this.socket.emit('TOTAL_SLIDES',{
+      slideId: this.state.slideId,
+      page: this.state.page +1,
+    })
     this.setState({ page: this.state.page + 1 });
   }
-
-
   renderPagination = (page, pages) => {
     let previousButton = <li className="previous" onClick={this.handlePrevious}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
     if (page === 1) {
@@ -60,28 +60,23 @@ class MyPdfViewer extends React.Component {
           {previousButton}
           {fullScreenButton}
           {nextButton}
-
         </ul>
       </div>
     );
   }
-
   onChange(acceptedFiles, rejectedFiles) {
-
-    this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
-  }
-
-  // onChange1(e) {
-  //   console.log(e.target.files[0])
-  // this.setState({uploadFile: e.target.files[0], filePath: ''})
-  // }
-
+  this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
+}
+// onChange1(e) {
+//   console.log(e.target.files[0])
+// this.setState({uploadFile: e.target.files[0], filePath: ''})
+// }
   sendFile(e){
     e.preventDefault()
     // console.log(req.user)
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
-    data.append("lectureId", this.props.class)
+    data.append("lectureId", this.props.lectureId)
     fetch("/uploadSlide", {
       method:"POST",
       credentials:"same-origin",
@@ -105,8 +100,6 @@ class MyPdfViewer extends React.Component {
       console.log("Error: ", err)
     })
   }
-
-
   render() {
     var name = this.state.uploadName
     let pagination = null;
@@ -114,7 +107,6 @@ class MyPdfViewer extends React.Component {
       pagination = this.renderPagination(this.state.page, this.state.pages);
     }
     console.log('render', this.state.filePath)
-
     return (
       <div>
         <div>

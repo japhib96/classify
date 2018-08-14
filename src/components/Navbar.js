@@ -47,7 +47,7 @@ export default class Navigationbar extends Component {
             </Dropdown>
           </Menu.Menu>
         </Menu>
-        {this.state.goHome ? <Redirect to='/dashboard' /> : null }
+        {this.state.goHome ? <Redirect to='/' /> : null }
       </div>
     )
   }
