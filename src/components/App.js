@@ -44,7 +44,7 @@ export default class App extends Component {
       registered: false, // whether to load login screen or registration
       user: '', // account id to pass in when logging in
       classId: '',
-      lectureId: '',
+      lecture: '',
       loading: true
     };
 
@@ -63,7 +63,11 @@ export default class App extends Component {
 
   setLecture(lectureId, lectureTitle, lectureDate, lectureStatus) {
     console.log(lectureId)
-    this.setState({ lecture: { id: lectureId, title: lectureTitle, date: lectureDate, active: lectureStatus }});
+    if (lectureId) {
+      this.setState({ lecture: { id: lectureId, title: lectureTitle, date: lectureDate, active: lectureStatus }});
+    } else {
+      this.setState({ lecture: lectureId });
+    }
   }
 
   async getUser() {
@@ -78,7 +82,7 @@ export default class App extends Component {
   }
 
   render() {
-    console.log(this.state.user)
+    console.log(this.state.classId)
     if (this.state.loading) { return <Loading message={'Loading...'}/> }
     const { contextRef } = this.state
 

@@ -23,6 +23,7 @@ export default class StudentClassroom extends Component {
       lectures: null,
       title: ''
     }
+    props.setLecture('');
   }
 
   componentDidMount() {

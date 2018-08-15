@@ -23,6 +23,7 @@ export default class StudentDashboard extends Component {
       classes: null,
       rerender: ''
     }
+    props.setClass('');
   }
 
   componentDidMount() {
