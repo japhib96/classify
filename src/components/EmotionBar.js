@@ -15,7 +15,8 @@ class Emotion extends React.Component {
   componentDidMount() {
     this.socket.emit('JOIN_ROOM', {
       message: '',
-      class: this.props.lecture
+      class: this.props.lecture,
+      user: this.props.user._id,
     })
   }
 

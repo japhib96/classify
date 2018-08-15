@@ -28,6 +28,7 @@ var upload = multer({ storage: storage })
 router.post('/saveLecture', async (req, res) => {
   console.log('entered saveLecture')
   try {
+    console.log('try', req.user)
     var lectureId = await saveFunctions.saveLecture(req.body.classId, req.user, req.body.lectureTitle, req.body.password);
     console.log('saveLecture', lectureId)
     res.json({ lectureId: lectureId });
