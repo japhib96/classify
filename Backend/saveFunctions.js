@@ -253,7 +253,6 @@ async function addNewStudent(lectureId, userId) {
     // var student = lecture.slideBySlide[0].reactions.findIndex(function(reactionObj) {
     //   return reactionObj.id === userId;
     // })
-    console.log(userId)
     if(userId){
       lecture.slideBySlide[1].reactions[userId] = 0
       // lecture.slideBySlide[1].reactions = [...lecture.slideBySlide[1].reactions, {id: userId, Reaction: 0}]

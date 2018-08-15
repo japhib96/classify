@@ -22,7 +22,7 @@ class CreateLectureModal extends React.Component {
 
 
     };
-    this.socket = io('localhost:3001');
+    this.socket = io('https://3d6051e0.ngrok.io');
   }
 
 

@@ -30,7 +30,7 @@ class Comments extends React.Component {
     };
     var self = this;
 
-    this.socket = io('localhost:3001');
+    this.socket = io('https://3d6051e0.ngrok.io');
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
       addMessage(data);

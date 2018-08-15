@@ -15,7 +15,7 @@ class StatisticSection extends React.Component {
 
     var self = this;
 
-    this.socket = io('localhost:3001');
+    this.socket = io('https://3d6051e0.ngrok.io');
 
     this.socket.on("ALL_REACTIONS", function(reactions){
       self.setState({allReactions: reactions})

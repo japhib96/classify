@@ -24,7 +24,7 @@ class MyPdfViewer extends React.Component {
       page: 1,
       loading: false
     };
-    this.socket = io('localhost:3001');
+    this.socket = io('https://3d6051e0.ngrok.io');
   }
 
   componentDidMount(){
@@ -39,7 +39,7 @@ class MyPdfViewer extends React.Component {
     .then((resp) => {
       console.log(resp)
       if(resp.data.slideId){
-        var filePath = 'http://localhost:3001/slide/' + resp.data.slideId
+        var filePath = 'https://3d6051e0.ngrok.io/slide/' + resp.data.slideId
         var slideId = resp.data.slideId
         var page = resp.data.currentSlide
         this.setState({filePath, uploadFile: '', slideId, page, loading: true})
@@ -111,7 +111,7 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        var filePath = 'http://localhost:3001/slide/' + res.id
+        var filePath = 'https://3d6051e0.ngrok.io/slide/' + res.id
         var slideId = res.id
         this.setState({filePath, uploadFile: '', slideId, loading: true })
       }
@@ -121,6 +121,7 @@ class MyPdfViewer extends React.Component {
     })
   }
   render() {
+    // if (this.state.loading) { return <Loading message={'Loading presentation...'} /> };
     console.log('page state', this.state.page)
     var name = this.state.uploadName
     let pagination = null;
@@ -152,6 +153,7 @@ class MyPdfViewer extends React.Component {
             onChange={isFull => this.setState({isFull})}
             >
               <div className="pdf view">
+                {this.state.loading ? <Loading message={'Loading presentation...'} /> : null }
                 <PDF
                   file={this.state.filePath}
                   onDocumentComplete={this.onDocumentComplete}
