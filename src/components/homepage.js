@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import image from '../images/chalk.jpg'
 import image1 from '../images/lecture.jpg'
+import image2 from '../images/Final1.jpg'
 import {
   Button,
   Container,
@@ -26,17 +27,18 @@ import {
 
 const HomepageHeading = ({ mobile }) => (
 
-  <div style={{backgroundImage: `url(${image})`, height: 600}}>
-    <Container text>
+    <div style={{ height: '100%', backgroundImage: `url(${image2})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%', height: 600}} text>
       <Header
         as='h1'
         content='Classify'
         inverted
         style={{
+          color: '#feffff',
           fontSize: mobile ? '2em' : '4em',
           fontWeight: 'normal',
           marginBottom: 0,
-          marginTop: mobile ? '1.5em' : '3em',
+          marginTop: mobile ? '0em' : '0em',
+          paddingTop: '200px'
         }}
       />
       <Header
@@ -44,6 +46,7 @@ const HomepageHeading = ({ mobile }) => (
         content='Resourceful, Reliable, Realtime lecture feedback'
         inverted
         style={{
+          color: '#feffff',
           fontSize: mobile ? '1.5em' : '1.7em',
           fontWeight: 'normal',
           marginTop: mobile ? '0.5em' : '1.5em',
@@ -55,9 +58,7 @@ const HomepageHeading = ({ mobile }) => (
         <Icon name='right arrow' />
       </Button>
       </Link>
-    </Container>
-  </div>
-
+    </div>
 )
 
 
@@ -89,7 +90,7 @@ class DesktopContainer extends Component {
           <Segment
             inverted
             textAlign='center'
-            style={{ minHeight: 700, padding: '1em 0em' }}
+            style={{ backgroundColor: '#feffff', minHeight: 700, padding: '1em 0em' }}
             vertical
           >
             <Menu
@@ -98,17 +99,18 @@ class DesktopContainer extends Component {
               pointing={!fixed}
               secondary={!fixed}
               size='large'
+              style={{backgroundColor: '#98dafc'}}
             >
               <Container>
 
                 <Menu.Item position='right'>
                   <Link to={'/login'}>
-                  <Button as='a' inverted={!fixed}>
+                  <Button as='a' inverted={!fixed} primary={fixed} style={{ backgroundColor: '#312c32', color: '#98dafc', marginLeft: '0.5em' }}>
                     Log in
                   </Button>
                   </Link>
                   <Link to={'/register'}>
-                  <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
+                  <Button as='a' inverted={!fixed} primary={fixed} style={{ backgroundColor: '#312c32', color: '#98dafc', marginLeft: '0.5em' }}>
                     Sign Up
                   </Button>
                   </Link>
