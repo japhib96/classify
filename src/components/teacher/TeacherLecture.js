@@ -14,16 +14,21 @@ class TeacherView extends React.Component {
     super(props);
 
     let statusMessage;
+    let classname;
+
     if (this.props.lecture.active) {
       statusMessage = 'Pause Lecture';
+      classname = "button active"
     } else {
       statusMessage = 'Go Live'
+      classname = "button unactive"
     }
     console.log(statusMessage)
     this.state = {
       allReactions: [],
       statusMessage: statusMessage,
-      loading: true
+      loading: true,
+      classname: classname
     };
 
     var self = this;
@@ -60,9 +65,9 @@ class TeacherView extends React.Component {
       })
       console.log('Lecture toggled')
       if (active) {
-        this.setState({ statusMessage: 'Pause Lecture', loading: false });
+        this.setState({ statusMessage: 'Pause Lecture', loading: false, classname: "button active"});
       } else {
-        this.setState({ statusMessage: 'Go Live', loading: false });
+        this.setState({ statusMessage: 'Go Live', loading: false , classname: "button unactive"});
       }
     }
     catch(error) {
@@ -144,7 +149,7 @@ class TeacherView extends React.Component {
         <div className="right column teacher lecture">
            <PDFViewer lectureId={this.props.lecture.id}/>
         </div>
-        <Button onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
+        <Button className={this.state.classname} onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
       </div>
     </div>
     );

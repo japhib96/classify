@@ -26,7 +26,7 @@ export default class UserInterface extends React.Component {
 
       this.sendMessage = ev => {
         ev.preventDefault();
-        if (ev.key === 'Enter') {
+        if(ev.keyCode == 13 && ev.shiftKey == false) {
           this.socket.emit('SEND_MESSAGE', {
             author: this.props.user.username,
             message: this.state.message,

@@ -6,7 +6,7 @@ import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
-import {Button} from 'semantic-ui-react'
+import {Button, Icon} from 'semantic-ui-react'
 library.add(faExpand)
 class MyPdfViewer extends React.Component {
   constructor(props) {
@@ -103,16 +103,21 @@ class MyPdfViewer extends React.Component {
     console.log('render', this.state.filePath)
     return (
       <div className="pdf wrapper">
-        <div className="dropzone wrapper">
+        <div className="dropzone outer wrapper">
         {this.state.filePath === '' ?
-          <div>
+          <div className="dropzone inner wrapper">
             <Dropzone onDrop={(files) => this.onChange(files)} className="dropzone area">
-              <div className="drag and drop">Drag and Drop or click to select files to upload.</div>
-              {this.state.uploadName === '' ? '' : <p>{name}</p> }
-            </Dropzone>
-              <div className="dropzone button">
-                <Button type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</Button>
+              <div className="drag and drop"> <Icon bordered circular name='add circle' size="massive" /> <br></br>
+                <h2>Drag and Drop or click to select files to upload.</h2><br></br>
+                {this.state.uploadName === '' ? '' : <h2>{name}</h2> }
               </div>
+            </Dropzone>
+            {this.state.uploadName === '' ? '' :
+              <div className="dropzone button">
+              <Button size="massive" type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</Button>
+              </div>
+           }
+
           </div>
           :
           <Fullscreen
