@@ -7,6 +7,7 @@ import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
 import {Button, Icon} from 'semantic-ui-react'
+import Loading from '../Loader';
 import axios from 'axios';
 
 library.add(faExpand)
@@ -20,9 +21,10 @@ class MyPdfViewer extends React.Component {
       slideId: '',
       pages: 0,
       uploadName: '',
-      page: 1
+      page: 1,
+      loading: false
     };
-    this.socket = io('localhost:3001');
+    this.socket = io('https://3d6051e0.ngrok.io');
   }
 
   componentDidMount(){
@@ -37,10 +39,10 @@ class MyPdfViewer extends React.Component {
     .then((resp) => {
       console.log(resp)
       if(resp.data.slideId){
-        var filePath = 'http://localhost:3001/slide/' + resp.data.slideId
+        var filePath = 'https://3d6051e0.ngrok.io/slide/' + resp.data.slideId
         var slideId = resp.data.slideId
         var page = resp.data.currentSlide
-        this.setState({filePath, uploadFile: '', slideId, page})
+        this.setState({filePath, uploadFile: '', slideId, page, loading: true})
       }
     }).catch((e)=>{
       alert(e)
@@ -51,7 +53,7 @@ class MyPdfViewer extends React.Component {
     this.setState({ isFull: true });
   }
   onDocumentComplete = (pages) => {
-    this.setState({ pages });
+    this.setState({ pages, loading: false });
     this.socket.emit('TOTAL_SLIDES',{
       slideId: this.state.slideId,
       slides: pages,
@@ -109,9 +111,32 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        var filePath = 'http://localhost:3001/slide/' + res.id
+        var filePath = 'https://3d6051e0.ngrok.io/slide/' + res.id
         var slideId = res.id
-        this.setState({filePath, uploadFile: '', slideId})
+        this.setState({filePath, uploadFile: '', slideId, loading: true })
+      }
+    })
+    .catch(err => {
+      console.log("Error: ", err)
+    })
+  }
+
+  sendFilez(){
+    var data = new FormData()
+    data.append("uploadFile", this.state.uploadFile)
+    data.append("lectureId", this.props.lectureId)
+    fetch("/uploadSlide", {
+      method:"POST",
+      credentials:"same-origin",
+      body: data
+    })
+    .then((res) => res.json() )
+    .then((res) => {
+      console.log(res)
+      if(res.status === 'success'){
+        var filePath = 'https://3d6051e0.ngrok.io/slide/' + res.id
+        var slideId = res.id
+        this.setState({filePath, uploadFile: '', slideId, loading: true })
       }
     })
     .catch(err => {
@@ -119,6 +144,7 @@ class MyPdfViewer extends React.Component {
     })
   }
   render() {
+    // if (this.state.loading) { return <Loading message={'Loading presentation...'} /> };
     console.log('page state', this.state.page)
     var name = this.state.uploadName
     let pagination = null;
@@ -150,6 +176,7 @@ class MyPdfViewer extends React.Component {
             onChange={isFull => this.setState({isFull})}
             >
               <div className="pdf view">
+                {this.state.loading ? <Loading message={'Loading presentation...'} /> : null }
                 <PDF
                   file={this.state.filePath}
                   onDocumentComplete={this.onDocumentComplete}

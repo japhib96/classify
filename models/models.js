@@ -84,10 +84,7 @@ const lectureSchema = mongoose.Schema({
   currentSlide: Number,
   slideBySlide:[{
     messages: Array,
-    reactions: [{
-      id: String,
-      Reaction: Number
-    }]
+    reactions: Object
   }],
   owner: {
     type: mongoose.Schema.ObjectId,

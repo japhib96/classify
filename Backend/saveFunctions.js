@@ -101,7 +101,7 @@ async function updateLecture(lectureId, messageData) {
     }
     var message = new models.Message(messageData);
     await message.save()
-    lecture.slideBySlide[lecture.currentSlide].messages.push(messageData);
+    lecture.slideBySlide[lecture.currentSlide].messages.push(message._id);
     await lecture.save();
     var allMessages = await lecture.getMessages();
     return allMessages;
@@ -125,16 +125,18 @@ async function updateReaction(lectureId, userId, reaction) {
       lecture.reactions.splice(index, 1);
       lecture.reactions = [...lecture.reactions, {id: userId, reaction: reaction}];
     }
-    var indexSlide = lecture.slideBySlide[lecture.currentSlide].reactions.findIndex(function(reactionObj) {
-      return reactionObj.id === userId;
-    })
-    // lecture.slideBySlide[lecture.currentSlide].reactions[userId] = reaction
-    if (indexSlide === -1) {
-      lecture.slideBySlide[lecture.currentSlide].reactions = [...lecture.slideBySlide[lecture.currentSlide].reactions, {id: userId, reaction: reaction}];
-    } else {
-      lecture.slideBySlide[lecture.currentSlide].reactions.splice(indexSlide, 1);
-      lecture.slideBySlide[lecture.currentSlide].reactions = [...lecture.slideBySlide[lecture.currentSlide].reactions, {id: userId, reaction: reaction}];
-    }
+    lecture.slideBySlide[lecture.currentSlide].reactions[userId] = reaction
+    // var indexSlide = lecture.slideBySlide[lecture.currentSlide].reactions.findIndex(function(reactionObj) {
+    //   return reactionObj.id === userId;
+    // })
+    //
+    // if (indexSlide === -1) {
+    //   lecture.slideBySlide[lecture.currentSlide].reactions = [...lecture.slideBySlide[lecture.currentSlide].reactions, {id: userId, reaction: reaction}];
+    // } else {
+    //   console.log('else', userId, reaction)
+    //   lecture.slideBySlide[lecture.currentSlide].reactions.splice(indexSlide, 1);
+    //   lecture.slideBySlide[lecture.currentSlide].reactions = [...lecture.slideBySlide[lecture.currentSlide].reactions, {id: userId, reaction: reaction}];
+    // }
     lecture.markModified('slideBySlide');
     var updatedLecture = await lecture.save();
       return updatedLecture.reactions;
@@ -216,13 +218,16 @@ async function updateSlideTotal(slideId ,slides) {
   try {
     var slide = await models.Slide.findById(slideId);
     var lecture = await models.Lecture.findById(slide.lectureId)
-    lecture.slideId = slideId;
-    lecture.slideBySlide = [];
-    for(var i =0; i <= slides; i++){
-      lecture.slideBySlide.push({messages: [], reactions: []})
+    if(lecture.slideId !== slideId){
+      lecture.slideId = slideId;
+      lecture.slideBySlide = [];
+      for(var i =0; i <= slides; i++){
+        lecture.slideBySlide.push({messages: [], reactions: {test: 0} })
+      }
+      var updatedLecture = await lecture.save()
+      return updatedLecture
     }
-    var updatedLecture = await lecture.save()
-    return updatedLecture
+    return lecture
   }
   catch(e){
     console.log(e)
@@ -251,16 +256,16 @@ async function joinClass(user, classId, password) {
 async function addNewStudent(lectureId, userId) {
   try {
     var lecture = await models.Lecture.findById(lectureId);
-    var student = lecture.slideBySlide[0].reactions.findIndex(function(reactionObj) {
-      return reactionObj.id === userId;
-    })
-    if(student === -1 && userId ){
-
-      lecture.slideBySlide[1].reactions = [...lecture.slideBySlide[1].reactions, {id: userId, Reaction: 0}]
+    // var student = lecture.slideBySlide[0].reactions.findIndex(function(reactionObj) {
+    //   return reactionObj.id === userId;
+    // })
+    if(userId){
+      lecture.slideBySlide[1].reactions[userId] = 0
+      // lecture.slideBySlide[1].reactions = [...lecture.slideBySlide[1].reactions, {id: userId, Reaction: 0}]
     }
     if(lecture.currentSlide !== 1){
       for(var i=1; i <= lecture.currentSlide; i++){
-        lecture.slideBySlide[i].reactions = [...lecture.slideBySlide[i].reactions, {id: userId, Reaction: 0}]
+        lecture.slideBySlide[i].reactions[userId] = 0
       }
     }
     lecture.markModified('slideBySlide');
