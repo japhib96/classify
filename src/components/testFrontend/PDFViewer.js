@@ -7,7 +7,10 @@ import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
 import {Button} from 'semantic-ui-react'
+import axios from 'axios';
+
 library.add(faExpand)
+
 class MyPdfViewer extends React.Component {
   constructor(props) {
     super();
@@ -16,29 +19,53 @@ class MyPdfViewer extends React.Component {
       filePath: '',
       slideId: '',
       pages: 0,
-      uploadName: ''
+      uploadName: '',
+      page: 1
     };
     this.socket = io('localhost:3001');
   }
+
+  componentDidMount(){
+    this.checkSlides()
+  }
+
+  async checkSlides(){
+    let slide;
+    await axios.post('/getSlides', {
+      lectureId : this.props.lectureId
+    })
+    .then((resp) => {
+      console.log(resp)
+      if(resp.data.slideId){
+        var filePath = 'http://localhost:3001/slide/' + resp.data.slideId
+        var slideId = resp.data.slideId
+        var page = resp.data.currentSlide
+        this.setState({filePath, uploadFile: '', slideId, page})
+      }
+    }).catch((e)=>{
+      alert(e)
+    });
+  }
+
   goFull = () => {
     this.setState({ isFull: true });
   }
   onDocumentComplete = (pages) => {
-    this.setState({ page: 1, pages });
+    this.setState({ pages });
     this.socket.emit('TOTAL_SLIDES',{
       slideId: this.state.slideId,
       slides: pages,
     })
   }
   handlePrevious = () => {
-    this.socket.emit('TOTAL_SLIDES',{
+    this.socket.emit('UPDATE_SLIDE',{
       slideId: this.state.slideId,
       page: this.state.page -1,
     })
     this.setState({ page: this.state.page - 1 });
   }
   handleNext = () => {
-    this.socket.emit('TOTAL_SLIDES',{
+    this.socket.emit('UPDATE_SLIDE',{
       slideId: this.state.slideId,
       page: this.state.page +1,
     })
@@ -65,12 +92,11 @@ class MyPdfViewer extends React.Component {
     );
   }
   onChange(acceptedFiles, rejectedFiles) {
-  this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
+  this.setState({uploadFile: acceptedFiles[0], filePath: '', page: 1, uploadName: acceptedFiles[0].name})
 }
 
   sendFile(e){
     e.preventDefault()
-
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
     data.append("lectureId", this.props.lectureId)
@@ -83,8 +109,6 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        console.log(res.id)
-
         var filePath = 'http://localhost:3001/slide/' + res.id
         var slideId = res.id
         this.setState({filePath, uploadFile: '', slideId})
@@ -95,6 +119,7 @@ class MyPdfViewer extends React.Component {
     })
   }
   render() {
+    console.log('page state', this.state.page)
     var name = this.state.uploadName
     let pagination = null;
     if (this.state.pages) {

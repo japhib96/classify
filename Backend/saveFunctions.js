@@ -21,7 +21,7 @@ function saveStudent(email, username, password) {
 }
 
 async function saveLecture(classId, teacher, lectureTitle, password) {
-  models.Lecture
+  // models.Lecture
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
@@ -30,7 +30,8 @@ async function saveLecture(classId, teacher, lectureTitle, password) {
     currentSlide: 1,
     slideBySlide: [],
     owner: teacher._id,
-    active: false
+    active: false,
+    slideId: ''
   })
   var lecture = await lecture.save();
   var classroom = await models.Class.findById(classId);
@@ -100,6 +101,8 @@ async function updateLecture(lectureId, messageData) {
     }
     var message = new models.Message(messageData);
     await message.save()
+    lecture.slideBySlide[lecture.currentSlide].messages.push(messageData);
+    await lecture.save();
     var allMessages = await lecture.getMessages();
     return allMessages;
   } catch(e) {
@@ -227,7 +230,7 @@ async function joinClass(user, classId, password) {
       return {id: '', error: 'Incorrect Password'};
     }
   } catch(e) {
-    
+
     return {id: '', error: 'Incorrect Class ID'};
   }
 }

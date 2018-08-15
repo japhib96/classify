@@ -75,27 +75,26 @@ router.post('/class/lectures', async (req, res) => {
   }
 })
 router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
-  console.log(req.body.lectureId)
     new Slide({
-
       pdf: {
         name: req.file.originalname,
         data: fs.readFileSync(req.file.path)
       },
-      // slideNumber: 1,
-      // totalSlides: 0,
       lectureId: req.body.lectureId
 
-    }).save(function(err, slide) {
+    }).save(async function(err, slide) {
       if (err) {
         res.send(err);
         return;
       }
+      var lecture =  await models.Lecture.findById(slide.lectureId);
+      lecture.slideId = slide._id;
+      lecture.save();
       fs.unlink(req.file.path, (err) =>{
         if(err){
           console.log(err)
         }
-        // saveFunctions.updateSlideTotal()
+
         res.json({
           status: "success",
           id: slide._id
@@ -118,6 +117,25 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
         // res.json(slide)
       })
   })
+
+  router.post('/getSlides', async function(req, res){
+    var lecture = await models.Lecture.findById(req.body.lectureId)
+        if(lecture.slideId !== ''){
+          console.log(lecture.slideId)
+          res.json({
+            slideId: lecture.slideId,
+            currentSlide: lecture.currentSlide,
+          })
+        } else{
+          res.json({
+            slideId: '',
+
+          })
+        }
+
+
+  })
+
 
   router.post('/lecture/toggle', async (req, res) => {
     try {
