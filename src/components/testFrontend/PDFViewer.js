@@ -18,7 +18,8 @@ class MyPdfViewer extends React.Component {
       filePath: '',
       slideId: '',
       pages: 0,
-      uploadName: ''
+      uploadName: '',
+      page: 1
     };
     this.socket = io('localhost:3001');
   }
@@ -33,7 +34,8 @@ class MyPdfViewer extends React.Component {
       lectureId : this.props.lectureId
     })
     .then((resp) => {
-      if(resp.data.slideId !== ''){
+      console.log(resp)
+      if(resp.data.slideId){
         var filePath = 'http://localhost:3001/slide/' + resp.data.slideId
         var slideId = resp.data.slideId
         var page = resp.data.currentSlide
@@ -48,7 +50,7 @@ class MyPdfViewer extends React.Component {
     this.setState({ isFull: true });
   }
   onDocumentComplete = (pages) => {
-    this.setState({ page: 1, pages });
+    this.setState({ pages });
     this.socket.emit('TOTAL_SLIDES',{
       slideId: this.state.slideId,
       slides: pages,
@@ -91,13 +93,9 @@ class MyPdfViewer extends React.Component {
   onChange(acceptedFiles, rejectedFiles) {
   this.setState({uploadFile: acceptedFiles[0], filePath: '', uploadName: acceptedFiles[0].name})
 }
-// onChange1(e) {
-//   console.log(e.target.files[0])
-// this.setState({uploadFile: e.target.files[0], filePath: ''})
-// }
+
   sendFile(e){
     e.preventDefault()
-    // console.log(req.user)
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
     data.append("lectureId", this.props.lectureId)
@@ -110,9 +108,6 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        console.log(res.id)
-        // var filePath = res.event.pdf
-        // var url = `url(../../slides/${filePath && filePath.filename})`
         var filePath = 'http://localhost:3001/slide/' + res.id
         var slideId = res.id
         this.setState({filePath, uploadFile: '', slideId})
@@ -123,6 +118,7 @@ class MyPdfViewer extends React.Component {
     })
   }
   render() {
+    console.log('page state', this.state.page)
     var name = this.state.uploadName
     let pagination = null;
     if (this.state.pages) {

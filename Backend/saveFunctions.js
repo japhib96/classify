@@ -21,7 +21,7 @@ function saveStudent(email, username, password) {
 }
 
 async function saveLecture(classId, teacher, lectureTitle, password) {
-  models.Lecture
+  // models.Lecture
   var lecture = new models.Lecture({
     lectureTitle: lectureTitle,
     password: password,
@@ -30,7 +30,8 @@ async function saveLecture(classId, teacher, lectureTitle, password) {
     currentSlide: 1,
     slideBySlide: [],
     owner: teacher._id,
-    active: false
+    active: false,
+    slideId: ''
   })
   var lecture = await lecture.save();
   var classroom = await models.Class.findById(classId);
