@@ -84,7 +84,10 @@ const lectureSchema = mongoose.Schema({
   currentSlide: Number,
   slideBySlide:[{
     messages: Array,
-    reactions: Array,
+    reactions: [{
+      id: String,
+      Reaction: Number
+    }]
   }],
   owner: {
     type: mongoose.Schema.ObjectId,
@@ -98,6 +101,21 @@ lectureSchema.methods.getMessages = async function() {
   var messages = await messageModel.find({ 'lecture': self._id });
   return messages;
 }
+
+// lectureSchema.methods.getSlideBySlide = async function() {
+//   var self = this;
+//   var slideBySlide = await messageModel.find({ 'lecture': self._id });
+//   return slideBySlide;
+// }
+
+
+// const slideBySlideSchema = mongoose.Schema({
+//   lecture: String,
+//   slideBySlide:[{
+//     id: String,
+//     Reaction: Number
+//   }]
+// })
 
 const messageSchema = mongoose.Schema({
   message: {
@@ -167,6 +185,7 @@ const lectureModel = mongoose.model('Lecture', lectureSchema);
 const messageModel = mongoose.model('Message', messageSchema);
 const classModel = mongoose.model('Class', classSchema);
 const slideModel = mongoose.model('Slide', slideSchema);
+// const slideBySlideModel = mongoose.model('SlideBySlide', slideBySlideSchema);
 
 module.exports = {
   Teacher: teacherModel,
@@ -174,5 +193,6 @@ module.exports = {
   Lecture: lectureModel,
   Message: messageModel,
   Class: classModel,
-  Slide: slideModel
+  Slide: slideModel,
+  // SlideBySlide: slideBySlideModel
 }

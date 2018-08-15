@@ -125,6 +125,17 @@ async function updateReaction(lectureId, userId, reaction) {
       lecture.reactions.splice(index, 1);
       lecture.reactions = [...lecture.reactions, {id: userId, reaction: reaction}];
     }
+    var indexSlide = lecture.slideBySlide[lecture.currentSlide].reactions.findIndex(function(reactionObj) {
+      return reactionObj.id === userId;
+    })
+    // lecture.slideBySlide[lecture.currentSlide].reactions[userId] = reaction
+    if (indexSlide === -1) {
+      lecture.slideBySlide[lecture.currentSlide].reactions = [...lecture.slideBySlide[lecture.currentSlide].reactions, {id: userId, reaction: reaction}];
+    } else {
+      lecture.slideBySlide[lecture.currentSlide].reactions.splice(indexSlide, 1);
+      lecture.slideBySlide[lecture.currentSlide].reactions = [...lecture.slideBySlide[lecture.currentSlide].reactions, {id: userId, reaction: reaction}];
+    }
+    lecture.markModified('slideBySlide');
     var updatedLecture = await lecture.save();
       return updatedLecture.reactions;
   } catch(e){
@@ -190,6 +201,9 @@ async function updateSlide(slideId, pageNum) {
   try {
     var slide = await models.Slide.findById(slideId);
     var lecture = await models.Lecture.findById(slide.lectureId)
+    if(lecture.currentSlide < pageNum){
+      lecture.slideBySlide[pageNum].reactions = lecture.slideBySlide[pageNum -1].reactions
+    }
     lecture.currentSlide = pageNum;
     var updatedLecture = await lecture.save()
     return updatedLecture
@@ -207,7 +221,6 @@ async function updateSlideTotal(slideId ,slides) {
     for(var i =0; i <= slides; i++){
       lecture.slideBySlide.push({messages: [], reactions: []})
     }
-    console.log(lecture.slideBySlide)
     var updatedLecture = await lecture.save()
     return updatedLecture
   }
@@ -235,6 +248,29 @@ async function joinClass(user, classId, password) {
   }
 }
 
+async function addNewStudent(lectureId, userId) {
+  try {
+    var lecture = await models.Lecture.findById(lectureId);
+    var student = lecture.slideBySlide[0].reactions.findIndex(function(reactionObj) {
+      return reactionObj.id === userId;
+    })
+    if(student === -1 && userId ){
+
+      lecture.slideBySlide[1].reactions = [...lecture.slideBySlide[1].reactions, {id: userId, Reaction: 0}]
+    }
+    if(lecture.currentSlide !== 1){
+      for(var i=1; i <= lecture.currentSlide; i++){
+        lecture.slideBySlide[i].reactions = [...lecture.slideBySlide[i].reactions, {id: userId, Reaction: 0}]
+      }
+    }
+    lecture.markModified('slideBySlide');
+    await lecture.save()
+    return
+  } catch(e) {
+    console.log(e)
+  }
+}
+
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
@@ -250,5 +286,6 @@ module.exports = {
   getLectures: getLectures,
   updateSlide: updateSlide,
   updateSlideTotal: updateSlideTotal,
-  toggleLecture: toggleLecture
+  toggleLecture: toggleLecture,
+  addNewStudent: addNewStudent
 }
