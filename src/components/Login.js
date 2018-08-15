@@ -11,17 +11,36 @@ export default class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      type: 1,
+      type: "Student",
       done: '',
       isError: false,
       errorMsg: '',
-      message: 'ui hidden error message'
+      message: 'ui hidden error message',
+      classname1: "student act",
+      classname2:""
     }
+
+    // let classname;
+    //
+    // if(this.state.type === 1) {
+    //   classname ="student act"
+    // } else {
+    //     classname ="student inactive"
+    // }
+    //
+    // if(this.state.type === 2) {
+    //   classname ="teacher act"
+    // } else {
+    //     classname ="teacher inactive"
+    // }
   }
+
+
+
   async logIn(e) {
     e.preventDefault();
     try {
-      if (this.state.type === 1) {
+      if (this.state.type === "Student") {
         await axios.post('/loginStudent', {
           username: this.state.username,
           password: this.state.password,
@@ -65,7 +84,9 @@ export default class Login extends React.Component {
         `}</style>
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
-
+            <Header as='h2' style={{width:"95%"}} textAlign='center'>
+             Log-in to your {this.state.type} account
+            </Header>
             <Form size='large'>
 
               <Segment stacked style={{background: '#98dafc'}}>
@@ -90,10 +111,12 @@ export default class Login extends React.Component {
                   onChange={(e) => this.setState({ password: e.target.value })}
                 />
 
-                <ToggleButtonGroup type="radio" name="options" inline-block required defaultValue={this.state.type}>
-                  <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
-                  <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
-                </ToggleButtonGroup>
+                <Button.Group defaultValue={this.state.type}>
+                  <Button  className={this.state.classname1} value={1} onClick={(e) => this.setState({ type: "Student", classname1: "student act", classname2: ""})}>Student</Button>
+                  <Button.Or />
+                  <Button  className={this.state.classname2} value={2} onClick={(e) => this.setState({ type: "Teacher", classname2: "teacher act", classname1: ""})}>Teacher</Button>
+                </Button.Group>
+
 
                 <div className={this.state.message}>
                   <div className='content'>
@@ -101,15 +124,13 @@ export default class Login extends React.Component {
                     <p>Wrong username or password</p>
                     </div>
                 </div>
-
-                <div style={{paddingTop: 10}}>
-                    <button class='ui inverted button' fluid size='large' onClick={(e) => this.logIn(e)}>
-                      Log in
-                    </button>
-                </div>
+                  <div className="login button">
+                    <Button content="Login" className='user dropdown' fluid size='large' onClick={(e) => this.logIn(e)}>
+                    </Button>
+                  </div>
               </Segment>
             </Form>
-            <Message>
+            <Message style={{width: "96%"}}>
               New to us? <Link to={'/register'}>Sign Up</Link>
             </Message>
           </Grid.Column>

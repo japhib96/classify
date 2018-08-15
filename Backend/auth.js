@@ -21,7 +21,7 @@ module.exports = function(passport) {
       res.status(400).json({ error: "Passwords don't match" });
     }
     try {
-      if (req.body.type === 1) {
+      if (req.body.type === "Student") {
         await saveFunctions.saveStudent(req.body.email, req.body.username, req.body.password);
       } else {
         await saveFunctions.saveTeacher(req.body.email, req.body.username, req.body.password);
