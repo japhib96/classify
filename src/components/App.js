@@ -90,6 +90,9 @@ export default class App extends Component {
           <Route exact={true} path='/' render={ () =>
             <HomePage />
           } />
+          <Route path='/stats' render={ () =>
+            <TeacherStats />
+          } />
           <Route path='/register' render={() =>
             this.state.user ? <Redirect to='/login' /> : <Register />
           } />

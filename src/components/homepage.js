@@ -216,15 +216,13 @@ const HomepageLayout = () => (
             <Header as='h3' style={{ fontSize: '2em' }}>
               Designed to help students and professors alike!
             </Header>
-            <p style={{ fontSize: '1.33em' }}>
 
-            </p>
             <Header as='h3' style={{ fontSize: '2em' }}>
               Check out our video demonstration!
             </Header>
           </Grid.Column>
-          <Grid.Column floated='right' width={6}>
-            <Image bordered rounded size='large' src='../images/lecture.jpg' />
+          <Grid.Column floated width={6}>
+              <Image src='lecture.jpg' rounded spaced centered />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
