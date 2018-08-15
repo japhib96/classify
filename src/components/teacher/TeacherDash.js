@@ -28,6 +28,7 @@ export default class TeacherInterface extends React.Component {
       loading: true,
       classes: null,
     }
+    props.setClass('');
   }
 
   componentDidMount() {
