@@ -43,12 +43,13 @@ export default class Register extends React.Component {
     if(this.state.password!==this.state.confirmP){
       this.setState({ message:'ui visible error message', passwords: 'ui visible error message' })
     }
-    if(this.state.password.length>6 && this.email1(this.state.email) && this.state.password===this.state.confirmP){
+    if(this.state.password.length>=6 && this.email1(this.state.email) && this.state.password===this.state.confirmP){
       this.setState({ message:'ui hidden error message', done: true })
       console.log('3')
       e.preventDefault();
       try {
         await axios.post('/saveUser', {
+          email: this.state.email,
           username: this.state.username,
           password: this.state.password,
           passwordRepeat: this.state.confirmP,

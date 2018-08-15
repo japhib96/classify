@@ -64,7 +64,7 @@ class Emotion extends React.Component {
 
       <div className="emotiongrid wrapper">
          <header class="header">
-           <Header as='h1' dividing textAlign="center">
+           <Header as='h1' textAlign="center">
              Emotion Bar
              <Header.Subheader content='What is your understanding of the current situation?' />
            </Header>
@@ -83,10 +83,6 @@ class Emotion extends React.Component {
                <Emoji emoji='exploding_head' set='apple' skin='5' size={60} />
              </Segment>
            </div>
-
-          <footer class="footer">
-              
-          </footer>
       </div>
 
     );

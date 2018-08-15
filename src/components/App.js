@@ -61,9 +61,9 @@ export default class App extends Component {
     this.setState({ classId: classId });
   }
 
-  setLecture(lectureId, lectureTitle) {
+  setLecture(lectureId, lectureTitle, lectureDate, lectureStatus) {
     console.log(lectureId)
-    this.setState({ lecture: { id: lectureId, title: lectureTitle }});
+    this.setState({ lecture: { id: lectureId, title: lectureTitle, date: lectureDate, active: lectureStatus }});
   }
 
   async getUser() {
@@ -132,7 +132,12 @@ export default class App extends Component {
           } />
           <Route path='/student/lecture' render={() =>
             this.state.lecture
-              ? <StudentLecture user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
+              ? <StudentLecture user={this.state.user} lecture={this.state.lecture} />
+              : <Redirect to='/student/dashboard' />
+          } />
+          <Route path='/student/feedback' render={() =>
+            this.state.lecture
+              ? <div>Feedback for {this.state.lecture.title} coming soon!</div>
               : <Redirect to='/student/dashboard' />
           } />
           <Route path='/teacher' render={() =>
@@ -152,7 +157,7 @@ export default class App extends Component {
           } />
           <Route path='/teacher/lecture' render={() =>
             this.state.lecture
-              ? <TeacherLecture user={this.state.user} lectureId={this.state.lecture.id} lectureTitle={this.state.lecture.title} />
+              ? <TeacherLecture user={this.state.user} lecture={this.state.lecture} />
               : <Redirect to='/teacher/dashboard' />
           } />
         </div>

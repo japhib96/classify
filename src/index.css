@@ -2,18 +2,19 @@ body {
   margin: 0;
   padding: 0;
   font-family: Raleway, sans-serif;
-  background-color: #fffaf0;
+  background-color: #ffffff;
   height:100%;
 }
 .ui.navbar {
   background-color: #98dafc;
-  box-shadow: 2px 2px;
+  align-items: center;
 }
-.ui.icon:hover {
-  background-color: #f64c72;
+.user.dropdown:hover {
+  background-color: #83c8ef;
   color: #3a7999;
-  box-shadow: inset 0 0 0 3px #3a7999;
+  height: 30%;
 }
+
 .ui.segment {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -44,9 +45,7 @@ body {
   background-color: ;
   justify-content: center;
 }
-.ui..emoji {
-  background-color: white;
-}
+
 .ui.segment.emoji.top:hover {
   background-color: green;
   color: black;
@@ -135,6 +134,10 @@ body {
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
+.ui.button.floating.labeled.dropdown.icon{
+  background-color: #98dafc;
+}
+
 
 .left.aligned.center.aligned.column.reply {
   margin-top: 10px;
@@ -193,6 +196,18 @@ body {
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
+.teacher.dashboard.menu {
+  background-color: #68ff72;
+  justify-content: center;
+  margin-bottom: 2em;
+  align-items: center;
+}
+.teacher.dashboard.menu:hover {
+  background-color: #ef9797;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
 
 h2 {
     margin-top: 0px;
@@ -202,6 +217,7 @@ h2 {
 .ui.raised.card.cardItem {
   width: 90%;
 }
+
 
 .stretched.left.floated.four.wide.column.style {
   border-right: 1px solid gray;
@@ -278,6 +294,15 @@ h2 {
   border-radius: 5px;
 }
 
+.toolbar.teacher.dashboard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #68ff72;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
 .content.dashboard:hover {
   background-color: #fcfdff;
   color: #3a7999;
@@ -296,10 +321,6 @@ canvas {
 }
 
 
- /* .ui.modal {
-  height: 300px;
-} */
-
 .ui.loader {
   width: 100%;
   height:100%;
@@ -311,7 +332,7 @@ canvas {
   text-align: center;
   justify-content: center;
   height: 80vh;
-  width:70%;
+  width:50%;
 }
 
 .userinterface.wrapper > * {
@@ -325,7 +346,7 @@ canvas {
   display: flex;
   flex-flow: row wrap;
   text-align: center;
-  height: 83vh;
+  height: 80vh;
   width:100%;
 }
 
@@ -339,7 +360,7 @@ canvas {
 
 .left.col {
   height: 80vh;
-  width: 30%;
+  width: 33%;
   margin-left: 1em;
   margin-right: 1em;
   padding-right: 1em;
@@ -353,15 +374,19 @@ canvas {
 }
 
 .emotion.col {
-  width: 30%;
-  height: 83vh;
+  width: 17%;
+  height: 80vh;
   border-left: 1px solid gray;
 }
 
 .usergrid.main {
   text-align: left;
   overflow:hidden;
-  max-height: 73vh;
+  height: 80%;
+}
+
+.main.comment.wrapper {
+  width: 100%;
 }
 
 .emotiongrid.main {
@@ -374,11 +399,21 @@ canvas {
 .header {
   text-align: center;
   justify-content: center;
+  height: 10%;
 }
 
 .footer {
   width: 100%;
   display: flex;
+  height: 10%;
+}
+
+.footer.student {
+  width: 100%;
+  display: flex;
+  height: 6%;
+  justify-content: center;
+  align-items: center;
 }
 
 .input.textarea {
@@ -429,12 +464,15 @@ canvas {
 
 .left.column.teacher.lecture {
   width: 50%;
-  height: 100vh;
+  height: 80vh;
 }
 
 .right.column.teacher.lecture{
   width: 50%;
-  height: 100vh;
+  height: 80vh;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid gray;
 }
 
 .most.viewed.questions {
@@ -452,6 +490,7 @@ canvas {
   text-align: center;
   justify-content: center;
   margin-top: 1em;
+  height: 20%;
 }
 
 .main.list.content {
@@ -465,11 +504,64 @@ canvas {
 }
 
 .main.emoji.content  {
-  height: 100%;
+  height: 70%;
+  width: 100%;
   justify-content: center;
   align-items: center;
+
+}
+
+.emoji.container {
+  width: 100%;
+  height: 100 %;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5em;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.emoji-mart-emoji {
+  margin-left: 3em;
+}
+
+.emoji.content {
+  width: 20%;
+  float:left;
+  align-items: center;
+  justify-content: center;
 }
 
 .viewport {
   height: 87vh;
+}
+
+.pdf.wrapper {
+  height: 80vh;
+}
+
+.dropzone.wrapper {
+  height: 80vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropzone.area {
+  height: 70vh;
+  width: 90%;
+  border: 1px solid gray;
+  margin-left: 2em;
+  border-style:dashed;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px
+}
+
+.dropzone.button {
+  align-items: center;
+}
+
+.drag.and.drop {
+  margin-top: 45%;
+  margin-left: 30%
 }

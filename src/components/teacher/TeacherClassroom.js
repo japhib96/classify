@@ -62,23 +62,23 @@ export default class TeacherClassroom extends Component {
           <div className="user grid">
             <div className="left col">
               <div>
-                <Container textAlign="center" className="user dashboard menu">
+                <Container textAlign="center" className="teacher dashboard menu">
                   <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Lectures</h2>
                 </Container>
               </div>
               <div>
-                <Container textAlign="center" className="user dashboard menu">
+                <Container textAlign="center" className="teacher dashboard menu">
                   <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions of {this.state.title} </h2>
                 </Container>
               </div>
               <div>
-                <Container textAlign="center" className="user dashboard menu">
+                <Container textAlign="center" className="teacher dashboard menu">
                   <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> {this.state.title} Statistics</h2>
                 </Container>
               </div>
             </div>
             <div className="right col wrapper">
-              <header className="toolbar dashboard">
+              <header className="toolbar teacher dashboard">
                 <div className="right part">
                   <div><CreateLectureModal classId ={this.props.classId} lecture={this.props.lecture} setLecture={this.props.setLecture}/></div>
                   <div><h2>Create a Lecture</h2></div>
@@ -92,7 +92,13 @@ export default class TeacherClassroom extends Component {
                   this.state.lectures.map((lecture) => {
                     return (
                       <div>
-                        <CardGroups title={lecture.lectureTitle} setLecture={this.props.setLecture} lectureId={lecture._id} />
+                        <CardGroups
+                          title={lecture.lectureTitle}
+                          setLecture={this.props.setLecture}
+                          lectureId={lecture._id}
+                          active={lecture.active}
+                          date={lecture.created}
+                        />
                       </div>
                     )
                   })

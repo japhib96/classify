@@ -85,7 +85,7 @@ export default class StudentDashboard extends Component {
                   this.state.classes.map((classroom) => {
                     return (
                       <div className="card container" >
-                        <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} />
+                        <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} date={classroom.created}/>
                       </div>
                     )
                   })

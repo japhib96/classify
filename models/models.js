@@ -8,6 +8,13 @@ mongoose.connection.on('connected', function() {
 mongoose.connect(process.env.MONGODB_URI);
 
 const teacherSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
   username: {
     type: String,
     required: true,
@@ -25,6 +32,13 @@ const teacherSchema = mongoose.Schema({
 })
 
 const studentSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
   username: {
     type: String,
     required: true,
@@ -53,6 +67,10 @@ const lectureSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  created: {
+    type: String,
+    required: true
+  },
   // messages: [
   //   {
   //     type: mongoose.Schema.ObjectId,
@@ -71,7 +89,8 @@ const lectureSchema = mongoose.Schema({
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'Teacher'
-  }
+  },
+  active: Boolean
 })
 
 lectureSchema.methods.getMessages = async function() {
@@ -104,6 +123,10 @@ const classSchema = mongoose.Schema({
     required: true
   },
   password: {
+    type: String,
+    required: true
+  },
+  created: {
     type: String,
     required: true
   },

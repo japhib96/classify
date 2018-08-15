@@ -3,19 +3,27 @@ import StatisticSection from '../ClassStatistics'
 import PDFViewer from '../testFrontend/PDFViewer';
 import EmotionBar from '../EmotionBar'
 import Headercomp from '../Headercomponent';
+import Loading from '../Loader';
 import io from 'socket.io-client';
-import { Header, List, Label} from 'semantic-ui-react'
+import { Button, Header, List, Label } from 'semantic-ui-react'
 import { Emoji } from 'emoji-mart';
-
-
-
+import axios from 'axios'
 
 class TeacherView extends React.Component {
   constructor(props) {
     super(props);
 
+    let statusMessage;
+    if (this.props.lecture.active) {
+      statusMessage = 'Pause Lecture';
+    } else {
+      statusMessage = 'Go Live'
+    }
+    console.log(statusMessage)
     this.state = {
-      allReactions: []
+      allReactions: [],
+      statusMessage: statusMessage,
+      loading: true
     };
 
     var self = this;
@@ -23,6 +31,7 @@ class TeacherView extends React.Component {
     this.socket = io('localhost:3001');
 
     this.socket.on("ALL_REACTIONS", function(reactions){
+      console.log('all reactions')
       self.setState({allReactions: reactions})
     })
 
@@ -31,17 +40,38 @@ class TeacherView extends React.Component {
   componentDidMount() {
     this.socket.emit('JOIN_ROOM', {
       message: '',
-      class: this.props.lectureId
+      class: this.props.lecture.id
     })
 
     this.socket.emit('REACTION',{
       reaction: '',
       user: this.props.user._id,
-      class: this.props.lectureId
+      class: this.props.lecture.id
     })
   }
 
+  async toggleLecture() {
+    let active;
+    try {
+      await axios.post('/lecture/toggle', {
+        lectureId: this.props.lecture.id
+      }).then((resp) => {
+        active = resp.data.status;
+      })
+      console.log('Lecture toggled')
+      if (active) {
+        this.setState({ statusMessage: 'Pause Lecture', loading: false });
+      } else {
+        this.setState({ statusMessage: 'Go Live', loading: false });
+      }
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+
   render() {
+    console.log(this.props.lecture.active)
     var thumbsUp=0;
     var okay=0;
     var thumbsDown=0;
@@ -66,13 +96,13 @@ class TeacherView extends React.Component {
 
     return (
       <div className="viewport">
-        <Headercomp title={this.props.lectureTitle}
+        <Headercomp title={this.props.lecture.title}
         description={this.props.user.username} />
       <div className="teacher grid">
         <div className="left column teacher lecture">
           <div className="most viewed questions">
             <header class="header questions">
-              <Header as='h1' dividing textAlign="center">
+              <Header as='h1' textAlign="center">
               Top 3 rated questions in the lecture:
               </Header>
             </header>
@@ -84,28 +114,37 @@ class TeacherView extends React.Component {
           </div>
           <div className="emotions teacher view">
             <header class="header questions">
-              <Header as='h1' dividing textAlign="center">
+              <Header as='h1'  textAlign="center">
               How your class is feeling about the content:
               </Header>
             </header>
             <div className="main emoji content">
-              <div>
-                <Emoji  emoji='thumbsup' set='apple' skin="6" size={36} />
-                <Label size="massive" >{thumbsUp}</Label>
-                <Emoji  emoji='thumbsdown' set='apple' skin="6" size={36} />
-                <Label size="massive" >{okay}</Label>
-                <Emoji  emoji='ok_hand' set='apple' skin="6" size={36} />
-                <Label size="massive" >{thumbsDown}</Label>
-                <Emoji  emoji='exploding_head' set='apple' skin="6" size={36} />
-                <Label size="massive" >{confused}</Label>
+              <div className="emoji container">
+                <div className="emoji content">
+                  <Emoji  emoji='thumbsup' set='apple' skin="1" size={50} />
+                  <Label size="massive" >{thumbsUp}</Label>
+                </div>
+                <div className="emoji content">
+                  <Emoji  emoji='ok_hand' set='apple' skin="2" size={50} />
+                  <Label size="massive" >{okay}</Label>
+                </div>
+                <div className="emoji content">
+                  <Emoji  emoji='thumbsdown' set='apple' skin="3" size={50} />
+                  <Label size="massive" >{thumbsDown}</Label>
+                </div>
+                <div className="emoji content">
+                  <Emoji  emoji='exploding_head' set='apple' skin="1" size={50} />
+                  <Label size="massive" >{confused}</Label>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="right column teacher lecture">
-           <PDFViewer lectureId={this.props.lectureId}/>
+           <PDFViewer lectureId={this.props.lecture.id}/>
         </div>
+        <Button onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
       </div>
     </div>
     );

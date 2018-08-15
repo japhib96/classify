@@ -30,7 +30,7 @@ export default class UserInterface extends React.Component {
           this.socket.emit('SEND_MESSAGE', {
             author: this.props.user.username,
             message: this.state.message,
-            class: this.props.lectureId
+            class: this.props.lecture.id
           });
           this.setState({
             message:""
@@ -55,24 +55,24 @@ export default class UserInterface extends React.Component {
 
       <div className="viewport">
         <Headercomp
-          title={this.props.lectureTitle}
+          title={this.props.lecture.title}
           description={this.props.user.username} />
 
           <div className="chat grid">
             <div className="left col">
-              <Statistics  user={this.props.user} lecture={this.props.lectureId}/>
+              {/* <Statistics  user={this.props.user} lecture={this.props.lectureId}/> */}
             </div>
             <div className="userinterface wrapper">
               <header class="header">
-                <Header as='h1' dividing textAlign="center">
+                <Header as='h1' textAlign="center">
                 Questions for {this.props.lectureId}
                   <Header.Subheader content='Ask Questions and respond to threads.'/>
                 </Header>
               </header>
               <div className="usergrid main">
-                <Comment user={this.props.user} lecture={this.props.lectureId}  />
+                <Comment user={this.props.user} lecture={this.props.lecture.id}  />
               </div>
-              <footer class="footer">
+              <footer class="footer student">
                 <Form reply className="input field">
                   <Form.TextArea
                     autoHeight
@@ -86,11 +86,11 @@ export default class UserInterface extends React.Component {
                     className="input textarea"
                   />
                 </Form>
-                <Popup  on='click' trigger={<Button className="emoji" icon='smile' circular />} content={<EmojiPicker onEmojiClick={this.showPicker} />} />
+                <Popup  on='click' trigger={<Button className="emoji picker" icon='smile' circular />} content={<EmojiPicker onEmojiClick={this.showPicker} />} />
               </footer>
             </div>
             <div className="emotion col">
-              <Emotions user={this.props.user} lecture={this.props.lectureId}   />
+              <Emotions user={this.props.user} lecture={this.props.lecture.id}   />
             </div>
           </div>
         </div>

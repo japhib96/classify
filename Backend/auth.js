@@ -22,9 +22,9 @@ module.exports = function(passport) {
     }
     try {
       if (req.body.type === 1) {
-        await saveFunctions.saveStudent(req.body.username, req.body.password);
+        await saveFunctions.saveStudent(req.body.email, req.body.username, req.body.password);
       } else {
-        await saveFunctions.saveTeacher(req.body.username, req.body.password);
+        await saveFunctions.saveTeacher(req.body.email, req.body.username, req.body.password);
       }
             console.log(req.user)
       res.json({ success: true });
