@@ -121,28 +121,7 @@ class MyPdfViewer extends React.Component {
     })
   }
 
-  sendFilez(){
-    var data = new FormData()
-    data.append("uploadFile", this.state.uploadFile)
-    data.append("lectureId", this.props.lectureId)
-    fetch("/uploadSlide", {
-      method:"POST",
-      credentials:"same-origin",
-      body: data
-    })
-    .then((res) => res.json() )
-    .then((res) => {
-      console.log(res)
-      if(res.status === 'success'){
-        var filePath = 'https://3d6051e0.ngrok.io/slide/' + res.id
-        var slideId = res.id
-        this.setState({filePath, uploadFile: '', slideId, loading: true })
-      }
-    })
-    .catch(err => {
-      console.log("Error: ", err)
-    })
-  }
+
   render() {
     // if (this.state.loading) { return <Loading message={'Loading presentation...'} /> };
     console.log('page state', this.state.page)
