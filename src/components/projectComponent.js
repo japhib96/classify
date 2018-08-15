@@ -24,9 +24,8 @@ class CardGroups extends React.Component {
       <Card.Group  itemsPerRow={3} >
         <Card className="cardItem" raised onClick={() => this.setProperty()} >
           <Card.Content>
-            <Image floated='right' size='mini' src='https://react.semantic-ui.com/images/avatar/large/steve.jpg' />
             <Card.Header>{this.props.title}</Card.Header>
-            <Card.Meta>{this.props.active ? 'LIVE' : `Created ${this.props.date.substring(4,15)}`}</Card.Meta>
+            <Card.Meta>{this.props.active ? 'LIVE' : `Created: ${this.props.date.substring(4,15)}`}</Card.Meta>
             <Card.Description>
               Steve wants to add you to the group <strong>best friends</strong>
             </Card.Description>

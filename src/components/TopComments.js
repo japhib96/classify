@@ -116,8 +116,8 @@ class TopComments extends React.Component {
             messagesCopy.sort(this.topQuestions);
             const topThree = messagesCopy.slice(0,3);
             return (
-              <div className="main comment wrapper">
-                <Comment.Group threaded>
+              <div className="list content">
+
                   {
                     topThree.map( (message, index) => {
                       return (
@@ -133,35 +133,18 @@ class TopComments extends React.Component {
                                 <div id="styling">
                                   {message.message}
                                 </div>
-
                               </Comment.Text>
                               <Comment.Actions>
                                 <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label>
                               </Comment.Actions>
                               </Comment.Content>
-
-                            {/* {this.state.messages[index].replies.map((replies) =>
-                              <Comment.Group>
-                                <Comment>
-                                  <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                                  <Comment.Content>
-                                    <Comment.Author as='a'>{replies.author}</Comment.Author>
-                                    <Comment.Metadata>
-                                      <span>{message.date ? message.date.substring(0,21) : ''}</span>
-                                    </Comment.Metadata>
-                                    <Comment.Text>{replies.reply}</Comment.Text>
-                                  </Comment.Content>
-                                </Comment>
-                              </Comment.Group>
-                                )} */}
                           </Comment>
                       </Container>
                     )
                   }
                 )
               }
-              </Comment.Group>
-            </div>
+              </div>
 
             );
           }

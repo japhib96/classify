@@ -12,13 +12,15 @@ export default class Register extends React.Component {
       username: '',
       password: '',
       confirmP: '',
-      type: 1,
+      type: "Student",
       error: false,
       done: false,
       message: 'ui hidden error message',
       emailMsg: 'ui hidden error message',
       lengthP: 'ui hidden error message',
-      passwords: 'ui hidden error message'
+      passwords: 'ui hidden error message',
+      classname1: "student act",
+      classname2: ""
     }
   }
   async makeAccount(e) {
@@ -93,10 +95,10 @@ export default class Register extends React.Component {
               height: 100%;
             }
             `}</style>
-            <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+            <Grid textAlign='center' style={{ height: '100%', textAlign: "center"}} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
-                  <Icon name='graduation'/>Register an account
+                <Header as='h2' style={{width:"95%"}}  textAlign='center'>
+                  Register an account as {this.state.type}
                 </Header>
                 <Form className='ui error form' size='large' >
                   <Segment stacked style={{background: '#98dafc'}}>
@@ -132,10 +134,11 @@ export default class Register extends React.Component {
                       type='password'
                       onChange={(e)=>this.setState({ confirmP: e.target.value })}
                     />
-                    <ToggleButtonGroup type="radio" name="options" block-inline defaultValue={this.state.type}>
-                      <ToggleButton value={1} onClick={(e) => this.setState({ type: 1 })}>Student </ToggleButton>
-                      <ToggleButton value={2} onClick={(e) => this.setState({ type: 2 })}>Teacher </ToggleButton>
-                    </ToggleButtonGroup>
+                    <Button.Group defaultValue={this.state.type}>
+                      <Button  className={this.state.classname1} value={1} onClick={(e) => this.setState({ type: "Student", classname1: "student act", classname2: ""})}>Student</Button>
+                      <Button.Or />
+                      <Button  className={this.state.classname2} value={2} onClick={(e) => this.setState({ type: "Teacher", classname2: "teacher act", classname1: ""})}>Teacher</Button>
+                    </Button.Group>
                     <div className={this.state.message}>
                       <div className='content'>
                         <div className='header'>Error</div>
@@ -150,14 +153,13 @@ export default class Register extends React.Component {
                         </div>
                       </div>
                     </div>
-                    <div style={{paddingTop: 10}}>
-                      <button className='ui inverted button' fluid size='large' onClick={(e) => this.makeAccount(e)}>
-                        Register
-                      </button>
+                    <div className="register button">
+                      <Button content="Register" className='user dropdown' fluid size='large' onClick={(e) => this.makeAccount(e)}>
+                      </Button>
                     </div>
                   </Segment>
                 </Form>
-                <Message>
+                <Message style={{width: "96%"}}>
                   Have an account? <Link to={'/login'}>Sign In</Link>
                 </Message>
               </Grid.Column>

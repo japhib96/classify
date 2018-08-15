@@ -112,25 +112,25 @@ class Comments extends React.Component {
                       return (
                         <Container className="container">
                           <Comment key={index}>
-                            <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg'  />
+                            {/* <Comment.Avatar as='a'   /> */}
                             <Comment.Content>
                               <Comment.Author  as='a'>{message.author}</Comment.Author>
                               <Comment.Metadata>
                                 <span>{message.date ? message.date.substring(0,21) : ''}</span>
                               </Comment.Metadata>
                               <Comment.Text>
-                                <div id="styling">
+                                {/* <div id="styling"> */}
                                   {message.message}
-                                </div>
+                                {/* </div> */}
 
                               </Comment.Text>
                               <Comment.Actions>
                                 <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label>
-                                <Label as={Button} onClick={() => this.likeMessage(message._id) } circular attached bottom right>
+                                <Label className="thumbsup label" as={Button} onClick={() => this.likeMessage(message._id) } circular attached bottom right>
                                   <Emoji emoji="thumbsup" set='facebook' skin="4" size={12} />
                                   I like it
                                 </Label>
-                                <Label as={Button} onClick={() => this.addReply(index)} circular attached bottom right >
+                                <Label className="thumbsup label" as={Button} onClick={() => this.addReply(index)} circular attached bottom right >
                                   <i class="fas fa-comment"></i>
                                   Thread
                                 </Label>

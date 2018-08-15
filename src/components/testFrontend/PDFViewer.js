@@ -6,10 +6,13 @@ import { faExpand } from '@fortawesome/free-solid-svg-icons'
 import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
-import {Button, Icon} from 'semantic-ui-react'
+import {Button, Icon, Header, List, Label} from 'semantic-ui-react'
 import axios from 'axios';
+import keydown from 'react-keydown';
+import { Emoji } from 'emoji-mart';
 
 library.add(faExpand)
+
 
 class MyPdfViewer extends React.Component {
   constructor(props) {
@@ -17,16 +20,32 @@ class MyPdfViewer extends React.Component {
     this.state = {
       isFull: false,
       filePath: '',
+      allReactions: [],
       slideId: '',
       pages: 0,
       uploadName: '',
       page: 1
     };
     this.socket = io('localhost:3001');
+
+    var self = this;
+
+    this.socket.on("ALL_REACTIONS", function(reactions){
+      console.log('all reactions')
+      self.setState({allReactions: reactions})
+    })
   }
 
   componentDidMount(){
     this.checkSlides()
+    document.addEventListener("keydown", this.handlePrevious, false);
+    document.addEventListener("keydown", this.handleNext, false);
+
+    this.socket.emit('REACTION',{
+      reaction: '',
+      user: this.props.user._id,
+      class: this.props.lecture.id
+    })
   }
 
   async checkSlides(){
@@ -57,43 +76,36 @@ class MyPdfViewer extends React.Component {
       slides: pages,
     })
   }
-  handlePrevious = () => {
-    this.socket.emit('UPDATE_SLIDE',{
-      slideId: this.state.slideId,
-      page: this.state.page -1,
-    })
-    this.setState({ page: this.state.page - 1 });
-  }
-  handleNext = () => {
-    this.socket.emit('UPDATE_SLIDE',{
-      slideId: this.state.slideId,
-      page: this.state.page +1,
-    })
-    this.setState({ page: this.state.page + 1 });
-  }
-  renderPagination = (page, pages) => {
-    let previousButton = <li className="previous" onClick={this.handlePrevious}><a href="#"><i className="fa fa-arrow-left"></i> Previous</a></li>;
-    if (page === 1) {
-      previousButton = <li className="previous disabled"></li>;
+
+
+  handlePrevious = (e) => {
+    e.preventDefault();
+    if (e.keyCode === 37 && this.state.page > 1) {
+      console.log(e.keyCode);
+      this.socket.emit('UPDATE_SLIDE',{
+        slideId: this.state.slideId,
+        page: this.state.page -1,
+      })
+      this.setState({ page: this.state.page - 1 });
     }
-    let nextButton = <li className="next" onClick={this.handleNext}><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
-    let fullScreenButton = <button onClick={this.goFull}> <FontAwesomeIcon icon="expand" size="2x"/> Go Fullscreen</button>
-    if (page === pages) {
-      nextButton = <li className="next disabled"></li>;
-    }
-    return (
-      <div className="nav col">
-        <ul className="pager">
-          {previousButton}
-          {fullScreenButton}
-          {nextButton}
-        </ul>
-      </div>
-    );
   }
+
+
+
+  handleNext = (e) => {
+    e.preventDefault();
+    if(e.keyCode === 39 && this.state.page < this.state.pages) {
+      this.socket.emit('UPDATE_SLIDE',{
+        slideId: this.state.slideId,
+        page: this.state.page +1,
+      })
+      this.setState({ page: this.state.page + 1 });
+    }
+  }
+
   onChange(acceptedFiles, rejectedFiles) {
   this.setState({uploadFile: acceptedFiles[0], filePath: '', page: 1, uploadName: acceptedFiles[0].name})
-}
+  }
 
   sendFile(e){
     e.preventDefault()
@@ -119,12 +131,30 @@ class MyPdfViewer extends React.Component {
     })
   }
   render() {
+
+    var thumbsUp=0;
+    var okay=0;
+    var thumbsDown=0;
+    var confused =0;
+    this.state.allReactions.map( (reactionObj, index) =>{
+
+      if(reactionObj.reaction === -1){
+        thumbsDown += 1
+      }
+      else if(reactionObj.reaction === 0){
+        okay += 1
+      }
+      else if(reactionObj.reaction === +1){
+        thumbsUp += 1
+      }
+      else{
+        confused += 1
+      }
+    }
+  )
+
     console.log('page state', this.state.page)
     var name = this.state.uploadName
-    let pagination = null;
-    if (this.state.pages) {
-      pagination = this.renderPagination(this.state.page, this.state.pages);
-    }
     console.log('render', this.state.filePath)
     return (
       <div className="pdf wrapper">
@@ -155,8 +185,34 @@ class MyPdfViewer extends React.Component {
                   onDocumentComplete={this.onDocumentComplete}
                   page={this.state.page}
                 />
-                {pagination}
-              </div>
+                <Button onClick={this.goFull}> <FontAwesomeIcon icon="expand" size="2x"/></Button>
+                {this.state.isFull === false ? '' :
+                  <div className="nav col">
+                    <div className="pager">
+                      <div className="main emoji content">
+                        <div className="emoji container">
+                          <div className="emoji content">
+                            <Emoji  emoji='thumbsup' set='apple' skin="1" size={50} />
+                            <Label size="massive" >{thumbsUp}</Label>
+                          </div>
+                          <div className="emoji content">
+                            <Emoji  emoji='ok_hand' set='apple' skin="2" size={50} />
+                            <Label size="massive" >{okay}</Label>
+                          </div>
+                          <div className="emoji content">
+                            <Emoji  emoji='thumbsdown' set='apple' skin="3" size={50} />
+                            <Label size="massive" >{thumbsDown}</Label>
+                          </div>
+                          <div className="emoji content">
+                            <Emoji  emoji='exploding_head' set='apple' skin="1" size={50} />
+                            <Label size="massive" >{confused}</Label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               }
+               </div>
             </Fullscreen>
           }
         </div>
