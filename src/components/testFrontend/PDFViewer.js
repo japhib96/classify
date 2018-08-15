@@ -120,6 +120,8 @@ class MyPdfViewer extends React.Component {
       console.log("Error: ", err)
     })
   }
+
+
   render() {
     // if (this.state.loading) { return <Loading message={'Loading presentation...'} /> };
     console.log('page state', this.state.page)
