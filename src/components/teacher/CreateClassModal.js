@@ -31,7 +31,7 @@ class CreateClassModal extends React.Component {
       }).then( (res) =>{
         // this.handleClose(res.data.classId);
         this.props.setClass(res.data.classId)
-        // alert(`Class Successfully Created, your Class ID is: ${res.data.classId}`)
+        alert(`Class Successfully Created, your Class ID is: ${res.data.classId}`)
       })
     }
     catch(error) {

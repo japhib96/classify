@@ -54,14 +54,6 @@ class Emotion extends React.Component {
   render() {
     return (
 
-      // <div class="wrapper">
-      //   <header class="header">Header</header>
-      //   <div class="main">
-      //     <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-      //   </div>
-      //   <footer class="footer"> Footer</footer>
-      // </div>
-
       <div className="emotiongrid wrapper">
          <header class="header">
            <Header as='h1' textAlign="center">
@@ -69,7 +61,7 @@ class Emotion extends React.Component {
              <Header.Subheader content='What is your understanding of the current situation?' />
            </Header>
          </header>
-           <div className="emotiongrid main">
+           <div className="emotion main">
              <Segment as={Button} circular size="big" textAlign="center" className="emoji top" onClick={() => this.thumbsUp()}>
                <Emoji  emoji='thumbsup' set='apple' skin="6" size={60} />
              </Segment>
