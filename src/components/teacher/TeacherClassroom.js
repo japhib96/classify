@@ -58,7 +58,8 @@ export default class TeacherClassroom extends Component {
     return (
 
       <div>
-        <Headercomp title={this.state.title} />
+        <Headercomp title={this.state.title}
+          description={`Shareable Class ID: ${this.props.classId}`}/>
           <div className="user grid">
             <div className="left col">
               <div>

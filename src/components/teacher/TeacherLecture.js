@@ -4,6 +4,7 @@ import PDFViewer from '../testFrontend/PDFViewer';
 import EmotionBar from '../EmotionBar'
 import Headercomp from '../Headercomponent';
 import Loading from '../Loader';
+import TopComments from '../TopComments';
 import io from 'socket.io-client';
 import { Button, Header, List, Label } from 'semantic-ui-react'
 import { Emoji } from 'emoji-mart';
@@ -106,6 +107,7 @@ class TeacherView extends React.Component {
               Top 3 rated questions in the lecture:
               </Header>
             </header>
+            <TopComments user={this.props.user} lecture={this.props.lecture.id} />
             <div className="main list content">
               <div className="list content"></div>
               <div className="list content"></div>
