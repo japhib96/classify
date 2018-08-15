@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import image2 from '../images/slack.png'
 import {Link} from 'react-router-dom'
 import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap'
 import { Button, Form, Grid, Header, Image, Message, Segment, Icon } from 'semantic-ui-react'
@@ -43,7 +44,13 @@ export default class Login extends React.Component {
   }
   render(){
     return(
-      <div className='login-form' style={{backgroundColor: '#feffff'}} >
+      <div className='login-form' style={{
+          height: '100%',
+          backgroundImage: `url(${image2})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%',
+          height: 800
+        }} >
         {/*
           Heads up! The styles below are necessary for the correct render of this example.
           You can do same with CSS, the main idea is that all the elements up to the `Grid`
@@ -58,11 +65,13 @@ export default class Login extends React.Component {
         `}</style>
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
-              <Icon name='graduation' /> Log-in to your account
-            </Header>
+
             <Form size='large'>
+
               <Segment stacked style={{background: '#98dafc'}}>
+              <Header as='h2' style={{color:'black'}} textAlign='center'>
+                <Icon name='graduation' /> Log-in to your account
+              </Header>
                 <Form.Input
                   required
                   fluid

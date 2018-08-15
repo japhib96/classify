@@ -2,6 +2,7 @@ import React from 'react';
 import {ToggleButton, ToggleButtonGroup} from 'react-bootstrap'
 import validator from 'validator';
 import axios from 'axios';
+import image2 from '../images/slack.png'
 import { Redirect, Link } from 'react-router-dom';
 import { Button, Form, Grid, Header, Image, Message, Segment, Icon} from 'semantic-ui-react'
 export default class Register extends React.Component {
@@ -80,7 +81,13 @@ export default class Register extends React.Component {
       return <Redirect to='/login' />
     }
     return(
-      <div className='login-form' style={{backgroundColor: '#feffff'}}>
+      <div className='login-form' style={{
+          height: '100%',
+          backgroundImage: `url(${image2})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%',
+          height: 800
+        }} >
         {/*
           Heads up! The styles below are necessary for the correct render of this example.
           You can do same with CSS, the main idea is that all the elements up to the `Grid`
@@ -95,11 +102,12 @@ export default class Register extends React.Component {
             `}</style>
             <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
-                  <Icon name='graduation'/>Register an account
-                </Header>
+
                 <Form className='ui error form' size='large' >
                   <Segment stacked style={{background: '#98dafc'}}>
+                  <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
+                    <Icon name='graduation'/>Register an account
+                  </Header>
                     <Form.Input
                       required
                       fluid
