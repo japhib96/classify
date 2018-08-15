@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
   socket.on('JOIN_ROOM', async function(data){
     socket.join(data.class);
     var startMessages = await saveFunctions.updateLecture(data.class, data.message)
-    if(!data.message){
+    if(data.user && !data.message){
       console.log('called')
       await saveFunctions.addNewStudent(data.class, data.user)
     }

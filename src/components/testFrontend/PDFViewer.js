@@ -7,6 +7,7 @@ import Fullscreen from "react-full-screen";
 import io from "socket.io-client";
 import Dropzone from 'react-dropzone'
 import {Button, Icon} from 'semantic-ui-react'
+import Loading from '../Loader';
 import axios from 'axios';
 
 library.add(faExpand)
@@ -20,7 +21,8 @@ class MyPdfViewer extends React.Component {
       slideId: '',
       pages: 0,
       uploadName: '',
-      page: 1
+      page: 1,
+      loading: false
     };
     this.socket = io('localhost:3001');
   }
@@ -40,7 +42,7 @@ class MyPdfViewer extends React.Component {
         var filePath = 'http://localhost:3001/slide/' + resp.data.slideId
         var slideId = resp.data.slideId
         var page = resp.data.currentSlide
-        this.setState({filePath, uploadFile: '', slideId, page})
+        this.setState({filePath, uploadFile: '', slideId, page, loading: true})
       }
     }).catch((e)=>{
       alert(e)
@@ -51,7 +53,7 @@ class MyPdfViewer extends React.Component {
     this.setState({ isFull: true });
   }
   onDocumentComplete = (pages) => {
-    this.setState({ pages });
+    this.setState({ pages, loading: false });
     this.socket.emit('TOTAL_SLIDES',{
       slideId: this.state.slideId,
       slides: pages,
@@ -111,7 +113,7 @@ class MyPdfViewer extends React.Component {
       if(res.status === 'success'){
         var filePath = 'http://localhost:3001/slide/' + res.id
         var slideId = res.id
-        this.setState({filePath, uploadFile: '', slideId})
+        this.setState({filePath, uploadFile: '', slideId, loading: true })
       }
     })
     .catch(err => {
