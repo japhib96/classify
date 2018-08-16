@@ -65,7 +65,8 @@ class Comments extends React.Component {
       this.socket.emit('SEND_MESSAGE', {
         author: this.props.user.username,
         message: this.state.message,
-        class: this.props.lecture
+        class: this.props.lecture,
+        userId: this.props.user._id
       });
       this.setState({message: ''});
     }

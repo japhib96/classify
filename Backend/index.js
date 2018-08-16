@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
   socket.on('JOIN_ROOM', async function(data){
     socket.join(data.class);
     var startMessages = await saveFunctions.updateLecture(data.class, data.message)
-    if(!data.message){
+    if(data.user && !data.message){
       console.log('called')
       await saveFunctions.addNewStudent(data.class, data.user)
     }
@@ -71,9 +71,10 @@ io.on('connection', (socket) => {
       date: new Date(),
       likes: [],
       replies: [],
-      lecture: data.class
+      lecture: data.class,
+      userId: data.userId
     }
-    var messages = await saveFunctions.updateLecture(data.class, message)
+    var messages = await saveFunctions.updateLecture(data.class, message, data.userId)
     io.to(data.class).emit('RECEIVE_MESSAGE', messages);
   })
 

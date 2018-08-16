@@ -26,8 +26,7 @@ class CreateClassModal extends React.Component {
     try {
       await axios.post('/saveClass', {
         classTitle: this.state.classTitle,
-        password: this.state.password,
-        owner: '5b71e7a768c4108fe464e55e'
+        password: this.state.password
       }).then( (res) =>{
         // this.handleClose(res.data.classId);
         this.props.setClass(res.data.classId)

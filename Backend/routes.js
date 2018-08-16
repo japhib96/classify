@@ -89,7 +89,7 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
         return;
       }
       var lecture =  await models.Lecture.findById(slide.lectureId);
-      lecture.slideId = slide._id;
+      // lecture.slideId = slide._id;
       lecture.save();
       fs.unlink(req.file.path, (err) =>{
         if(err){
