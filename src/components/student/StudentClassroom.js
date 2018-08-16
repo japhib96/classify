@@ -101,6 +101,7 @@ export default class StudentClassroom extends Component {
                         lectureId={lecture._id}
                         active={lecture.active}
                         date={lecture.created}
+                        reaction={lecture.reactions}
                       />
                     </div>
                   )

@@ -6,7 +6,6 @@ function saveTeacher(email, username, password) {
     username: username,
     password: password
   })
-
   return teacher.save();
 }
 
@@ -16,7 +15,6 @@ function saveStudent(email, username, password) {
     username: username,
     password: password
   })
-
   return student.save();
 }
 
@@ -48,7 +46,6 @@ async function saveClass(classTitle, teacher, password) {
     owner: teacher._id,
     lectures: []
   })
-
   var classroom = await classroom.save();
   return classroom._id
 }
@@ -92,7 +89,7 @@ async function toggleLecture(lectureId) {
   }
 }
 
-async function updateLecture(lectureId, messageData) {
+async function updateLecture(lectureId, messageData, userId) {
   try {
     var lecture = await models.Lecture.findById(lectureId);
     if (messageData === '') {
@@ -216,18 +213,20 @@ async function updateSlide(slideId, pageNum) {
 
 async function updateSlideTotal(slideId ,slides) {
   try {
+    console.log('slideTotal', slideId)
     var slide = await models.Slide.findById(slideId);
     var lecture = await models.Lecture.findById(slide.lectureId)
-    if(lecture.slideId !== slideId){
+    console.log(lecture.slideId)
+    if (lecture.slideId !== slideId) {
       lecture.slideId = slideId;
       lecture.slideBySlide = [];
       for(var i =0; i <= slides; i++){
-        lecture.slideBySlide.push({messages: [], reactions: {test: 0} })
+        lecture.slideBySlide.push({messages: {test: 0}, reactions: {test: 0}})
       }
       var updatedLecture = await lecture.save()
       return updatedLecture
     }
-    return lecture
+    return lecture;
   }
   catch(e){
     console.log(e)
@@ -236,9 +235,7 @@ async function updateSlideTotal(slideId ,slides) {
 
 async function joinClass(user, classId, password) {
   try {
-
     var classroom = await models.Class.findById(classId);
-
     if (password === classroom.password) {
       let student = await models.Student.findById(user._id);
       student.classes = [...student.classes, classId];
@@ -248,7 +245,6 @@ async function joinClass(user, classId, password) {
       return {id: '', error: 'Incorrect Password'};
     }
   } catch(e) {
-
     return {id: '', error: 'Incorrect Class ID'};
   }
 }
@@ -269,6 +265,7 @@ async function addNewStudent(lectureId, userId) {
       }
     }
     lecture.markModified('slideBySlide');
+    console.log(lecture)
     await lecture.save()
     return
   } catch(e) {
