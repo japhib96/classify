@@ -39,6 +39,7 @@ export default class TeacherClassroom extends Component {
       classId: this.props.classId
     })
     .then((resp) => {
+      console.log("hi",resp);
       lectures = resp.data.lectures;
       title = resp.data.title;
     });
@@ -74,7 +75,7 @@ export default class TeacherClassroom extends Component {
                 </Container>
               </div>
               <div>
-                <Container textAlign="center" className="teacher dashboard menu">
+                <Container textAlign="center"  className="teacher dashboard menu">
                   <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> {this.state.title} Statistics</h2>
                 </Container>
               </div>
@@ -89,9 +90,11 @@ export default class TeacherClassroom extends Component {
                   <Input icon='search' placeholder='Search for a Lecture...' />
                 </div>
               </header>
-              <div className="content dashboard">
-                {
-                  this.state.lectures.map((lecture) => {
+
+              {this.state.lectures[0] ?
+
+                <div className="content dashboard">
+                  {this.state.lectures.map((lecture) => {
                     return (
                       <div>
                         <CardGroups
@@ -103,13 +106,22 @@ export default class TeacherClassroom extends Component {
                         />
                       </div>
                     )
-                  })
-                }
-              </div>
-          </div>
+                  }
+                )
+              }
+            </div>
+
+            :
+
+            <div className="content unactive">
+              <h2 className="unactive content">Currently no Lecture available <br></br>
+              Click the Create Lecture Button to begin a Lecture</h2>
+            </div>
+          }
         </div>
       </div>
+    </div>
 
-    )
-  }
+  )
+}
 }

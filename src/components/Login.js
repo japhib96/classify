@@ -17,13 +17,18 @@ export default class Login extends React.Component {
       errorMsg: '',
       message: 'ui hidden error message',
       classname1: "student act",
-      classname2:""
+      classname2:"",
+      loading: false,
     }
   }
 
 
 
   async logIn(e) {
+    this.setState({
+      loading: true
+    })
+
     e.preventDefault();
     try {
       if (this.state.type === "Student") {
@@ -46,7 +51,14 @@ export default class Login extends React.Component {
         this.setState({ message:'ui visible error message', isError: true, error: error});
         console.log(error);
     }
+
+    if(this.state.isError === true) {
+      this.setState({
+        loading: false
+      })
+    }
   }
+
   render(){
     return(
       <div className='login-form' style={{
@@ -76,7 +88,6 @@ export default class Login extends React.Component {
                 Log-in to your {this.state.type} account
               </Header>
                 <Form.Input
-                  required
                   fluid
                   icon='user'
                   iconPosition='left'
@@ -84,7 +95,7 @@ export default class Login extends React.Component {
                   onChange={(e) => this.setState({ username: e.target.value })}
                 />
                 <Form.Input
-                  required
+
                   fluid
                   icon='lock'
                   iconPosition='left'
@@ -107,7 +118,7 @@ export default class Login extends React.Component {
                     </div>
                 </div>
                   <div className="login button">
-                    <Button loading content="Login" className='user dropdown' fluid size='large' onClick={(e) => this.logIn(e)}>
+                    <Button loading={this.state.loading} content="Login" className='user dropdown' fluid size='large' onClick={(e) => this.logIn(e)}>
                     </Button>
                   </div>
               </Segment>

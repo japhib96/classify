@@ -21,7 +21,8 @@ export default class Register extends React.Component {
       lengthP: 'ui hidden error message',
       passwords: 'ui hidden error message',
       classname1: "student act",
-      classname2: ""
+      classname2: "",
+      loading: false
     }
   }
   async makeAccount(e) {
@@ -110,7 +111,6 @@ export default class Register extends React.Component {
                     Register an account as {this.state.type}
                   </Header>
                     <Form.Input
-                      required
                       fluid
                       icon='inbox'
                       iconPosition='left'
@@ -118,7 +118,6 @@ export default class Register extends React.Component {
                       onChange={(e)=>this.setState({ email: e.target.value })}
                     />
                     <Form.Input
-                      required
                       fluid
                       icon='user'
                       iconPosition='left'
@@ -161,7 +160,7 @@ export default class Register extends React.Component {
                       </div>
                     </div>
                     <div className="register button">
-                      <Button content="Register" className='user dropdown' fluid size='large' onClick={(e) => this.makeAccount(e)}>
+                      <Button loading={this.state.loading} content="Register" className='user dropdown' fluid size='large' onClick={(e) => this.makeAccount(e)}>
                       </Button>
                     </div>
                   </Segment>

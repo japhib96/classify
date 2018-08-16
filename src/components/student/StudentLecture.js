@@ -21,12 +21,12 @@ export default class UserInterface extends React.Component {
 
     var self = this;
 
-    this.socket = io('https://3d6051e0.ngrok.io');
+    this.socket = io('localhost:3001');
 
 
       this.sendMessage = ev => {
         ev.preventDefault();
-        // debugger;
+
         if(ev.keyCode == 13 && ev.shiftKey !== true && ev.target.value.trim().length > 0) {
           this.socket.emit('SEND_MESSAGE', {
             author: this.props.user.username,

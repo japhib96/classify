@@ -24,17 +24,20 @@ class TeacherView extends React.Component {
       statusMessage = 'Go Live'
       classname = "button unactive"
     }
+
     console.log(statusMessage)
     this.state = {
       allReactions: [],
       statusMessage: statusMessage,
       loading: true,
-      classname: classname
+      loading2: false,
+      classname: classname,
+      lectureStatus: this.props.lecture.active
     };
 
     var self = this;
 
-    this.socket = io('https://3d6051e0.ngrok.io');
+  this.socket = io('localhost:3001');
 
     this.socket.on("ALL_REACTIONS", function(reactions){
       console.log('all reactions')
@@ -57,6 +60,10 @@ class TeacherView extends React.Component {
   }
 
   async toggleLecture() {
+    this.setState({
+      loading2:true
+    })
+
     let active;
     try {
       await axios.post('/lecture/toggle', {
@@ -66,9 +73,9 @@ class TeacherView extends React.Component {
       })
       console.log('Lecture toggled')
       if (active) {
-        this.setState({ statusMessage: 'Pause Lecture', loading: false, classname: "button active"});
+        this.setState({ statusMessage: 'Pause Lecture', loading: false, classname: "button active", loading2: false});
       } else {
-        this.setState({ statusMessage: 'Go Live', loading: false , classname: "button unactive"});
+        this.setState({ statusMessage: 'Go Live', loading: false , classname: "button unactive", loading2: false});
       }
     }
     catch(error) {
@@ -102,57 +109,59 @@ class TeacherView extends React.Component {
 
     return (
       <div className="viewport">
-        <Headercomp title={this.props.lecture.title}
-        description={this.props.user.username} />
-      <div className="teacher grid">
-        <div className="left column teacher lecture">
-          <div className="most viewed questions">
-            <header class="header questions">
-              <Header as='h1' textAlign="center">
-              Top 3 rated questions in the lecture:
-              </Header>
-            </header>
-            <div className="main list content">
-              <TopComments user={this.props.user} lecture={this.props.lecture.id} />
+        <Headercomp
+          title={this.props.lecture.title}
+          lectureStatus={this.state.lectureStatus}
+          description={this.props.user.username}
+          />
+        <div className="teacher grid">
+          <div className="left column teacher lecture">
+            <div className="most viewed questions">
+              <header class="header questions">
+                <Header as='h1' textAlign="center">
+                Top 3 rated questions in the lecture:
+                </Header>
+              </header>
+              <div className="main list content">
+                <TopComments user={this.props.user} lecture={this.props.lecture.id} />
+              </div>
             </div>
-          </div>
-          <div className="emotions teacher view">
-            <header class="header questions">
-              <Header as='h1'  textAlign="center">
-              How your class is feeling about the content:
-              </Header>
-            </header>
-            <div className="main emoji content">
-              <div className="emoji container">
-                <div className="emoji content">
-                  <Emoji  emoji='thumbsup' set='apple' skin="1" size={50} />
-                  <Label size="massive" >{thumbsUp}</Label>
-                </div>
-                <div className="emoji content">
-                  <Emoji  emoji='ok_hand' set='apple' skin="2" size={50} />
-                  <Label size="massive" >{okay}</Label>
-                </div>
-                <div className="emoji content">
-                  <Emoji  emoji='thumbsdown' set='apple' skin="3" size={50} />
-                  <Label size="massive" >{thumbsDown}</Label>
-                </div>
-                <div className="emoji content">
-                  <Emoji  emoji='exploding_head' set='apple' skin="1" size={50} />
-                  <Label size="massive" >{confused}</Label>
+            <div className="emotions teacher view">
+              <header class="header questions">
+                <Header as='h1'  textAlign="center">
+                How your class is feeling about the content:
+                </Header>
+              </header>
+              <div className="main emoji content">
+                <div className="emoji container">
+                  <div className="emoji content">
+                    <Emoji  emoji='thumbsup' set='apple' skin="1" size={50} />
+                    <Label size="massive" >{thumbsUp}</Label>
+                  </div>
+                  <div className="emoji content">
+                    <Emoji  emoji='ok_hand' set='apple' skin="2" size={50} />
+                    <Label size="massive" >{okay}</Label>
+                  </div>
+                  <div className="emoji content">
+                    <Emoji  emoji='thumbsdown' set='apple' skin="3" size={50} />
+                    <Label size="massive" >{thumbsDown}</Label>
+                  </div>
+                  <div className="emoji content">
+                    <Emoji  emoji='exploding_head' set='apple' skin="1" size={50} />
+                    <Label size="massive" >{confused}</Label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="right column teacher lecture">
+             <PDFViewer lectureId={this.props.lecture.id} user={this.props.user} lecture={this.props.lecture}/>
+          </div>
+          <Button className={this.state.classname} loading={this.state.loading2} onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
         </div>
-
-        <div className="right column teacher lecture">
-           <PDFViewer lectureId={this.props.lecture.id} user={this.props.user} lecture={this.props.lecture}/>
-        </div>
-        <Button className={this.state.classname} onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
       </div>
-    </div>
-    );
+      );
+    }
   }
-}
 
 export default TeacherView;

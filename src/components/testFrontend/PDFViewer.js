@@ -26,9 +26,10 @@ class MyPdfViewer extends React.Component {
       pages: 0,
       uploadName: '',
       page: 1,
-      loading: false
+      loading: false,
+      loading2: false
     };
-    this.socket = io('https://3d6051e0.ngrok.io');
+      this.socket = io('localhost:3001');
 
 
     var self = this;
@@ -59,7 +60,7 @@ class MyPdfViewer extends React.Component {
     .then((resp) => {
       console.log(resp)
       if(resp.data.slideId){
-        var filePath = 'https://3d6051e0.ngrok.io/slide/' + resp.data.slideId
+        var filePath = 'localhost:3001' + resp.data.slideId
         var slideId = resp.data.slideId
         var page = resp.data.currentSlide
         this.setState({filePath, uploadFile: '', slideId, page, loading: true})
@@ -111,6 +112,10 @@ class MyPdfViewer extends React.Component {
   }
 
   sendFile(e){
+    this.setState({
+      loading2: true
+    })
+
     e.preventDefault()
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
@@ -124,7 +129,7 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        var filePath = 'https://3d6051e0.ngrok.io/slide/' + res.id
+        var filePath = 'localhost:3001' + res.id
         var slideId = res.id
         this.setState({filePath, uploadFile: '', slideId, loading: true })
       }
@@ -168,13 +173,13 @@ class MyPdfViewer extends React.Component {
           <div className="dropzone inner wrapper">
             <Dropzone onDrop={(files) => this.onChange(files)} className="dropzone area">
               <div className="drag and drop"> <Icon bordered circular name='add circle' size="massive" /> <br></br>
-                <h2>Drag and Drop or click to select files to upload.</h2><br></br>
+                <h2>Drag and Drop or Click to upload presentations.</h2><br></br>
                 {this.state.uploadName === '' ? '' : <h2>{name}</h2> }
               </div>
             </Dropzone>
             {this.state.uploadName === '' ? '' :
               <div className="dropzone button">
-              <Button size="massive" type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</Button>
+                <Button  size="massive" loading={this.state.loading2} type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</Button>
               </div>
            }
 
