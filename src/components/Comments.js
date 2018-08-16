@@ -30,7 +30,7 @@ class Comments extends React.Component {
     };
     var self = this;
 
-    this.socket = io('https://hidden-retreat-33188.herokuapp.com/ ');
+    this.socket = io('https://hidden-retreat-33188.herokuapp.com');
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
       addMessage(data);

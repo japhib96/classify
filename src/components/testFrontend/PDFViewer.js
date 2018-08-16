@@ -28,7 +28,7 @@ class MyPdfViewer extends React.Component {
       page: 1,
       loading: false
     };
-    this.socket = io('https://hidden-retreat-33188.herokuapp.com/ ');
+    this.socket = io('https://hidden-retreat-33188.herokuapp.com');
 
 
     var self = this;
