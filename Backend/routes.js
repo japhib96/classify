@@ -121,18 +121,50 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
 
   router.post('/getSlides', async function(req, res){
     var lecture = await models.Lecture.findById(req.body.lectureId)
-        if(lecture.slideId !== ''){
-          console.log(lecture.slideId)
-          res.json({
-            slideId: lecture.slideId,
-            currentSlide: lecture.currentSlide,
-          })
-        } else{
-          res.json({
-            slideId: '',
+      if(lecture.slideId !== ''){
+        console.log(lecture.slideId)
+        res.json({
+          slideId: lecture.slideId,
+          currentSlide: lecture.currentSlide,
+        })
+      } else{
+        res.json({
+       slideId: '',
 
-          })
+      })
+    }
+
+  router.post('/getFeedback', async function(req, res){
+    var lecture = await models.Lecture.findById(req.body.lectureId)
+    // if(lecture.slideId !== ''){
+    //   console.log(lecture.slideId)
+    //   res.json({
+    //     slideId: lecture.slideId,
+    //     currentSlide: lecture.currentSlide,
+    //   })
+    // } else{
+    //   res.json({
+    //  slideId: '',
+    // })
+    var sumOfReactions = 0;
+    var numberOfReactions = 0;
+    lecture.slideBySlide.forEach( (slide, index) =>{
+      if(index !== 0){
+        for(var id in slide.reactions){
+          if(id !== 'test'){
+            sumOfReactions += slide.reactions[id];
+            numberOfReactions ++;
+          }
         }
+      }
+    })
+    var averageReaction = sumOfReactions/numberOfReactions;
+    res.json({
+   averageReaction: averageReaction,
+  })
+  }
+
+
 
 
   })
