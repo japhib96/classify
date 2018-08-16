@@ -19,20 +19,6 @@ export default class Login extends React.Component {
       classname1: "student act",
       classname2:""
     }
-
-    // let classname;
-    //
-    // if(this.state.type === 1) {
-    //   classname ="student act"
-    // } else {
-    //     classname ="student inactive"
-    // }
-    //
-    // if(this.state.type === 2) {
-    //   classname ="teacher act"
-    // } else {
-    //     classname ="teacher inactive"
-    // }
   }
 
 
@@ -84,14 +70,10 @@ export default class Login extends React.Component {
         `}</style>
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' style={{width:"95%"}} textAlign='center'>
-             Log-in to your {this.state.type} account
-            </Header>
             <Form size='large'>
-
               <Segment stacked style={{background: '#98dafc'}}>
               <Header as='h2' style={{color:'black'}} textAlign='center'>
-                <Icon name='graduation' /> Log-in to your account
+                Log-in to your {this.state.type} account
               </Header>
                 <Form.Input
                   required
@@ -125,7 +107,7 @@ export default class Login extends React.Component {
                     </div>
                 </div>
                   <div className="login button">
-                    <Button content="Login" className='user dropdown' fluid size='large' onClick={(e) => this.logIn(e)}>
+                    <Button loading content="Login" className='user dropdown' fluid size='large' onClick={(e) => this.logIn(e)}>
                     </Button>
                   </div>
               </Segment>

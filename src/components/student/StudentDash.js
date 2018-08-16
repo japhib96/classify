@@ -72,7 +72,7 @@ export default class StudentDashboard extends Component {
               </div>
             </div>
             <div className="right col wrapper">
-              <header className="toolbar dashboard">
+              <header className="toolbar  teacher dashboard">
                 <div className="right part">
                   <div><JoinClassModal setClass={this.props.setClass} /></div>
                   <div><h2>Join a Class</h2></div>

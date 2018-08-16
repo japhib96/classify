@@ -199,19 +199,19 @@ body {
   align-items: center;
 }
 .user.dashboard.menu:hover {
-  background-color: #ef9797;
+  background-color: #ffffff;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .teacher.dashboard.menu {
-  background-color: #68ff72;
+  background-color: #98dafc;
   justify-content: center;
   margin-bottom: 2em;
   align-items: center;
 }
 .teacher.dashboard.menu:hover {
-  background-color: #ef9797;
+  background-color:#ffffff;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
@@ -305,7 +305,7 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #68ff72;
+  background-color: #98dafc;
   justify-content: space-between;
   border-radius: 5px;
 }
@@ -637,26 +637,45 @@ textarea {
   background-color: #68ff72;
 }
 
+
+/* CSS for Chat component */
+
 .text {
-  padding-top: 1em;
+  padding-top: 0.2em;
   padding-left: 0.5em;
-  height: 3em;
+  height: 1.7em;
 }
 
 .content:hover {
   background-color: #f9f9f9;
 }
 
-/* CSS for Chat component */
-
-.ui.comments.comment.text {
-  font-size: 1.5em;
-}
-
 .ui.comments.comment.a.author {
   font-size: 1.8em;
 }
 
-.ui.comments.comment.metadata {
+.comment.metadata {
   font-size: 1em;
+}
+
+.ui.container.container {
+  font-size: 1.5em;
+}
+
+.ui.threaded.comments .comment .comments {
+  font-size: 1em;
+  padding-top: 1em;
+  padding-bottom: 0em
+}
+
+.ui.comments .comment .actions {
+  padding-left: 1em;
+}
+
+.ui.comments .comment>.content{
+  margin-bottom: 1.5em;
+}
+
+.ui.comments .comment .metadata {
+  font-size: 0.6em;
 }

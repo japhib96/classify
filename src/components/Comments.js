@@ -156,7 +156,6 @@ class Comments extends React.Component {
                             {this.state.messages[index].replies.map((replies) =>
                               <Comment.Group>
                                 <Comment>
-                                  <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
                                   <Comment.Content>
                                     <Comment.Author as='a'>{replies.author}</Comment.Author>
                                     <Comment.Metadata>

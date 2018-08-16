@@ -104,13 +104,10 @@ export default class Register extends React.Component {
             `}</style>
             <Grid textAlign='center' style={{ height: '100%', textAlign: "center"}} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' style={{width:"95%"}}  textAlign='center'>
-                  Register an account as {this.state.type}
-                </Header>
                 <Form className='ui error form' size='large' >
                   <Segment stacked style={{background: '#98dafc'}}>
                   <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
-                    <Icon name='graduation'/>Register an account
+                    Register an account as {this.state.type}
                   </Header>
                     <Form.Input
                       required
