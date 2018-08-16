@@ -16,23 +16,23 @@ export default class TeacherStats extends React.Component {
   }
 
   componentDidMount(){
-    this.getFeedback()
+    this.getFeedBack()
   }
 
-async  getFeedBack(){
+async getFeedBack(){
     await axios.post('/getFeedback', {
       lectureId : this.props.lecture.id
     })
     .then((resp) => {
       console.log(resp)
-      this.setState(averageReaction: resp.data.averageReaction)
+      this.setState({averageReaction: resp.data.averageReaction})
     }).catch((e)=>{
       alert(e)
     });
   }
 
 render (){
-  console.log(this.props.lecture)
+  console.log('lecture', this.props.lecture)
   return(
 
     <Container text textAlign='justified' style={{height: 500, padding: 50, backgroundColor: 'white'}}>
@@ -56,8 +56,8 @@ render (){
 
       <h4 align='left'>Student Comments:</h4>
 
-      <div role='list' class='ui celled list'>
-        <div role='listitem' class='item'>
+      <div role='list' >
+        <div role='listitem' >
           Student Commentsasdflakjsdflkj
         </div>
       </div>

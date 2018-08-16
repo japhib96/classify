@@ -162,7 +162,7 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
     res.json({
    averageReaction: averageReaction,
   })
-  }
+})
 
 
 

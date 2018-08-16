@@ -30,7 +30,7 @@ class TopComments extends React.Component {
     };
     var self = this;
 
-    this.socket = io('https://3d6051e0.ngrok.io');
+    this.socket = io('localhost:3001');
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
       addMessage(data);
