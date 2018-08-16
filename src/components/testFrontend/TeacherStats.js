@@ -25,7 +25,7 @@ async  getFeedBack(){
     })
     .then((resp) => {
       console.log(resp)
-      this.setState(averageReaction: resp.data.averageReaction)
+      this.setState({ averageReaction: resp.data.averageReaction })
     }).catch((e)=>{
       alert(e)
     });

@@ -17,6 +17,8 @@ export default class UserInterface extends React.Component {
 
     this.state = {
       message: '',
+      question: '',
+      options: [],
     };
 
     var self = this;
@@ -38,6 +40,10 @@ export default class UserInterface extends React.Component {
           })
         }
       }
+
+      this.socket.on('UPDATE_QUESTIONS', function(data){
+        this.setState({ question: data.question, options: data.options })
+      });
     }
 
 
@@ -62,6 +68,13 @@ export default class UserInterface extends React.Component {
           <div className="chat grid">
             <div className="left col">
               {/* <Statistics  user={this.props.user} lecture={this.props.lectureId}/> */}
+              <label>Question</label>
+              <div>{this.state.question}</div>
+              <label>Answer options</label>
+              {this.state.options.map((option, index) => {
+                const num = index + 1;
+                return <div>{num + '. ' + option}</div>
+              })}
             </div>
             <div className="userinterface wrapper">
               <header class="header">
