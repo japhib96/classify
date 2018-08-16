@@ -89,7 +89,7 @@ async function toggleLecture(lectureId) {
   }
 }
 
-async function updateLecture(lectureId, messageData) {
+async function updateLecture(lectureId, messageData, userId) {
   try {
     var lecture = await models.Lecture.findById(lectureId);
     if (messageData === '') {
@@ -213,13 +213,15 @@ async function updateSlide(slideId, pageNum) {
 
 async function updateSlideTotal(slideId ,slides) {
   try {
+    console.log('slideTotal', slideId)
     var slide = await models.Slide.findById(slideId);
     var lecture = await models.Lecture.findById(slide.lectureId)
+    console.log(lecture.slideId)
     if (lecture.slideId !== slideId) {
       lecture.slideId = slideId;
       lecture.slideBySlide = [];
       for(var i =0; i <= slides; i++){
-        lecture.slideBySlide.push({messages: [], reactions: {test: 0}})
+        lecture.slideBySlide.push({messages: {test: 0}, reactions: {test: 0}})
       }
       var updatedLecture = await lecture.save()
       return updatedLecture

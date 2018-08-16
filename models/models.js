@@ -129,7 +129,8 @@ const messageSchema = mongoose.Schema({
   },
   likes: Array,
   replies: Array,
-  lecture: String
+  lecture: String,
+  userId: String
 })
 
 const classSchema = mongoose.Schema({

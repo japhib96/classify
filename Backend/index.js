@@ -71,9 +71,10 @@ io.on('connection', (socket) => {
       date: new Date(),
       likes: [],
       replies: [],
-      lecture: data.class
+      lecture: data.class,
+      userId: data.userId
     }
-    var messages = await saveFunctions.updateLecture(data.class, message)
+    var messages = await saveFunctions.updateLecture(data.class, message, data.userId)
     io.to(data.class).emit('RECEIVE_MESSAGE', messages);
   })
 
