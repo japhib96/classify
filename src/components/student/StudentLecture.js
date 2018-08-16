@@ -21,7 +21,7 @@ export default class UserInterface extends React.Component {
 
     var self = this;
 
-    this.socket = io('https://3d6051e0.ngrok.io');
+    this.socket = io('https://hidden-retreat-33188.herokuapp.com/ ');
 
 
       this.sendMessage = ev => {

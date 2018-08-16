@@ -136,7 +136,7 @@ async function updateReaction(lectureId, userId, reaction) {
     // }
     lecture.markModified('slideBySlide');
     var updatedLecture = await lecture.save();
-      return updatedLecture.reactions;
+    return updatedLecture.reactions;
   } catch(e){
     console.log(e)
   }
@@ -255,18 +255,24 @@ async function addNewStudent(lectureId, userId) {
     // var student = lecture.slideBySlide[0].reactions.findIndex(function(reactionObj) {
     //   return reactionObj.id === userId;
     // })
-    if(userId){
-      lecture.slideBySlide[1].reactions[userId] = 0
-      // lecture.slideBySlide[1].reactions = [...lecture.slideBySlide[1].reactions, {id: userId, Reaction: 0}]
-    }
-    if(lecture.currentSlide !== 1){
-      for(var i=1; i <= lecture.currentSlide; i++){
-        lecture.slideBySlide[i].reactions[userId] = 0
+    // if(userId){
+    //   lecture.slideBySlide[1].reactions[userId] = 0
+    //   // lecture.slideBySlide[1].reactions = [...lecture.slideBySlide[1].reactions, {id: userId, Reaction: 0}]
+    // }
+    var index = lecture.reactions.findIndex(function(reactionObj) {
+      return reactionObj.id === userId;
+    })
+    if (index === -1) {
+      lecture.reactions.push({id: userId, reaction: 0});
+      if(userId){
+        for(var i=1; i <= lecture.currentSlide; i++){
+          lecture.slideBySlide[i].reactions[userId] = 0
+        }
       }
+      lecture.markModified('slideBySlide');
+      console.log(lecture)
+      await lecture.save()
     }
-    lecture.markModified('slideBySlide');
-    console.log(lecture)
-    await lecture.save()
     return
   } catch(e) {
     console.log(e)
