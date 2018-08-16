@@ -149,7 +149,7 @@ class TeacherView extends React.Component {
         <div className="right column teacher lecture">
            <PDFViewer lectureId={this.props.lecture.id} user={this.props.user} lecture={this.props.lecture}/>
            <div className="right part">
-             <div><CreateQuestion socket={this.socket} lectureId={this.props.lectureId} /></div>
+             <div><CreateQuestion socket={this.socket} lectureId={this.props.lecture.id} /></div>
              <div><h2>Create a Question</h2></div>
            </div>
         </div>

@@ -23,8 +23,9 @@ class CreateQuestionModal extends React.Component {
     this.props.socket.emit('TEACHER_QUESTION', {
       question: this.state.question,
       options: this.state.options,
-      class: this.props.lectureId
+      lectureId: this.props.lectureId
     })
+    this.setState({ question: '', options: [], numOptions: 1, optionInput: '' })
   }
 
     handleClose = () => this.setState({ modalOpen: false })

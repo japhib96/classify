@@ -98,8 +98,9 @@ io.on('connection', (socket) => {
   })
 
   socket.on('TEACHER_QUESTION', async function(data) {
-    console.log(data);
-    io.to(data.class).emit('UPDATE_QUESTIONS', data)
+    var questions = await saveFunctions.updateQuestions(data)
+    console.log('questions', questions)
+    io.to(data.lectureId).emit('UPDATE_QUESTIONS', questions)
   })
 });
 
