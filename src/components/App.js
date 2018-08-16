@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import JoinClass from './testFrontend/joinClass'
 import RegisterClass from './testFrontend/registerClass'
 import Chat from './testFrontend/chatRoom'
+
 // import PDFViewer from './testFrontend/PDFViewer'
 // import TeacherView from './testFrontend/teacherView'
 import Login from './Login.js';
@@ -141,7 +142,7 @@ export default class App extends Component {
           } />
           <Route path='/student/feedback' render={() =>
             this.state.lecture
-              ? <div>Feedback for {this.state.lecture.title} coming soon!</div>
+              ? <TeacherStats lecture={this.state.lecture}/>
               : <Redirect to='/student/dashboard' />
           } />
           <Route path='/teacher' render={() =>

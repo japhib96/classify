@@ -8,10 +8,31 @@ import {
 import axios from 'axios';
 
 export default class TeacherStats extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      averageReaction: 0
+    };
+  }
 
+  componentDidMount(){
+    this.getFeedback()
+  }
+
+async  getFeedBack(){
+    await axios.post('/getFeedback', {
+      lectureId : this.props.lecture.id
+    })
+    .then((resp) => {
+      console.log(resp)
+      this.setState(averageReaction: resp.data.averageReaction)
+    }).catch((e)=>{
+      alert(e)
+    });
+  }
 
 render (){
-
+  console.log(this.props.lecture)
   return(
 
     <Container text textAlign='justified' style={{height: 500, padding: 50, backgroundColor: 'white'}}>

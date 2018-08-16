@@ -113,11 +113,8 @@ class TeacherView extends React.Component {
               Top 3 rated questions in the lecture:
               </Header>
             </header>
-            <TopComments user={this.props.user} lecture={this.props.lecture.id} />
             <div className="main list content">
-              <div className="list content"></div>
-              <div className="list content"></div>
-              <div className="list content"></div>
+              <TopComments user={this.props.user} lecture={this.props.lecture.id} />
             </div>
           </div>
           <div className="emotions teacher view">
@@ -150,7 +147,7 @@ class TeacherView extends React.Component {
         </div>
 
         <div className="right column teacher lecture">
-           <PDFViewer lectureId={this.props.lecture.id}/>
+           <PDFViewer lectureId={this.props.lecture.id} user={this.props.user} lecture={this.props.lecture}/>
            <div className="right part">
              <div><CreateQuestion socket={this.socket} lectureId={this.props.lectureId} /></div>
              <div><h2>Create a Class</h2></div>
