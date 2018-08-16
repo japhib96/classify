@@ -5,6 +5,7 @@ import EmotionBar from '../EmotionBar'
 import Headercomp from '../Headercomponent';
 import Loading from '../Loader';
 import TopComments from '../TopComments';
+import CreateQuestion from '../teacher/CreateQuestionModal';
 import io from 'socket.io-client';
 import { Button, Header, List, Label } from 'semantic-ui-react'
 import { Emoji } from 'emoji-mart';
@@ -150,6 +151,10 @@ class TeacherView extends React.Component {
 
         <div className="right column teacher lecture">
            <PDFViewer lectureId={this.props.lecture.id}/>
+           <div className="right part">
+             <div><CreateQuestion socket={this.socket} lectureId={this.props.lectureId} /></div>
+             <div><h2>Create a Class</h2></div>
+           </div>
         </div>
         <Button className={this.state.classname} onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
       </div>

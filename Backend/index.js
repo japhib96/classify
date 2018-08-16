@@ -96,6 +96,11 @@ io.on('connection', (socket) => {
   socket.on('TOTAL_SLIDES', async function(data) {
     var slides = await saveFunctions.updateSlideTotal(data.slideId, data.slides)
   })
+
+  socket.on('TEACHER_QUESTION', async function(data) {
+    console.log(data);
+    io.to(data.class).emit('UPDATE_QUESTIONS', data)
+  })
 });
 
 server.listen(3001, () => console.log('Example app listening on port 3001!'))
