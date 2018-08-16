@@ -92,7 +92,7 @@ async function toggleLecture(lectureId) {
   }
 }
 
-async function updateLecture(lectureId, messageData) {
+async function updateLecture(lectureId, messageData, userId) {
   try {
     var lecture = await models.Lecture.findById(lectureId);
     if (messageData === '') {
