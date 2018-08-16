@@ -26,7 +26,8 @@ export default class UserInterface extends React.Component {
 
       this.sendMessage = ev => {
         ev.preventDefault();
-        if(ev.keyCode == 13 && ev.shiftKey == false) {
+        // debugger;
+        if(ev.keyCode == 13 && ev.shiftKey !== true && ev.target.value.trim().length > 0) {
           this.socket.emit('SEND_MESSAGE', {
             author: this.props.user.username,
             message: this.state.message,
@@ -65,7 +66,7 @@ export default class UserInterface extends React.Component {
             <div className="userinterface wrapper">
               <header class="header">
                 <Header as='h1' textAlign="center">
-                Questions for {this.props.lectureId}
+                Questions
                   <Header.Subheader content='Ask Questions and respond to threads.'/>
                 </Header>
               </header>
@@ -78,7 +79,7 @@ export default class UserInterface extends React.Component {
                     autoHeight
                     placeholder='Type somehting'
                     rows={1}
-                    style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none', width: '90%', overflowY: 'hidden'}}
+                    style={{backgroundColor:'white', borderRadius: '15px',border:"2px solid gray", padding: '10px', outline:'none', width: '100%',}}
                     unstackable
                     onChange={ (e) => this.setState({message: e.target.value})}
                     value={this.state.message}

@@ -83,7 +83,7 @@ const lectureSchema = mongoose.Schema({
   },
   currentSlide: Number,
   slideBySlide:[{
-    messages: Array,
+    messages: Object,
     reactions: Object
   }],
   owner: {

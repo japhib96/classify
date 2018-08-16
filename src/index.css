@@ -9,10 +9,19 @@ body {
   background-color: #98dafc;
   align-items: center;
 }
-.user.dropdown:hover {
-  background-color: #83c8ef;
+
+.ui.large.fluid.button.user.dropdown {
+  background-color: #98dafc;
   color: #3a7999;
-  height: 30%;
+  margin-top: 1em;
+  border: 1px solid #42b9f4;
+  text-align: center;
+}
+
+.ui.large.fluid.button.user.dropdown:hover {
+  background-color: #f64c72;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .ui.segment {
@@ -37,9 +46,6 @@ body {
   height:100%;
 }
 
-/* .usergrid.main:hover {
-  overflow:scroll;
-} */
 
 .main.comment {
   overflow-y: scroll;
@@ -130,7 +136,7 @@ body {
   align-items: center;
 }
 
-.ui.button.ui.circular.label:hover {
+.thumbsup.label:hover {
   background-color: #f64c72;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
@@ -263,9 +269,6 @@ h2 {
   padding: 10px;
   flex: 1 100%;
 }
-.nav.col {
-  width: 90%;
-}
 
 .content.dashboard {
   text-align: left;
@@ -282,9 +285,11 @@ h2 {
 .pdf.view {
   height: 100%;
   width:100%;
-  overflow: scroll;
   justify-content: center;
   align-items: center;
+}
+.pdf.view:hover {
+  overflow-y: scroll;
 }
 
 .toolbar.dashboard {
@@ -420,7 +425,12 @@ canvas {
 
 .input.textarea {
   width: 100%;
-  overflow-y: hidden;
+  overflow: hidden;
+
+}
+
+textarea {
+  overflow: hidden;
 }
 
 .ui.form.input.field {
@@ -535,7 +545,7 @@ canvas {
 }
 
 .viewport {
-  height: 87vh;
+  height: 90vh;
 }
 
 .pdf.wrapper {
@@ -590,4 +600,63 @@ canvas {
 .ui.button.button.unactive {
   background-color: #2dff4c;
   height: 70vh;
+}
+
+.pager {
+  float: left;
+  margin-left: 1em;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.nav.col {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.student.act {
+  background-color: #68ff72;
+}
+
+.student.act:hover {
+  background-color: #68ff72;
+}
+
+
+.teacher.act {
+  background-color: #68ff72;
+}
+
+.teacher.act:hover {
+  background-color: #68ff72;
+}
+
+.text {
+  padding-top: 1em;
+  padding-left: 0.5em;
+  height: 3em;
+}
+
+.content:hover {
+  background-color: #f9f9f9;
+}
+
+/* CSS for Chat component */
+
+.ui.comments.comment.text {
+  font-size: 1.5em;
+}
+
+.ui.comments.comment.a.author {
+  font-size: 1.8em;
+}
+
+.ui.comments.comment.metadata {
+  font-size: 1em;
 }
