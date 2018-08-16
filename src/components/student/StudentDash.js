@@ -72,7 +72,7 @@ export default class StudentDashboard extends Component {
               </div>
             </div>
             <div className="right col wrapper">
-              <header className="toolbar dashboard">
+              <header className="toolbar  teacher dashboard">
                 <div className="right part">
                   <div><JoinClassModal setClass={this.props.setClass} /></div>
                   <div><h2>Join a Class</h2></div>
@@ -81,17 +81,24 @@ export default class StudentDashboard extends Component {
                   <Input icon='search' placeholder='Search for a Class...' />
                 </div>
               </header>
-              <div className="content dashboard">
-                {
-                  this.state.classes.map((classroom) => {
-                    return (
-                      <div className="card container" >
+
+              { this.state.classes[0] ?
+                  <div className="content dashboard">
+                    {this.state.classes.map((classroom) => {
+                  return (
+                      <div className="card container">
                         <CardGroups  title={classroom.name} setClass={this.props.setClass} classId={classroom._id} date={classroom.created}/>
                       </div>
-                    )
-                  })
-                }
-              </div>
+                      )
+                    }
+                  )}
+                </div>
+                :
+                <div className="content unactive ">
+                  <h2 >Currently no Class available <br></br>
+                  Click the Join Class Button to join a Class</h2>
+                </div>
+              }
           </div>
         </div>
       </div>

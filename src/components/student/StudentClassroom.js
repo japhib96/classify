@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Grid, Menu, Segment, Icon, Header, Container, Input } from 'semantic-ui-react'
+import { Grid, Menu, Segment, Icon, Header, Container, Input, Button } from 'semantic-ui-react'
 import CardGroups from '../projectComponent';
 import { Redirect } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -65,19 +65,19 @@ export default class StudentClassroom extends Component {
         <div className="user grid">
           <div className="left col">
             <div>
-              <Container textAlign="center" className="teacher dashboard menu">
+              <Button textAlign="center" className="teacher dashboard menu">
                 <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Lectures</h2>
-              </Container>
+              </Button>
             </div>
             <div>
-              <Container textAlign="center" className="teacher dashboard menu">
+              <Button textAlign="center" className="teacher dashboard menu">
                 <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions of {this.state.title} </h2>
-              </Container>
+              </Button>
             </div>
             <div>
-              <Container textAlign="center" className="teacher dashboard menu">
+              <Button textAlign="center" className="teacher dashboard menu">
                 <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> {this.state.title} Statistics</h2>
-              </Container>
+              </Button>
             </div>
           </div>
           <div className="right col wrapper">
@@ -90,75 +90,38 @@ export default class StudentClassroom extends Component {
                 <Input icon='search' placeholder='Search for a Lecture...' />
               </div>
             </header>
-            <div className="content dashboard">
-              {
-                this.state.lectures.map((lecture) => {
-                  return (
-                    <div>
-                      <CardGroups
-                        title={lecture.lectureTitle}
-                        setLecture={this.props.setLecture}
-                        lectureId={lecture._id}
-                        active={lecture.active}
-                        date={lecture.created}
-                        reaction={lecture.reactions}
-                      />
-                    </div>
+
+                {this.state.lectures[0] ?
+
+                  <div className="content dashboard">
+                    {this.state.lectures.map((lecture) => {
+                      return (
+                        <div>
+                          <CardGroups
+                            title={lecture.lectureTitle}
+                            setLecture={this.props.setLecture}
+                            lectureId={lecture._id}
+                            active={lecture.active}
+                            date={lecture.created}
+                          />
+                        </div>
+                      )
+                    }
                   )
-                })
-              }
-            </div>
+                }
+              </div>
+
+              :
+
+              <div className="content unactive">
+                <h2 className="unactive content">Currently no Lecture available <br></br>
+                Click the Join Lecture Button to join a Lecture</h2>
+              </div>
+            }
+
           </div>
         </div>
       </div>
-
-
-
-
-      //   <div>
-      //   <Headercomp title={this.state.title}
-      //   description={'This is the class homepage. You can view past lectures or join live ones'}/>
-      //   <div style={{height: '86.2%'}}>
-      //     <Grid columns={2} doubling stretched className="style" >
-      //         <Grid.Column className="style" stretched width={4} floated='left' >
-      //           <Container>
-      //             <Grid columns={1} centered  textAlign="center" verticalAlign="middle">
-      //               <Grid.Row className="menu style" color="pink" width={4} verticalAlign="middle" >
-      //                 <Container textAlign="center" className="user dashboard menu">
-      //                   <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
-      //                 </Container>
-      //               </Grid.Row>
-      //               <Grid.Row className="menu style" color="pink" width={4} verticalAlign="middle" >
-      //                 <Container textAlign="center" className="user dashboard menu">
-      //                   <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
-      //                 </Container>
-      //               </Grid.Row>
-      //               <Grid.Row className="menu style" color="pink" width={4} verticalAlign="middle" >
-      //                 <Container textAlign="center" className="user dashboard menu">
-      //                   <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
-      //                 </Container>
-      //               </Grid.Row>
-      //             </Grid>
-      //           </Container>
-      //         </Grid.Column>
-      //         <Grid.Column stretched width={12} floated="right" color="blue" className="style">
-      //           <Container>
-      //             <Grid>
-      //             {
-      //               this.state.lectures.map((lecture) => {
-      //                 return (
-      //                   <Grid.Column className="dashboard style" width={4}>
-      //                     <CardGroups title={lecture.lectureTitle} setLecture={this.props.setLecture} lectureId={lecture._id} />
-      //                   </Grid.Column>
-      //                 )
-      //               })
-      //             }
-      //             </Grid>
-      //           </Container>
-      //         </Grid.Column>
-      //     </Grid>
-      //   </div>
-      // </div>
     )
   }
 }

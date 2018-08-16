@@ -26,9 +26,10 @@ class MyPdfViewer extends React.Component {
       pages: 0,
       uploadName: '',
       page: 1,
-      loading: false
+      loading: false,
+      loading2: false
     };
-    this.socket = io('localhost:3001');
+      this.socket = io('localhost:3001');
 
 
     var self = this;
@@ -111,6 +112,10 @@ class MyPdfViewer extends React.Component {
   }
 
   sendFile(e){
+    this.setState({
+      loading2: true
+    })
+
     e.preventDefault()
     var data = new FormData()
     data.append("uploadFile", this.state.uploadFile)
@@ -168,13 +173,13 @@ class MyPdfViewer extends React.Component {
           <div className="dropzone inner wrapper">
             <Dropzone onDrop={(files) => this.onChange(files)} className="dropzone area">
               <div className="drag and drop"> <Icon bordered circular name='add circle' size="massive" /> <br></br>
-                <h2>Drag and Drop or click to select files to upload.</h2><br></br>
+                <h2>Drag and Drop or Click to upload presentations.</h2><br></br>
                 {this.state.uploadName === '' ? '' : <h2>{name}</h2> }
               </div>
             </Dropzone>
             {this.state.uploadName === '' ? '' :
               <div className="dropzone button">
-              <Button size="massive" type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</Button>
+                <Button  size="massive" loading={this.state.loading2} type="submit" onClick={ (e)=>this.sendFile(e)}>Upload</Button>
               </div>
            }
 

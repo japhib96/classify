@@ -116,36 +116,102 @@ class TopComments extends React.Component {
             messagesCopy.sort(this.topQuestions);
             const topThree = messagesCopy.slice(0,3);
             return (
-              <div className="list content">
 
-                  {
+              <div className="list content wrapper">
+
+
+                  {/* {
                     topThree.map( (message, index) => {
-                      return (
-                        <Container className="container">
-                          <Comment key={index}>
-                            <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg'  />
-                            <Comment.Content>
-                              <Comment.Author  as='a'>{message.author}</Comment.Author>
-                              <Comment.Metadata>
-                                <span>{message.date ? message.date.substring(0,21) : ''}</span>
-                              </Comment.Metadata>
-                              <Comment.Text>
-                                <div id="styling">
-                                  {message.message}
-                                </div>
-                              </Comment.Text>
-                              <Comment.Actions>
-                                <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label>
-                              </Comment.Actions>
-                              </Comment.Content>
-                          </Comment>
-                      </Container>
-                    )
-                  }
-                )
-              }
-              </div>
-
+                      return ( */}
+                      {/* key={index} */}
+                      <div className="list content">
+                              <Container className="container">
+                                <Comment.Group>
+                                  <Comment>
+                                    <Comment.Content>
+                                      {/* <Comment.Author  as='a'>{message.author}</Comment.Author> */}
+                                      <Comment.Author as="a"> Japhi Biedermann</Comment.Author>
+                                      <Comment.Metadata>
+                                        {/* <span>{message.date ? message.date.substring(0,21) : ''}</span> */}
+                                        <span>12 Aug 1999 Saturday</span>
+                                      </Comment.Metadata>
+                                      <Comment.Text>
+                                        <div id="styling">
+                                          {/* {message.message} */} Hi how is it going?
+                                        </div>
+                                      </Comment.Text>
+                                      <Comment.Actions>
+                                        {/* <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label> */}
+                                        <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>23</Label>
+                                      </Comment.Actions>
+                                      </Comment.Content>
+                                  </Comment>
+                                </Comment.Group>
+                            </Container>
+                               {/* ) */}
+                             {/* } */}
+                           {/* ) */}
+                         {/* } */}
+                        </div>
+                        <div className="list content">
+                                <Container className="container">
+                                  <Comment.Group>
+                                    <Comment>
+                                      <Comment.Content>
+                                        {/* <Comment.Author  as='a'>{message.author}</Comment.Author> */}
+                                        <Comment.Author as="a"> Japhi Biedermann</Comment.Author>
+                                        <Comment.Metadata>
+                                          {/* <span>{message.date ? message.date.substring(0,21) : ''}</span> */}
+                                          <span>12 Aug 1999 Saturday</span>
+                                        </Comment.Metadata>
+                                        <Comment.Text>
+                                          <div id="styling">
+                                            {/* {message.message} */} Hi how is it going?
+                                          </div>
+                                        </Comment.Text>
+                                        <Comment.Actions>
+                                          {/* <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label> */}
+                                          <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>23</Label>
+                                        </Comment.Actions>
+                                        </Comment.Content>
+                                    </Comment>
+                                  </Comment.Group>
+                              </Container>
+                                 {/* ) */}
+                               {/* } */}
+                             {/* ) */}
+                           {/* } */}
+                          </div>
+                          <div className="list content">
+                                  <Container className="container">
+                                    <Comment.Group>
+                                      <Comment>
+                                        <Comment.Content>
+                                          {/* <Comment.Author  as='a'>{message.author}</Comment.Author> */}
+                                          <Comment.Author as="a"> Japhi Biedermann</Comment.Author>
+                                          <Comment.Metadata>
+                                            {/* <span>{message.date ? message.date.substring(0,21) : ''}</span> */}
+                                            <span>12 Aug 1999 Saturday</span>
+                                          </Comment.Metadata>
+                                          <Comment.Text>
+                                            <div id="styling">
+                                              {/* {message.message} */} Hi how is it going?
+                                            </div>
+                                          </Comment.Text>
+                                          <Comment.Actions>
+                                            {/* <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label> */}
+                                            <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>23</Label>
+                                          </Comment.Actions>
+                                          </Comment.Content>
+                                      </Comment>
+                                    </Comment.Group>
+                                </Container>
+                                   {/* ) */}
+                                 {/* } */}
+                               {/* ) */}
+                             {/* } */}
+                            </div>
+                        </div>
             );
           }
         }

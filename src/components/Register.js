@@ -21,7 +21,8 @@ export default class Register extends React.Component {
       lengthP: 'ui hidden error message',
       passwords: 'ui hidden error message',
       classname1: "student act",
-      classname2: ""
+      classname2: "",
+      loading: false
     }
   }
   async makeAccount(e) {
@@ -104,16 +105,12 @@ export default class Register extends React.Component {
             `}</style>
             <Grid textAlign='center' style={{ height: '100%', textAlign: "center"}} verticalAlign='middle'>
               <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' style={{width:"95%"}}  textAlign='center'>
-                  Register an account as {this.state.type}
-                </Header>
                 <Form className='ui error form' size='large' >
                   <Segment stacked style={{background: '#98dafc'}}>
                   <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
-                    <Icon name='graduation'/>Register an account
+                    Register an account as {this.state.type}
                   </Header>
                     <Form.Input
-                      required
                       fluid
                       icon='inbox'
                       iconPosition='left'
@@ -121,7 +118,6 @@ export default class Register extends React.Component {
                       onChange={(e)=>this.setState({ email: e.target.value })}
                     />
                     <Form.Input
-                      required
                       fluid
                       icon='user'
                       iconPosition='left'
@@ -164,7 +160,7 @@ export default class Register extends React.Component {
                       </div>
                     </div>
                     <div className="register button">
-                      <Button content="Register" className='user dropdown' fluid size='large' onClick={(e) => this.makeAccount(e)}>
+                      <Button loading={this.state.loading} content="Register" className='user dropdown' fluid size='large' onClick={(e) => this.makeAccount(e)}>
                       </Button>
                     </div>
                   </Segment>

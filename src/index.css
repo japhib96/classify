@@ -19,17 +19,9 @@ body {
 }
 
 .ui.large.fluid.button.user.dropdown:hover {
-  background-color: #f64c72;
+  background-color: #ffffff;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
-}
-
-.ui.segment {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background-color: #f64c72;
-    box-shadow: 2px 2px;
-    margin-right: 20px;
 }
 
 .column.menu {
@@ -57,47 +49,6 @@ body {
   justify-content: center;
 }
 
-.ui.segment.emoji.top:hover {
-  background-color: green;
-  color: black;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
-.ui.segment.emoji.top:focus {
-  background-color: green;
-  color: black;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
-.ui.segment.emoji.good:hover {
-  background-color: #bdffb2;
-  color: #3a7999;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
-.ui.segment.emoji.good:focus {
-  background-color: #bdffb2;
-  color: #3a7999;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
-.ui.segment.emoji.confused:hover {
-  background-color: #ef9797;
-  color: #3a7999;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
-.ui.segment.emoji.confused:focus {
-  background-color: #ef9797;
-  color: #3a7999;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
-.ui.segment.emoji.out:hover {
-  background-color: #fc0000;
-  color: black;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
-
-.ui.segment.emoji.out:focus {
-  background-color: #fc0000;
-  color: black;
-  box-shadow: inset 0 0 0 3px #3a7999;
-}
 .button.likes {
   background-color: #fffaf0;
 }
@@ -158,7 +109,7 @@ body {
 
 
 .ui.container.container {
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 
@@ -199,19 +150,20 @@ body {
   align-items: center;
 }
 .user.dashboard.menu:hover {
-  background-color: #ef9797;
+  background-color: #ffffff;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .teacher.dashboard.menu {
-  background-color: #68ff72;
+  background-color: #98dafc;
   justify-content: center;
   margin-bottom: 2em;
   align-items: center;
+  width:100%;
 }
 .teacher.dashboard.menu:hover {
-  background-color: #ef9797;
+  background-color:#ffffff;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
@@ -220,6 +172,7 @@ body {
 h2 {
     margin-top: 0px;
     margin-left: 25px;
+    text-align: center;
 }
 
 .ui.raised.card.cardItem {
@@ -247,7 +200,7 @@ h2 {
 }
 
 .user.grid {
-  max-height: 85%;
+  max-height: 80vh;
   display: flex;
   flex-direction: row;
 }
@@ -274,14 +227,28 @@ h2 {
   text-align: left;
   display: flex;
   flex-wrap: wrap;
-  height: 73vh;
+  height: 71vh;
 }
 
 .card.container {
   height: 18%;
   width: 30%;
   margin: 1em;
+
 }
+
+.content.unactive {
+  height: 71vh;
+  width: 100%;
+  /* padding-top: 28%; */
+  color: #adadad;
+}
+
+.content.unactive > h2 {
+  padding-top: 26%;
+  height: 71vh;
+}
+
 .pdf.view {
   height: 100%;
   width:100%;
@@ -305,7 +272,7 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #68ff72;
+  background-color: #98dafc;
   justify-content: space-between;
   border-radius: 5px;
 }
@@ -390,10 +357,13 @@ canvas {
   text-align: left;
   overflow:hidden;
   height: 80%;
+  padding: 0em;
+  width: 100%;
 }
 
 .main.comment.wrapper {
   width: 100%;
+  padding: 0em;
 }
 
 .main {
@@ -406,7 +376,7 @@ canvas {
 .header {
   text-align: center;
   justify-content: center;
-  height: 10%;
+  height: 8%;
 }
 
 .footer {
@@ -423,6 +393,10 @@ canvas {
   align-items: center;
 }
 
+.ui.circular.label {
+  background-color: white;
+}
+
 .input.textarea {
   width: 100%;
   overflow: hidden;
@@ -436,10 +410,9 @@ textarea {
 .ui.form.input.field {
   width: 90%;
   float:left;
-  overflow-y: hidden;
 }
 
-.ui.button.emoji {
+.emoji {
   float:left;
 }
 
@@ -469,7 +442,7 @@ textarea {
 }
 
 .teacher.grid {
-  height:93%;
+  height:80vh;
   display: flex;
   flex-direction: row;
 }
@@ -502,17 +475,23 @@ textarea {
   text-align: center;
   justify-content: center;
   margin-top: 1em;
-  height: 20%;
+  height: 15%;
 }
 
 .main.list.content {
   width:100%;
-  height:100%;
+  height:80%;
+  padding: 0em;
+  padding-left: 1em;
 }
 
 .list.content {
   height: 30%;
   width:100%;
+}
+
+.list.content.wrapper {
+  height:100%;
 }
 
 .main.emoji.content  {
@@ -583,6 +562,16 @@ textarea {
   margin-top: 1em;
 }
 
+.ui.massive.button {
+  background-color: #98dafc;
+}
+
+.ui.massive.button:hover {
+  background-color: #ffffff;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
 .drag.and.drop {
   justify-content: center;
   align-items: center;
@@ -590,6 +579,14 @@ textarea {
   text-align: center;
   vertical-align: middle;
   color: grey;
+}
+
+.massive.icon  {
+    line-height: 1;
+    vertical-align: middle;
+    font-size: 8em;
+    margin-top: 25%;
+    margin-bottom: 5%;
 }
 
 .ui.button.button.active {
@@ -600,6 +597,18 @@ textarea {
 .ui.button.button.unactive {
   background-color: #2dff4c;
   height: 70vh;
+}
+
+.ui.button.button.unactive:hover {
+  background-color: #a6fc98;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.ui.button.button.active:hover {
+  background-color: #ff6b6d;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .pager {
@@ -637,26 +646,63 @@ textarea {
   background-color: #68ff72;
 }
 
+
+/* CSS for Chat component */
+
 .text {
-  padding-top: 1em;
+  padding-top: 0.2em;
   padding-left: 0.5em;
-  height: 3em;
+  height: 1.7em;
 }
 
 .content:hover {
   background-color: #f9f9f9;
 }
 
-/* CSS for Chat component */
-
-.ui.comments.comment.text {
-  font-size: 1.5em;
-}
-
 .ui.comments.comment.a.author {
   font-size: 1.8em;
 }
 
-.ui.comments.comment.metadata {
+.comment.metadata {
   font-size: 1em;
+}
+
+.ui.container.container {
+  font-size: 1.5em;
+}
+
+.ui.threaded.comments .comment .comments {
+  font-size: 1em;
+  padding-top: 1em;
+  padding-bottom: 0em
+}
+
+.ui.comments .comment .actions {
+  padding-left: 1em;
+  margin-bottom: 2em;
+}
+
+.ui.comments .comment>.content{
+  margin-bottom: 1.5em;
+}
+
+.ui.comments .comment .metadata {
+  font-size: 0.6em;
+}
+
+.ui.button.ui.circular.label.emoji.unactive {
+  background-color: white;
+  height: 1em;
+}
+
+.ui.button.ui.circular.label.emoji.active {
+  background-color: #e5f9ff;
+  border: 0.6px solid #245d8c;
+  height: 1em;
+}
+
+.ui.button.ui.circular.label:hover{
+  background-color: #ffffff;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 2px #3a7999;
 }

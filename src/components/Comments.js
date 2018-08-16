@@ -19,6 +19,8 @@ class Comments extends React.Component {
   constructor(props){
     super(props);
 
+
+
     this.state = {
       username: '',
       message: '',
@@ -26,11 +28,11 @@ class Comments extends React.Component {
       reaction: '',
       allReactions: [],
       reply:'',
-      pressed: []
+      pressed: [],
     };
     var self = this;
 
-    this.socket = io('localhost:3001');
+  this.socket = io('localhost:3001');
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
       addMessage(data);
@@ -94,15 +96,30 @@ class Comments extends React.Component {
             this.setState({ pressed : arr })
           }
 
-          sendReply(id, index) {
-            this.socket.emit('ADD_REPLY', {
-              user: this.props.user.username,
-              reply: this.state.reply,
-              index: id,
-              class: this.props.lecture
-            })
-            this.addReply(index);
+          sendReply(id, index, ev) {
+            ev.preventDefault();
+            if(ev.keyCode == 13 && ev.shiftKey !== true && ev.target.value.trim().length > 0) {
+              this.socket.emit('ADD_REPLY', {
+                user: this.props.user.username,
+                reply: this.state.reply,
+                index: id,
+                class: this.props.lecture
+              })
+              // this.addReply(index);
+            }
           }
+
+          renderColor = (likes) => {
+            var check = likes.findIndex( (likeObj) => {
+              return likeObj.id === this.props.user._id
+            })
+            if(check === -1) {
+              return "emoji unactive"
+            } else {
+              return "emoji active"
+            }
+          }
+
 
           render() {
             return (
@@ -120,54 +137,50 @@ class Comments extends React.Component {
                                 <span>{message.date ? message.date.substring(0,21) : ''}</span>
                               </Comment.Metadata>
                               <Comment.Text>
-                                {/* <div id="styling"> */}
                                   {message.message}
-                                {/* </div> */}
-
                               </Comment.Text>
                               <Comment.Actions>
-                                <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label>
-                                <Label className="thumbsup label" as={Button} onClick={() => this.likeMessage(message._id) } circular attached bottom right>
-                                  <Emoji emoji="thumbsup" set='facebook' skin="4" size={12} />
-                                  I like it
-                                </Label>
-                                <Label className="thumbsup label" as={Button} onClick={() => this.addReply(index)} circular attached bottom right >
+                                <Label className={this.renderColor(message.likes)} onClick={() => this.likeMessage(message._id) } as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label>
+                                <Label  as={Button} onClick={() => this.addReply(index)} circular attached bottom right >
                                   <i class="fas fa-comment"></i>
-                                  Thread
+                                  { this.state.messages[index].replies ? '  ' + this.state.messages[index].replies.length.toString() + ' Comments' :  "Start Thread"}
                                 </Label>
                               </Comment.Actions>
 
                             {this.state.pressed[index] ?
                                 <Comment.Action>
-                                  <Grid.Column textAlign="left" verticalAlign="center" className="reply" >
-                                    <Form onChange={ (e) => this.setState({reply: e.target.value})} value={this.state.reply}>
-                                      <TextArea type="submit" onSubmit={() => this.sendMessage() } autoHeight placeholder='Type somehting' rows={1} style={{backgroundColor:'white', borderRadius: '15px', padding: '10px', outline:'none'}} unstackable/>
+                                  {this.state.messages[index].replies.map((replies) =>
+                                    <Comment.Group>
+                                      <Comment>
+                                        <Comment.Content>
+                                          <Comment.Author as='a'>{replies.author}</Comment.Author>
+                                          <Comment.Metadata>
+                                            <span>{message.date ? message.date.substring(0,21) : ''}</span>
+                                          </Comment.Metadata>
+                                          <Comment.Text>{replies.reply}</Comment.Text>
+                                        </Comment.Content>
+                                      </Comment>
+                                    </Comment.Group>
+                                      )}
+                                  <footer class="footer student">
+                                    <Form reply className="input field">
+                                        <Form.TextArea
+                                          onChange={ (e) => this.setState({reply: e.target.value})}
+                                          value={this.state.reply}
+                                          onKeyUp = {(ev) => this.sendReply(message._id, index, ev)}
+                                          style={{backgroundColor:'white', borderRadius: '15px',border:"2px solid gray", padding: '10px', outline:'none', width: '100%',}}
+                                          type="submit"
+                                          placeholder='Reply to thread...'
+                                          rows={1}
+                                          className="input textarea"
+                                          unstackable
+                                          autoHeight
+                                        />
                                     </Form>
-                                  </Grid.Column>
-                                  <Grid.Column>
-                                      <Button onClick={() => this.sendReply(message._id, index)}>
-                                        <i class="fas fa-reply"></i>
-                                        Reply
-                                      </Button>
-                                  </Grid.Column>
+                                  </footer>
                                 </Comment.Action>
                                   : null}
                               </Comment.Content>
-
-                            {this.state.messages[index].replies.map((replies) =>
-                              <Comment.Group>
-                                <Comment>
-                                  <Comment.Avatar as='a' src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                                  <Comment.Content>
-                                    <Comment.Author as='a'>{replies.author}</Comment.Author>
-                                    <Comment.Metadata>
-                                      <span>{message.date ? message.date.substring(0,21) : ''}</span>
-                                    </Comment.Metadata>
-                                    <Comment.Text>{replies.reply}</Comment.Text>
-                                  </Comment.Content>
-                                </Comment>
-                              </Comment.Group>
-                                )}
                           </Comment>
                       </Container>
                     )
