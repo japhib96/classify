@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Menu, Segment, Input, Dropdown, Icon} from 'semantic-ui-react';
+import { Menu, Segment, Input, Dropdown, Icon, Item} from 'semantic-ui-react';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
@@ -58,7 +58,8 @@ export default class Navigationbar extends Component {
       <div>
         <Menu className='ui navbar' size='massive'>
           <Menu.Item header name='Classify' active={activeItem === 'home'} onClick={() => this.setState({ goHome: true })} />
-          <Menu.Menu position='right'>
+          <div className="session">{this.props.user.teacher ? <i>Teacher</i> : <i>Student</i>}</div>
+          <Menu.Menu position='right' style={{marginLeft:"0em"}}>
             <Dropdown trigger={trigger} options={options} pointing='top right' className="user dropdown"/>
           </Menu.Menu>
         </Menu>
