@@ -27,7 +27,7 @@ class Headercomp extends Component {
   render() {
     return (
       <div>
-        <Header as='h1' textAlign="center" style={{marginTop:"1em"}}>
+        <Header as='h1' textAlign="center" >
           {this.props.title} <i>{this.state.statusmessage}</i>
           <Header.Subheader>{this.props.description}</Header.Subheader>
           <Divider />
@@ -38,5 +38,3 @@ class Headercomp extends Component {
 }
 
 export default Headercomp;
-
-// {this.displayMessage()}

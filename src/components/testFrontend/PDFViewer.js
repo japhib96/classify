@@ -138,6 +138,12 @@ class MyPdfViewer extends React.Component {
     })
   }
 
+  changeState = () => {
+    this.setState({
+      filePath: ''
+    })
+  }
+
 
   render() {
 
@@ -195,7 +201,11 @@ class MyPdfViewer extends React.Component {
                   onDocumentComplete={this.onDocumentComplete}
                   page={this.state.page}
                 />
-                <Button onClick={this.goFull}> <FontAwesomeIcon icon="expand" size="2x"/></Button>
+                <div className="button view">
+                  <Button onClick={this.goFull}> <FontAwesomeIcon icon="expand" size="2x"/></Button>
+                  <Button onClick={this.changeState}> Upload new</Button>
+                </div>
+
                 {this.state.isFull === false ? '' :
                   <div className="nav col">
                     <div className="pager">

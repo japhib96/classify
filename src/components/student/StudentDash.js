@@ -54,40 +54,23 @@ export default class StudentDashboard extends Component {
         <Headercomp title={`Hi ${this.props.user.username}!`}
           description={'Welcome to your Dashboard. You can view your classes and join new ones'}/>
           <div className="user grid">
+
             <div className="left col">
-              <div style={{display: 'block'}}>
-                <button style={{ width: '100%', padding: '10px', marginTop: '10px', backgroundColor: '#98dafc'}} className='block hvr-underline-from-left'>
-                  <div stlye={{display: 'flex', flexDirection: 'row'}}>
-                  <FontAwesomeIcon icon="graduation-cap" size="2x" />
-                  <h2 style={{display: 'inline'}}> Classes </h2>
-                  </div>
-
-                </button>
-
+              <div>
+                <Button style={{backgroundColor:"#82ecff", marginBottom: "2em", marginLeft: "1em", color: "black"}} textAlign="center" className='hvr-underline-from-left'>
+                  <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2> Your Classes</h2>
+                </Button>
               </div>
-
-              <div style={{display: 'block'}}>
-                <button style={{ width: '100%', padding: '10px', marginTop: '10px', backgroundColor: '#98dafc'}} className='block hvr-underline-from-left'>
-                  <div stlye={{display: 'flex', flexDirection: 'row'}}>
-                  <FontAwesomeIcon icon="question" size="1x" />
-                  <h2 style={{display: 'inline'}}> View Top Questions</h2>
-                  </div>
-
-                </button>
-
+              <div>
+                <Button style={{backgroundColor:"#82ecff", marginBottom: "2em", marginLeft: "1em", color: "black"}} textAlign="center" className='hvr-underline-from-left'>
+                  <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions </h2>
+                </Button>
               </div>
-
-              <div style={{display: 'block'}}>
-                <button style={{ width: '100%', padding: '10px', marginTop: '10px', backgroundColor: '#98dafc'}} className='block hvr-underline-from-left'>
-                  <div stlye={{display: 'flex', flexDirection: 'row'}}>
-                  <FontAwesomeIcon icon="chart-line" size="2x" />
-                  <h2 style={{display: 'inline'}}> Class Statistics </h2>
-                  </div>
-
-                </button>
-
+              <div>
+                <Button style={{backgroundColor:"#82ecff", marginBottom: "2em", marginLeft: "1em", color: "black"}} textAlign="center"  className='hvr-underline-from-left'>
+                  <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Statistics</h2>
+                </Button>
               </div>
-
             </div>
             <div className="right col wrapper">
               <header className="toolbar  teacher dashboard">

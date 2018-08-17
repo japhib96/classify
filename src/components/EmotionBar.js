@@ -57,7 +57,7 @@ class Emotion extends React.Component {
 
       <div className="emotiongrid wrapper">
          <header class="header">
-           <Header as='h1' textAlign="center">
+           <Header  className="commentblock" as='h1' textAlign="center">
              Emotion Bar
              <Header.Subheader content='What is your understanding of the current situation?' />
            </Header>

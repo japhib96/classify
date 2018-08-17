@@ -65,7 +65,7 @@ export default class UserInterface extends React.Component {
             </div>
             <div className="userinterface wrapper">
               <header class="header">
-                <Header as='h1' textAlign="center">
+                <Header className="commentblock" as='h1' textAlign="center">
                 Questions
                   <Header.Subheader content='Ask Questions and respond to threads.'/>
                 </Header>

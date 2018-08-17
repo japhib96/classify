@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Grid, Menu, Segment, Icon, Header, Container, Input } from 'semantic-ui-react'
+import { Grid, Menu, Segment, Icon, Header, Container, Input, Button } from 'semantic-ui-react'
 import CardGroups from '../projectComponent';
 import { Redirect } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -65,19 +65,19 @@ export default class TeacherClassroom extends Component {
           <div className="user grid">
             <div className="left col">
               <div>
-                <Container textAlign="center" className="teacher dashboard menu">
-                  <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Lectures</h2>
-                </Container>
+                <Button style={{backgroundColor:"#82ecff", marginBottom: "2em", marginLeft: "1em", color: "black"}} textAlign="center" className='hvr-underline-from-left'>
+                  <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2> Your Lectures</h2>
+                </Button>
               </div>
               <div>
-                <Container textAlign="center" className="teacher dashboard menu">
+                <Button style={{backgroundColor:"#82ecff", marginBottom: "2em", marginLeft: "1em", color: "black"}} textAlign="center" className='hvr-underline-from-left'>
                   <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions of {this.state.title} </h2>
-                </Container>
+                </Button>
               </div>
               <div>
-                <Container textAlign="center"  className="teacher dashboard menu">
+                <Button style={{backgroundColor:"#82ecff", marginBottom: "2em", marginLeft: "1em", color: "black"}} textAlign="center"  className='hvr-underline-from-left'>
                   <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> {this.state.title} Statistics</h2>
-                </Container>
+                </Button>
               </div>
             </div>
             <div className="right col wrapper">
