@@ -137,16 +137,6 @@ router.post('/getSlides', async function(req, res){
 
   router.post('/getFeedback', async function(req, res){
     var lecture = await models.Lecture.findById(req.body.lectureId)
-    // if(lecture.slideId !== ''){
-    //   console.log(lecture.slideId)
-    //   res.json({
-    //     slideId: lecture.slideId,
-    //     currentSlide: lecture.currentSlide,
-    //   })
-    // } else{
-    //   res.json({
-    //  slideId: '',
-    // })
     var sumOfReactions = 0;
     var numberOfReactions = 0;
     var numberOfQuestions = [];
