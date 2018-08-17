@@ -631,22 +631,23 @@ textarea {
   vertical-align: middle;
 }
 
-.student.act {
+.ui.button.teacher.act {
   background-color: #68ff72;
 }
 
-.student.act:hover {
+/* .student.act:hover {
+  background-color: #68ff72;
+} */
+
+
+.ui.button.student.act {
   background-color: #68ff72;
 }
 
 
-.teacher.act {
+/* .teacher.act:hover {
   background-color: #68ff72;
-}
-
-.teacher.act:hover {
-  background-color: #68ff72;
-}
+} */
 
 
 /* CSS for Chat component */

@@ -20,7 +20,7 @@ export default class Register extends React.Component {
       emailMsg: 'ui hidden error message',
       lengthP: 'ui hidden error message',
       passwords: 'ui hidden error message',
-      classname1: "student act",
+      classname1: "ui button student act",
       classname2: "",
       loading: false
     }
@@ -141,9 +141,9 @@ export default class Register extends React.Component {
                       onChange={(e)=>this.setState({ confirmP: e.target.value })}
                     />
                     <Button.Group defaultValue={this.state.type}>
-                      <Button  className={this.state.classname1} value={1} onClick={(e) => this.setState({ type: "Student", classname1: "student act", classname2: ""})}>Student</Button>
+                      <Button  className={this.state.classname1} value={1} onClick={(e) => this.setState({ type: "Student", classname1: "ui button student act" , classname2: ""})}>Student</Button>
                       <Button.Or />
-                      <Button  className={this.state.classname2} value={2} onClick={(e) => this.setState({ type: "Teacher", classname2: "teacher act", classname1: ""})}>Teacher</Button>
+                      <Button  className={this.state.classname2} value={2} onClick={(e) => this.setState({ type: "Teacher", classname2: "ui button teacher act", classname1: ""})}>Teacher</Button>
                     </Button.Group>
                     <div className={this.state.message}>
                       <div className='content'>
