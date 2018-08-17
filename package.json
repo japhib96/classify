@@ -2,7 +2,7 @@
   "name": "classify",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://hidden-retreat-33188.herokuapp.com",
+  "proxy": "https://localhost:3001",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
     "@fortawesome/free-brands-svg-icons": "^5.1.0-11",
