@@ -28,7 +28,7 @@ class MyPdfViewer extends React.Component {
       loading: false,
       loading2: false
     };
-    this.socket = io('https://hidden-retreat-33188.herokuapp.com');
+    this.socket = io('localhost:3001');
 
 
     var self = this;
@@ -59,7 +59,7 @@ class MyPdfViewer extends React.Component {
     .then((resp) => {
       console.log(resp)
       if(resp.data.slideId){
-        var filePath = 'https://hidden-retreat-33188.herokuapp.com/slide/' + resp.data.slideId
+        var filePath = 'localhost:3001/slide/' + resp.data.slideId
         var slideId = resp.data.slideId
         var page = resp.data.currentSlide
         this.setState({filePath, uploadFile: '', slideId, page, loading: true})
@@ -128,7 +128,7 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        var filePath = 'https://hidden-retreat-33188.herokuapp.com/slide/' + res.id
+        var filePath = 'localhost:3001slide/' + res.id
         var slideId = res.id
         this.setState({filePath, uploadFile: '', slideId, loading: true })
       }

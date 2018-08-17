@@ -7,8 +7,34 @@ import {
 
 import axios from 'axios';
 
-export default class TeacherStats extends React.Component {
+export default class StudentStats extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      averageReaction: 0,
+      topQuestions: [],
+      userQuestions: [],
+      loading: false
+    };
+  }
 
+  componentDidMount(){
+    this.getFeedBack()
+    this.setState({loading: true})
+  }
+
+async getFeedBack(){
+    await axios.post('/getFeedback/teacher', {
+      lectureId : this.props.lecture.id,
+      userId: this.props.user._id
+    })
+    .then((resp) => {
+      console.log(resp)
+      this.setState({ averageReaction: resp.data.averageReaction, topQuestions: resp.data.topQuestions, numberOfQuestions: resp.data.numberOfQuestions, loading: false  })
+    }).catch((e)=>{
+      alert(e)
+    });
+  }
 
 render (){
 

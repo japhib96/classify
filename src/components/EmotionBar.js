@@ -9,7 +9,7 @@ class Emotion extends React.Component {
     super(props);
     var self = this;
 
-    this.socket = io('https://hidden-retreat-33188.herokuapp.com');
+    this.socket = io('localhost:3001');
   }
 
   componentDidMount() {
