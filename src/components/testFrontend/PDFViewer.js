@@ -128,7 +128,7 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        var filePath = 'http://localhost:3001slide/' + res.id
+        var filePath = 'http://localhost:3001/slide/' + res.id
         var slideId = res.id
         this.setState({filePath, uploadFile: '', slideId, loading: true })
       }

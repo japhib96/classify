@@ -405,7 +405,7 @@ canvas {
   padding-top: 13.5em;
   padding-right: 1em;
   border-right: 1px solid gray;
-  background-color: #80FFE8;
+  background-color: #ffffff;
 }
 .question.col {
   height: 86vh;
@@ -440,16 +440,33 @@ canvas {
   padding: 0em;
 }
 
-.main {
+/* .main {
   text-align: left;
   overflow:hidden;
   max-height: 80vh;
   padding: 1em;
+
+} */
+
+
+.emotion.main {
+  height: 68vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.emoji.div {
+  height: 25%;
+  width: 100%;
+  align-items: center;
+  vertical-align: middle;
 }
 
 .header {
   text-align: center;
   justify-content: center;
+
   height: 8%;
 }
 
@@ -494,35 +511,45 @@ textarea {
   margin-left: 2em;
 }
 
-.ui.button.ui.big.circular.center.aligned.segment.thumbsup {
+.ui.button.ui.circular.center.aligned.segment.thumbsup {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
   background-color: green;
+  height: 65%;
+  width: 35%;
 }
-.ui.button.ui.big.circular.center.aligned.segment.okay {
+.ui.button.ui.circular.center.aligned.segment.okay {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
   background-color: #8cffa3;
+  height: 65%;
+  width: 35%;
 }
-.ui.button.ui.big.circular.center.aligned.segment.thumbsdown {
+.ui.button.ui.circular.center.aligned.segment.thumbsdown {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
   background-color: #f97a80;
+  height: 65%;
+  width: 35%;
 }
-.ui.button.ui.big.circular.center.aligned.segment.blown {
+.ui.button.ui.circular.center.aligned.segment.blown {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
   background-color: red;
+  height: 65%;
+  width: 35%;
 }
 
-.ui.button.ui.big.circular.center.aligned.segment.inactive {
+.ui.button.ui.circular.center.aligned.segment.inactive {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+  height: 65%;
+  width: 35%;
 }
 
 .ui.button.small.circular.center.aligned.segment.okay {
