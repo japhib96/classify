@@ -525,6 +525,19 @@ textarea {
   margin-bottom: 0px;
 }
 
+.ui.button.small.circular.center.aligned.segment.okay {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  background-color: #82ecff;
+}
+
+.ui.button.small.circular.center.aligned.segment.inactive {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+
 .teacher.grid {
   height:80vh;
   display: flex;

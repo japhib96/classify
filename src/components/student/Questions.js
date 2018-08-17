@@ -58,28 +58,40 @@ class Questions extends React.Component {
     })
   }
 
-  render() {
-    console.log(this.state.questions)
-    var thumbsUp=0;
-    var okay=0;
-    var thumbsDown=0;
-    var confused =0;
-    this.state.allReactions.map( (reactionObj, index) =>{
-
-      if(reactionObj.reaction === -1){
-        thumbsDown += 1
-      }
-      else if(reactionObj.reaction === 0){
-        okay += 1
-      }
-      else if(reactionObj.reaction === +1){
-        thumbsUp += 1
-      }
-      else{
-        confused += 1
-      }
+  renderColor = (question, index) => {
+    let check;
+    if (question.answers.hasOwnProperty(this.props.user._id)) {
+      check = question.answers[this.props.user._id]
     }
-  )
+    if(this.state.questions[0] && check === index) {
+      return 'okay'
+    } else {
+      return 'inactive'
+    }
+  }
+
+  render() {
+  //   console.log(this.state.questions)
+  //   var thumbsUp=0;
+  //   var okay=0;
+  //   var thumbsDown=0;
+  //   var confused =0;
+  //   this.state.allReactions.map( (reactionObj, index) =>{
+  //
+  //     if(reactionObj.reaction === -1){
+  //       thumbsDown += 1
+  //     }
+  //     else if(reactionObj.reaction === 0){
+  //       okay += 1
+  //     }
+  //     else if(reactionObj.reaction === +1){
+  //       thumbsUp += 1
+  //     }
+  //     else{
+  //       confused += 1
+  //     }
+  //   }
+  // )
 
   return (
     <div className="stats section">
@@ -98,7 +110,7 @@ class Questions extends React.Component {
                   const num = index + 1;
                   return (
                     <Grid.Row>
-                      <Segment as={Button} circular size="small" textAlign="center" className="emoji top" onClick={() => this.sendAnswer(question._id, index)}>
+                      <Segment as={Button} circular size="small" textAlign="center" className={this.renderColor(question, index)} onClick={() => this.sendAnswer(question._id, index)}>
                         <Label size="massive">{num + '. ' + option}</Label>
                       </Segment>
                     </Grid.Row>
