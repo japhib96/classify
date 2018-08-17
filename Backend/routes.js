@@ -76,78 +76,71 @@ router.post('/class/lectures', async (req, res) => {
   }
 })
 router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
-    new Slide({
-      pdf: {
-        name: req.file.originalname,
-        data: fs.readFileSync(req.file.path)
-      },
-      lectureId: req.body.lectureId
+  new Slide({
+    pdf: {
+      name: req.file.originalname,
+      data: fs.readFileSync(req.file.path)
+    },
+    lectureId: req.body.lectureId
 
-    }).save(async function(err, slide) {
-      if (err) {
-        res.send(err);
-        return;
-      }
-      var lecture =  await models.Lecture.findById(slide.lectureId);
-      // lecture.slideId = slide._id;
-      lecture.save();
-      fs.unlink(req.file.path, (err) =>{
-        if(err){
-          console.log(err)
-        }
-
-        res.json({
-          status: "success",
-          id: slide._id
-
-        });
-      })
-
-    });
-  });
-
-  router.get('/slide/:id', function(req, res){
-      Slide.findById(req.params.id, (err, slide)=>{
-        if(err){
-          res.send(err)
-          return
-        }
-        res.contentType('application/pdf')
-        res.end(slide.pdf.data, 'binary')
-        // slide.pdf.data = slide.pdf.data.toString('base64')
-        // res.json(slide)
-      })
-  })
-
-  router.post('/getSlides', async function(req, res){
-    var lecture = await models.Lecture.findById(req.body.lectureId)
-      if(lecture.slideId !== ''){
-        console.log(lecture.slideId)
-        res.json({
-          slideId: lecture.slideId,
-          currentSlide: lecture.currentSlide,
-        })
-      } else{
-        res.json({
-       slideId: '',
-
-      })
+  }).save(async function(err, slide) {
+    if (err) {
+      res.send(err);
+      return;
     }
+    var lecture =  await models.Lecture.findById(slide.lectureId);
+    // lecture.slideId = slide._id;
+    lecture.save();
+    fs.unlink(req.file.path, (err) =>{
+      if(err){
+        console.log(err)
+      }
 
-  router.post('/getFeedback', async function(req, res){
+      res.json({
+        status: "success",
+        id: slide._id
+
+      });
+    })
+
+  });
+});
+
+router.get('/slide/:id', function(req, res){
+  Slide.findById(req.params.id, (err, slide)=>{
+    if(err){
+      res.send(err)
+      return
+    }
+    res.contentType('application/pdf')
+    res.end(slide.pdf.data, 'binary')
+    // slide.pdf.data = slide.pdf.data.toString('base64')
+    // res.json(slide)
+  })
+})
+
+router.post('/getSlides', async function(req, res){
+  var lecture = await models.Lecture.findById(req.body.lectureId)
+  if(lecture.slideId !== ''){
+    console.log(lecture.slideId)
+    res.json({
+      slideId: lecture.slideId,
+      currentSlide: lecture.currentSlide,
+    })
+  } else{
+    res.json({
+      slideId: '',
+
+    })
+  }
+});
+
+  router.post('/getFeedback/teacher', async function(req, res){
     var lecture = await models.Lecture.findById(req.body.lectureId)
-    // if(lecture.slideId !== ''){
-    //   console.log(lecture.slideId)
-    //   res.json({
-    //     slideId: lecture.slideId,
-    //     currentSlide: lecture.currentSlide,
-    //   })
-    // } else{
-    //   res.json({
-    //  slideId: '',
-    // })
     var sumOfReactions = 0;
     var numberOfReactions = 0;
+    var numberOfQuestions = [];
+    var slidesWithMostQuestions = []
     lecture.slideBySlide.forEach( (slide, index) =>{
       if(index !== 0){
         for(var id in slide.reactions){
@@ -157,17 +150,81 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
           }
         }
       }
+        numberOfQuestions.push(slide.messages.length - 1)
     })
+    var messages =  await lecture.getMessages();
+    messages.sort((function(a, b){return b.likes.length - a.likes.length}))
+    var topQuestions = [];
+    for(var i=0; i<3; i++){
+      topQuestions.push(messages[i])
+    }
+     for(var j=0; j<3; j++){
+       var max = Math.max(...numberOfQuestions)
+       if(max !== 0){
+         var slideNum = numberOfQuestions.findIndex( (number) =>{
+           return number === max
+         })
+         slidesWithMostQuestions.push(slideNum);
+         numberOfQuestions[slideNum] = 0;
+       }
+     }
+    console.log('MESSAGES', messages)
     var averageReaction = sumOfReactions/numberOfReactions;
+
     res.json({
-   averageReaction: averageReaction,
+      averageReaction: averageReaction,
+      slidesWithMostQuestions: slidesWithMostQuestions,
+      topQuestions: topQuestions,
+      messages, messages
+    })
   })
-})
 
 
-
-
+  router.post('/getFeedback/student', async function(req, res){
+    var lecture = await models.Lecture.findById(req.body.lectureId, req.body.userId)
+    var sumOfReactions = 0;
+    var numberOfReactions = 0;
+    var numberOfQuestions = [];
+    var slidesWithMostQuestions = []
+    lecture.slideBySlide.forEach( (slide, index) =>{
+      if(index !== 0){
+        for(var id in slide.reactions){
+          if(id === userId){
+            sumOfReactions += slide.reactions[id];
+            numberOfReactions ++;
+          }
+        }
+      }
+        numberOfQuestions.push(slide.messages.length - 1)
+    })
+    // var messages =  await lecture.getMessages();
+    // messages.sort((function(a, b){return b.likes.length - a.likes.length}))
+    // var topQuestions = [];
+    // for(var i=0; i<3; i++){
+    //   topQuestions.push(messages[i])
+    // }
+    //  for(var j=0; j<3; j++){
+    //    var max = Math.max(...numberOfQuestions)
+    //    if(max !== 0){
+    //      var slideNum = numberOfQuestions.findIndex( (number) =>{
+    //        return number === max
+    //      })
+    //      slidesWithMostQuestions.push(slideNum);
+    //      numberOfQuestions[slideNum] = 0;
+    //    }
+    //  }
+    // console.log('MESSAGES', messages)
+    // var averageReaction = sumOfReactions/numberOfReactions;
+    //
+    // res.json({
+    //   averageReaction: averageReaction,
+    //   slidesWithMostQuestions: slidesWithMostQuestions,
+    //   topQuestions: topQuestions,
+    //   messages, messages
+    // })
   })
+
+
 
 
   router.post('/lecture/toggle', async (req, res) => {
@@ -179,4 +236,4 @@ router.post("/uploadSlide", upload.single("uploadFile"), function(req, res) {
     }
   })
 
-module.exports = router;
+  module.exports = router;

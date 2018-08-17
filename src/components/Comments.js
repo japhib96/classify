@@ -32,7 +32,7 @@ class Comments extends React.Component {
     };
     var self = this;
 
-  this.socket = io('localhost:3001');
+    this.socket = io('localhost:3001');
 
     this.socket.on('RECEIVE_MESSAGE', function(data){
       addMessage(data);

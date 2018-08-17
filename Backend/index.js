@@ -13,8 +13,10 @@ var models = require('../models/models')
 var http = require('http')
 var server = http.createServer(app);
 var models = require('../models/models');
-// require('../semantic/dist/semantic.min.css');
+var path = require('path')
 
+// require('../semantic/dist/semantic.min.css');
+app.use(express.static(path.resolve(__dirname, '../build')))
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
@@ -110,4 +112,6 @@ io.on('connection', (socket) => {
   })
 });
 
-server.listen(3001, () => console.log('Example app listening on port 3001!'))
+
+
+server.listen(process.env.PORT || 3001, () => console.log('Example app listening on port 3001!'))

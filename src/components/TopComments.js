@@ -9,37 +9,43 @@ import {
   Grid,
   TextArea,
   Icon} from 'semantic-ui-react'
-  import io from 'socket.io-client';
-  import { Emoji } from 'emoji-mart';
-  import JSEMOJI from 'emoji-js';
+import io from 'socket.io-client';
+import { Emoji } from 'emoji-mart';
+import JSEMOJI from 'emoji-js';
 
 
-  class TopComments extends React.Component {
+class TopComments extends React.Component {
 
-    constructor(props){
-      super(props);
+  constructor(props){
+    super(props);
 
-      this.state = {
-        username: '',
-        message: '',
-        messages: [],
-        reaction: '',
-        allReactions: [],
-        reply:'',
-        pressed: []
-      };
-      var self = this;
+    this.state = {
+      username: '',
+      message: '',
+      messages: [],
+      reaction: '',
+      allReactions: [],
+      reply:'',
+      pressed: []
+    };
+    var self = this;
 
-      this.socket = io('localhost:3001');
+    this.socket = io('localhost:3001');
 
-      this.socket.on('RECEIVE_MESSAGE', function(data){
-        addMessage(data);
-      });
+    this.socket.on('RECEIVE_MESSAGE', function(data){
+      addMessage(data);
+    });
 
-      this.socket.on('UPDATE_LIKES', function(data){
-        self.setState({messages: data})
-        console.log(self.state.messages)
-      })
+    this.socket.on('UPDATE_LIKES', function(data){
+      self.setState({messages: data})
+      console.log(self.state.messages)
+    })
+
+    // this.socket.on("UPDATE_MESSAGE", function(data){
+    //   var pressArr = [];
+    //   data.forEach(() => {
+    //     pressArr.push(false)
+    //   })
 
       this.socket.on("UPDATE_MESSAGE", function(data){
         var pressArr = [];
