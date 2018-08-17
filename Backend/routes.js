@@ -163,7 +163,8 @@ router.post('/getSlides', async function(req, res){
     res.json({
       averageReaction: averageReaction,
       numberOfQuestions: numberOfQuestions,
-      topQuestions: topQuestions,
+      // topQuestions: topQuestions,
+      messages, messages
     })
   })
 
