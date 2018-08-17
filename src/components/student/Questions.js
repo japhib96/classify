@@ -83,7 +83,7 @@ class Questions extends React.Component {
 
   return (
     <div className="stats section">
-      <Header as='h1' dividing textAlign="center">
+      <Header className="commentblock" as='h1' textAlign="center">
         Review
         <Header.Subheader content='Check your understanding' />
       </Header>

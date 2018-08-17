@@ -407,6 +407,13 @@ canvas {
   border-right: 1px solid gray;
   background-color: #80FFE8;
 }
+.question.col {
+  height: 86vh;
+  width: 33%;
+  padding-right: 1em;
+  border-right: 1px solid gray;
+  background-color: #ffffff;
+}
 
 .chat.grid {
   max-height: 80vh;
@@ -487,22 +494,32 @@ textarea {
   margin-left: 2em;
 }
 
-.ui.button.ui.big.circular.center.aligned.segment.emoji.top {
+.ui.button.ui.big.circular.center.aligned.segment.thumbsup {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+  background-color: green;
 }
-.ui.button.ui.big.circular.center.aligned.segment.emoji.good {
+.ui.button.ui.big.circular.center.aligned.segment.okay {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+  background-color: #8cffa3;
 }
-.ui.button.ui.big.circular.center.aligned.segment.emoji.confused {
+.ui.button.ui.big.circular.center.aligned.segment.thumbsdown {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+  background-color: #f97a80;
 }
-.ui.button.ui.big.circular.center.aligned.segment.emoji.out {
+.ui.button.ui.big.circular.center.aligned.segment.blown {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  background-color: red;
+}
+
+.ui.button.ui.big.circular.center.aligned.segment.inactive {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;

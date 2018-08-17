@@ -60,7 +60,7 @@ export default class UserInterface extends React.Component {
           description={this.props.user.username} />
 
           <div className="chat grid">
-            <div className="left col">
+            <div className="question col">
               <Questions user={this.props.user} lecture={this.props.lecture.id} />
             </div>
             <div className="userinterface wrapper">
