@@ -158,13 +158,21 @@ router.post('/getSlides', async function(req, res){
             numberOfReactions ++;
           }
         }
-        
       }
+        numberOfQuestions.push(slide.messages.length - 1)
     })
+    var messages = lecture.getMessages();
+    messages.sort((function(a, b){return b.likes.length - a.likes.length})
+    var topQuestions = [];
+    for(var i=0; i<3; i++){
+      topQuestions.push(messages[i].message)
+    }
     var averageReaction = sumOfReactions/numberOfReactions;
 
     res.json({
       averageReaction: averageReaction,
+      numberOfQuestions: numberOfQuestions,
+      topQuestions: topQuestions,
     })
   })
 
