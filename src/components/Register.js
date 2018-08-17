@@ -164,8 +164,8 @@ export default class Register extends React.Component {
                       </div>
                     </div>
                     <div className="register button">
-                      <Button content="Register" className='user dropdown' fluid size='large' onClick={(e) => this.makeAccount(e)}>
-                      </Button>
+                      <Button style={{border: '1px solid'}} content="Register" className='user dropdown hvr-round-corners' fluid size='large' onClick={(e) => this.makeAccount(e)}/>
+
                     </div>
                   </Segment>
                 </Form>

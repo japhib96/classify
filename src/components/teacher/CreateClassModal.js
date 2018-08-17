@@ -14,6 +14,7 @@ class CreateClassModal extends React.Component {
       uploadName: '',
       lectureId: '',
       slideId: '',
+      classDescription: '',
       modalOpen: false
 
 
@@ -49,7 +50,14 @@ class CreateClassModal extends React.Component {
   render() {
     var name = this.state.uploadName
     return (
-      <Modal trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen} onClose={()=>this.handleClose()}>
+      <Modal
+        trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>}
+        closeIcon
+        centered={false}
+        size="small"
+        open={this.state.modalOpen}
+        onClose={()=>this.handleClose()}
+      >
         <Modal.Header>Create A Class</Modal.Header>
         <Modal.Content>
         <Form>
@@ -60,6 +68,10 @@ class CreateClassModal extends React.Component {
             <Form.Field>
               <label>Class Password</label>
               <input required placeholder='Class Password' onChange={ (e)=> this.setState({password: e.target.value}) }/>
+            </Form.Field>
+            <Form.Field>
+              <label>Class Description</label>
+              <input required placeholder='Description' onChange={ (e)=> this.setState({classDescription: e.target.value}) }/>
             </Form.Field>
             <Modal.Actions centered>
             <Button type='submit' onClick={() => this.saveClass()}>Submit</Button>

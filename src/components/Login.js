@@ -112,7 +112,7 @@ export default class Login extends React.Component {
                 />
 
                 <Button.Group defaultValue={this.state.type}>
-                  <Button  className={this.state.classname1} value={1} onClick={(e) => this.setState({ type: "Student", classname1: "student act", classname2: ""})}>Student</Button>
+                  <Button  className={this.state.className1} value={1} onClick={(e) => this.setState({ type: "Student", classname1: "student act", classname2: ""})}>Student</Button>
                   <Button.Or />
                   <Button  className={this.state.classname2} value={2} onClick={(e) => this.setState({ type: "Teacher", classname2: "teacher act", classname1: ""})}>Teacher</Button>
                 </Button.Group>
@@ -125,7 +125,7 @@ export default class Login extends React.Component {
                     </div>
                 </div>
                   <div className="login button">
-                    <Button content="Login" className='user dropdown' fluid size='large' onClick={(e) => this.logIn(e)}>
+                    <Button style={{border: '1px solid'}} content="Login" className='user dropdown hvr-round-corners' fluid size='large' onClick={(e) => this.logIn(e)}>
                     </Button>
                   </div>
               </Segment>
