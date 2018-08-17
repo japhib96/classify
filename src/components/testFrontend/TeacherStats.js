@@ -15,7 +15,9 @@ export default class TeacherStats extends React.Component {
       averageReaction: 0,
       topQuestions: [],
       slidesWithMostQuestions: [],
-      loading: false
+      loading: false,
+      reaction: '',
+      content1: ''
     };
   }
 
@@ -23,56 +25,82 @@ export default class TeacherStats extends React.Component {
     this.getFeedBack()
     this.setState({loading: true})
   }
+ setReaction(){
+   console.log(this.state.averageReaction)
 
+  if(this.state.averageReaction===1){
+    this.setState({ reaction: 'thumbs up', content1: 'Class understood lecture perfectly'})
+  }
+  else if(0<this.state.averageReaction && this.state.averageReaction<1){
+    this.setState( {reaction: 'thumbs up', content1: 'Class understood lecture well'})
+  }
+  else if(0>this.state.averageReaction && this.state.averageReaction>-1){
+    this.setState({ reaction: 'thubms down', content1: 'Class understood did not understand lecture well' })
+  }
+  else if(-1>this.state.averageReaction){
+    this.setState({ reaction: 'blind',  content1: 'Class understood did not understand lecture at all'})
+  }
+
+
+}
 async getFeedBack(){
     await axios.post('/getFeedback/teacher', {
       lectureId : this.props.lecture.id
     })
     .then((resp) => {
       console.log(resp)
-      this.setState({ averageReaction: resp.data.averageReaction, topQuestions: resp.data.topQuestions, numberOfQuestions: resp.data.numberOfQuestions, loading: false  })
+      this.setState({ averageReaction: resp.data.averageReaction, topQuestions: resp.data.topQuestions, slidesWithMostQuestions: resp.data.slidesWithMostQuestions, loading: false  })
+      this.setReaction()
+
     }).catch((e)=>{
       alert(e)
     });
+
   }
 
 render (){
+    console.log(this.state.reaction)
   console.log('lecture', this.props.lecture)
   if (this.state.loading) { return <Loading message={'Creating Feedback...'}/> }
   return(
+    <Container text textAlign='justified' style={{borderRadius:'25px', height: 600, margin: '30px', padding: '50px', backgroundColor: '#98dafc'}}>
 
-    <Container text textAlign='justified' style={{height: 500, padding: 50, backgroundColor: 'white'}}>
-      <h1 align='center'>Feedback</h1>
-      <h4 align='left'>Overall student understanding: {this.state.averageReaction}</h4>
+      <h1 align='center'>Statistics</h1>
+      <List celled style={{borderRadius:'25px', padding:'30px', backgroundColor: 'white'}}>
+        <List.Item style={{padding: '10px'}}>Overall student understanding: {this.state.averageReaction}</List.Item>
 
-      <List>
-        <List.Item icon='thumbs up' content='Understood perfectly'/>
-        <List.Item icon='thumbs up' content='Understood well'/>
-        <List.Item icon='thumbs down' content='Did not understand'/>
-        <List.Item icon='blind' content='Completely Lost'/>
+        <List.Item style={{padding: '10px'}}><Icon className='animated bounce delay-3s' name={this.state.reaction}/>{this.state.content1}</List.Item>
+
+
+
+
+        <List.Item style={{padding: '10px'}}>
+          <u><List.Header style={{textAlign: 'left', marginBottom: '5px'}}>Slides With Most Questions:</List.Header></u>
+          {this.state.slidesWithMostQuestions.map( (slideNum) =>{
+            return (<List.Item>Slide {slideNum}</List.Item>)
+          })}
+        </List.Item>
+
+        <List.Item style={{padding: '10px'}}>
+        <u><List.Header style={{textAlign: 'left', marginBottom: '5px'}}>Top Questions:</List.Header></u>
+          {this.state.topQuestions.map( (question, index) =>{
+            return (<List.Item>{question.author}: {question.message}</List.Item>)
+          })}
+        </List.Item>
+        <Message
+          attached='bottom'
+          warning
+
+          style={{
+            fontSize: '15px',
+            marginTop: '15px'
+          }}
+        >
+        Average is calculated based off a range of numbers -2-1 allocated to each emoji
+        </Message>
       </List>
 
-
-      <h4 align='left'>Slides With Most Questions:</h4>
-      <List >
-        {this.state.slidesWithMostQuestions.map( (slideNum) =>{
-          return (<List.Item>Slide {slideNum}</List.Item>)
-        })}
-      </List>
-
-      <h4 align='left'>Top Questions:</h4>
-      <List>
-        {this.state.topQuestions.map( (question, index) =>{
-          return (<List.Item>{question.author}: {question.message}</List.Item>)
-        })}
-      </List>
-
-      <div role='list' >
-        <div role='listitem' >
-          Student Commentsasdflakjsdflkj
-        </div>
-      </div>
-    </Container>
+      </Container>
   )
 }
 }
