@@ -64,7 +64,7 @@ class Emotion extends React.Component {
     var check = this.state.allReactions.findIndex( (reactionObj) => {
       return reactionObj.id === this.props.user._id
     })
-    if(this.state.allReactions[0] && this.state.allReactions[check].reaction === index) {
+    if(this.props.user && this.state.allReactions[0] && this.state.allReactions[check].reaction === index) {
       switch(this.state.allReactions[check].reaction) {
         case 1: return 'thumbsup';
         case 0: return 'okay';
