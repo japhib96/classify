@@ -49,6 +49,15 @@ class Questions extends React.Component {
     })
   }
 
+  sendAnswer(questionId, answer) {
+    this.socket.emit('ANSWER_QUESTION', {
+      questionId: questionId,
+      answer: answer,
+      lectureId: this.props.lecture,
+      user: this.props.user._id
+    })
+  }
+
   render() {
     console.log(this.state.questions)
     var thumbsUp=0;
@@ -89,7 +98,7 @@ class Questions extends React.Component {
                   const num = index + 1;
                   return (
                     <Grid.Row>
-                      <Segment as={Button} circular size="small" textAlign="center" className="emoji top">
+                      <Segment as={Button} circular size="small" textAlign="center" className="emoji top" onClick={() => this.sendAnswer(question._id, index)}>
                         <Label size="massive">{num + '. ' + option}</Label>
                       </Segment>
                     </Grid.Row>
