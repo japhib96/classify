@@ -230,6 +230,8 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   height: 71vh;
+  flex-direction: row;
+  align-content: flex-start;
 }
 
 .card.container {
