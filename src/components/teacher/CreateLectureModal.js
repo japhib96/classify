@@ -55,7 +55,13 @@ class CreateLectureModal extends React.Component {
 
     var name = this.state.uploadName
     return (
-      <Modal trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>} centered={false} size="large" open={this.state.modalOpen} onClose={()=>this.handleClose()} >
+      <Modal
+        trigger={<Icon bordered circular size="big" name='add circle' onClick={this.handleOpen} aria-label='Add circle'/>}
+        centered={false}
+        size="small"
+        open={this.state.modalOpen}
+        onClose={()=>this.handleClose()}
+      >
         <Modal.Header>Create A Lecture</Modal.Header>
         <Modal.Content>
         <Form>
