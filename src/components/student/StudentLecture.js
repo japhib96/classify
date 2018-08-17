@@ -4,7 +4,7 @@ import React from 'react'
 import { Grid, Segment, Sticky, TextArea, Form, Button, Icon, Popup, Header} from 'semantic-ui-react'
 import Comment from '../Comments';
 import Emotions from '../EmotionBar';
-import Statistics from '../ClassStatistics';
+import Questions from './Questions';
 import Navigationbar from '../Navbar';
 import io from 'socket.io-client';
 import EmojiPicker from 'emoji-picker-react';
@@ -61,7 +61,7 @@ export default class UserInterface extends React.Component {
 
           <div className="chat grid">
             <div className="left col">
-              {/* <Statistics  user={this.props.user} lecture={this.props.lectureId}/> */}
+              <Questions user={this.props.user} lecture={this.props.lecture.id} />
             </div>
             <div className="userinterface wrapper">
               <header class="header">

@@ -9,7 +9,6 @@ import Dropzone from 'react-dropzone'
 import {Button, Icon, Header, List, Label} from 'semantic-ui-react'
 import Loading from '../Loader';
 import axios from 'axios';
-import keydown from 'react-keydown';
 import { Emoji } from 'emoji-mart';
 
 library.add(faExpand)
@@ -42,8 +41,8 @@ class MyPdfViewer extends React.Component {
 
   componentDidMount(){
     this.checkSlides()
-    document.addEventListener("keydown", this.handlePrevious, false);
-    document.addEventListener("keydown", this.handleNext, false);
+    document.addEventListener("keyup", this.handlePrevious, false);
+    document.addEventListener("keyup", this.handleNext, false);
 
     this.socket.emit('REACTION',{
       reaction: '',

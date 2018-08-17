@@ -273,6 +273,22 @@ async function addNewStudent(lectureId, userId) {
   }
 }
 
+async function updateQuestions(questionData) {
+  try {
+    var lecture = await models.Lecture.findById(questionData.lectureId);
+    if (questionData.question === '') {
+      var allQuestions = await lecture.getQuestions();
+      return allQuestions;
+    }
+    var question = new models.Question(questionData);
+    await question.save()
+    var allQuestions = await lecture.getQuestions();
+    return allQuestions;
+  } catch(e) {
+    console.log(e)
+  }
+}
+
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
@@ -289,5 +305,6 @@ module.exports = {
   updateSlide: updateSlide,
   updateSlideTotal: updateSlideTotal,
   toggleLecture: toggleLecture,
-  addNewStudent: addNewStudent
+  addNewStudent: addNewStudent,
+  updateQuestions: updateQuestions
 }
