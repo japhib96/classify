@@ -55,21 +55,39 @@ export default class StudentDashboard extends Component {
           description={'Welcome to your Dashboard. You can view your classes and join new ones'}/>
           <div className="user grid">
             <div className="left col">
-              <div>
-                <Container textAlign="center" className="user dashboard menu">
-                  <FontAwesomeIcon icon="graduation-cap" size="3x" /> <h2>Classes</h2>
-                </Container>
+              <div style={{display: 'block'}}>
+                <button style={{ width: '100%', padding: '10px', marginTop: '10px', backgroundColor: '#98dafc'}} className='block hvr-underline-from-left'>
+                  <div stlye={{display: 'flex', flexDirection: 'row'}}>
+                  <FontAwesomeIcon icon="graduation-cap" size="2x" />
+                  <h2 style={{display: 'inline'}}> Classes </h2>
+                  </div>
+
+                </button>
+
               </div>
-              <div>
-                <Container textAlign="center" className="user dashboard menu">
-                  <FontAwesomeIcon icon="question" size="3x" /> <h2>View Top Questions</h2>
-                </Container>
+
+              <div style={{display: 'block'}}>
+                <button style={{ width: '100%', padding: '10px', marginTop: '10px', backgroundColor: '#98dafc'}} className='block hvr-underline-from-left'>
+                  <div stlye={{display: 'flex', flexDirection: 'row'}}>
+                  <FontAwesomeIcon icon="question" size="1x" />
+                  <h2 style={{display: 'inline'}}> View Top Questions</h2>
+                  </div>
+
+                </button>
+
               </div>
-              <div>
-                <Container textAlign="center" className="user dashboard menu">
-                  <FontAwesomeIcon icon="chart-line" size="3x" /> <h2> Class Statistics</h2>
-                </Container>
+
+              <div style={{display: 'block'}}>
+                <button style={{ width: '100%', padding: '10px', marginTop: '10px', backgroundColor: '#98dafc'}} className='block hvr-underline-from-left'>
+                  <div stlye={{display: 'flex', flexDirection: 'row'}}>
+                  <FontAwesomeIcon icon="chart-line" size="2x" />
+                  <h2 style={{display: 'inline'}}> Class Statistics </h2>
+                  </div>
+
+                </button>
+
               </div>
+
             </div>
             <div className="right col wrapper">
               <header className="toolbar  teacher dashboard">

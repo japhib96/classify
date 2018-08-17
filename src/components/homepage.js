@@ -27,7 +27,8 @@ import {
 
 const HomepageHeading = ({ mobile }) => (
 
-    <div style={{ height: '100%', backgroundImage: `url(${image2})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%', height: 600}} text>
+    <div  style={{ height: '100%', backgroundImage: `url(${image2})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%', height: 600}} text>
+      <div className="animated fadeInUp delay-4s">
       <Header
         as='h1'
         content='Classify'
@@ -39,7 +40,7 @@ const HomepageHeading = ({ mobile }) => (
           marginBottom: 0,
           marginTop: mobile ? '0em' : '0em',
           paddingTop: '200px',
-          paddingBottom: '50px'
+          //paddingBottom: '50px'
         }}
       />
       <Header
@@ -50,15 +51,17 @@ const HomepageHeading = ({ mobile }) => (
           color: '#feffff',
           fontSize: mobile ? '1.5em' : '1.7em',
           fontWeight: 'normal',
-          marginTop: mobile ? '0.5em' : '1.5em',
+          paddingBottom: '50px',
+
         }}
       />
       <Link to={'/register'}>
-      <Button primary size='huge'>
+      <Button className='hvr-hang' primary size='huge'>
         Get Started
         <Icon name='right arrow' />
       </Button>
       </Link>
+      </div>
     </div>
 )
 
@@ -82,7 +85,7 @@ class DesktopContainer extends Component {
     const { fixed } = this.state
 
     return (
-      <Responsive minWidth={Responsive.onlyTablet.minWidth}>
+      <Responsive minWidth={Responsive.onlyTablet.minWidth} >
         <Visibility
           once={false}
           onBottomPassed={this.showFixedMenu}
@@ -93,6 +96,7 @@ class DesktopContainer extends Component {
             textAlign='center'
             style={{ backgroundColor: '#feffff', minHeight: 700, padding: '1em 0em' }}
             vertical
+
           >
             <Menu
               fixed={fixed ? 'top' : null}
@@ -100,18 +104,19 @@ class DesktopContainer extends Component {
               pointing={!fixed}
               secondary={!fixed}
               size='large'
-              style={{backgroundColor: '#98dafc'}}
+              style={{backgroundColor: 'black'}}
+
             >
               <Container>
 
                 <Menu.Item position='right'>
                   <Link to={'/login'}>
-                  <Button as='a' inverted={!fixed} primary={fixed} style={{ backgroundColor: '#312c32', color: '#98dafc', marginLeft: '0.5em' }}>
+                  <Button className='hvr-grow' as='a' inverted={!fixed} primary={fixed} style={{ backgroundColor: '#312c32', color: '#98dafc', marginLeft: '0.5em' }}>
                     Log in
                   </Button>
                   </Link>
                   <Link to={'/register'}>
-                  <Button as='a' inverted={!fixed} primary={fixed} style={{ backgroundColor: '#312c32', color: '#98dafc', marginLeft: '0.5em' }}>
+                  <Button className='hvr-grow' as='a' inverted={!fixed} primary={fixed} style={{ backgroundColor: '#312c32', color: '#98dafc', marginLeft: '0.5em' }}>
                     Sign Up
                   </Button>
                   </Link>
@@ -172,7 +177,7 @@ class MobileContainer extends Component {
                   </Menu.Item>
                   <Menu.Item position='right'>
                     <Link to={'/login'}>
-                    <Button as='a' inverted>
+                    <Button className='hvr-float' as='a' inverted>
                       Log in
                     </Button>
                     </Link>
