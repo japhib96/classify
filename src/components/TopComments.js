@@ -138,7 +138,7 @@ import {
                                 </div>
                               </Comment.Text>
                               <Comment.Actions>
-                                <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>23</Label>
+                                <Label  as={Button} circular attached bottom right> <Emoji emoji="thumbsup" set='facebook' skin="4" size={12}/>{message.likes.length}</Label>
                               </Comment.Actions>
                             </Comment.Content>
                           </Comment>
