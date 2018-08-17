@@ -175,7 +175,7 @@ router.post('/getSlides', async function(req, res){
       averageReaction: averageReaction,
       slidesWithMostQuestions: slidesWithMostQuestions,
       topQuestions: topQuestions,
-      messages, messages
+      messages: messages
     })
   })
 
@@ -184,44 +184,39 @@ router.post('/getSlides', async function(req, res){
     var lecture = await models.Lecture.findById(req.body.lectureId, req.body.userId)
     var sumOfReactions = 0;
     var numberOfReactions = 0;
-    var numberOfQuestions = [];
-    var slidesWithMostQuestions = []
+    var confusedSlides = [];
+    var yourQuestions = []
     lecture.slideBySlide.forEach( (slide, index) =>{
       if(index !== 0){
         for(var id in slide.reactions){
           if(id === userId){
             sumOfReactions += slide.reactions[id];
             numberOfReactions ++;
+            if(slide.reaction < 0){
+              confusedSlides.push(index)
+            }
           }
         }
       }
-        numberOfQuestions.push(slide.messages.length - 1)
     })
-    // var messages =  await lecture.getMessages();
-    // messages.sort((function(a, b){return b.likes.length - a.likes.length}))
-    // var topQuestions = [];
-    // for(var i=0; i<3; i++){
-    //   topQuestions.push(messages[i])
-    // }
-    //  for(var j=0; j<3; j++){
-    //    var max = Math.max(...numberOfQuestions)
-    //    if(max !== 0){
-    //      var slideNum = numberOfQuestions.findIndex( (number) =>{
-    //        return number === max
-    //      })
-    //      slidesWithMostQuestions.push(slideNum);
-    //      numberOfQuestions[slideNum] = 0;
-    //    }
-    //  }
-    // console.log('MESSAGES', messages)
-    // var averageReaction = sumOfReactions/numberOfReactions;
-    //
-    // res.json({
-    //   averageReaction: averageReaction,
-    //   slidesWithMostQuestions: slidesWithMostQuestions,
-    //   topQuestions: topQuestions,
-    //   messages, messages
-    // })
+    var messages =  await lecture.getMessages();
+    messages.sort((function(a, b){return b.likes.length - a.likes.length}))
+    var topQuestions = [];
+    for(var i=0; i<3; i++){
+      topQuestions.push(messages[i])
+    }
+    messages.forEach( (message) =>{
+      if(message._id === userId){
+        yourQuestions.push(message)
+      }
+    })
+    var averageReaction = sumOfReactions/numberOfReactions;
+    res.json({
+      averageReaction: averageReaction,
+      confusedSlides: confusedSlides,
+      topQuestions: topQuestions,
+      yourQuestiones: yourQuestions
+    })
   })
 
 
