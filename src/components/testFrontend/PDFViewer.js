@@ -213,19 +213,19 @@ class MyPdfViewer extends React.Component {
                         <div className="emoji container">
                           <div className="emoji content">
                             <Emoji  emoji='thumbsup' set='apple' skin="1" size={50} />
-                            <Label size="massive" >{thumbsUp}</Label>
+                            <Label size="massive" >{this.props.reactions.thumbsUp}</Label>
                           </div>
                           <div className="emoji content">
                             <Emoji  emoji='ok_hand' set='apple' skin="2" size={50} />
-                            <Label size="massive" >{okay}</Label>
+                            <Label size="massive" >{this.props.reactions.okay}</Label>
                           </div>
                           <div className="emoji content">
                             <Emoji  emoji='thumbsdown' set='apple' skin="3" size={50} />
-                            <Label size="massive" >{thumbsDown}</Label>
+                            <Label size="massive" >{this.props.reactions.thumbsDown}</Label>
                           </div>
                           <div className="emoji content">
                             <Emoji  emoji='exploding_head' set='apple' skin="1" size={50} />
-                            <Label size="massive" >{confused}</Label>
+                            <Label size="massive" >{this.props.reactions.confused}</Label>
                           </div>
                         </div>
                       </div>
