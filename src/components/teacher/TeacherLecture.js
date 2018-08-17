@@ -115,13 +115,16 @@ class TeacherView extends React.Component {
         lectureStatus={this.state.lectureStatus}
         description={this.props.user.username}
       />
-      <div className="teacher grid">
+      <div className="lecture view grid">
+        <div className="most outer left">
+          <CreateQuestion socket={this.socket} lectureId={this.props.lecture.id} />
+        </div>
         <div className="left column teacher lecture">
           <div className="most viewed questions">
             <header class="header questions">
-              <Header as='h1' textAlign="center">
+              <h1 textAlign="center">
                 Top 3 rated questions in the lecture:
-              </Header>
+              </h1>
             </header>
             <div className="main list content">
               <TopComments user={this.props.user} lecture={this.props.lecture.id} />
@@ -129,9 +132,9 @@ class TeacherView extends React.Component {
           </div>
           <div className="emotions teacher view">
             <header class="header questions">
-              <Header as='h1'  textAlign="center">
+              <h1  textAlign="center">
                 How your class is feeling about the content:
-              </Header>
+              </h1>
             </header>
             <div className="main emoji content">
               <div className="emoji container">
@@ -156,11 +159,11 @@ class TeacherView extends React.Component {
           </div>
         </div>
         <div className="right column teacher lecture">
-          <PDFViewer lectureId={this.props.lecture.id} user={this.props.user} lecture={this.props.lecture}/>
-          <div className="right part">
+          <PDFViewer lectureId={this.props.lecture.id} user={this.props.user} lecture={this.props.lecture} reactions={{ thumbsUp: thumbsUp, okay: okay, thumbsDown: thumbsDown, confused: confused }}/>
+          {/* <div className="right part">
             <div><CreateQuestion socket={this.socket} lectureId={this.props.lecture.id} /></div>
             <div><h2>Create a Question</h2></div>
-          </div>
+          </div> */}
         </div>
         <Button className={this.state.classname} loading={this.state.loading2} onClick={()=>this.toggleLecture()}>{this.state.statusMessage}</Button>
       </div>

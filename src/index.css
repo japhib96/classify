@@ -5,13 +5,22 @@ body {
   background-color: #ffffff;
   height:100%;
 }
-.ui.navbar {
-  background-color: #98dafc;
+.ui.massive.ui.navbar.menu {
+  background-color: #82ecff;
   align-items: center;
+  text-align: center;
 }
 
+.session {
+  width: ;
+  text-align: center;
+}
+
+.right.menu {
+  margin-left: 0px;
+}
 .ui.large.fluid.button.user.dropdown {
-  background-color: #98dafc;
+  background-color: #82ecff;;
   color: #3a7999;
   margin-top: 1em;
   border: 1px solid #42b9f4;
@@ -21,7 +30,18 @@ body {
 .ui.large.fluid.button.user.dropdown:hover {
   background-color: #ffffff;
   color: #3a7999;
-  /* box-shadow: inset 0 0 0 3px #3a7999; */
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.ui.center.aligned.header {
+  background-color: #80FFE8;
+  margin-top: 0;
+}
+
+.ui.divider {
+  border-top-width: 0px;
+  margin-bottom: 0px;
+
 }
 
 .column.menu {
@@ -94,7 +114,7 @@ body {
 }
 
 .ui.button.floating.labeled.dropdown.icon{
-  background-color: #98dafc;
+  background-color: #82ecff;
 }
 
 
@@ -144,7 +164,7 @@ body {
 }
 
 .user.dashboard.menu {
-  background-color: #98dafc;
+  background-color: #82ecff;
   justify-content: center;
   margin-bottom: 2em;
   align-items: center;
@@ -158,7 +178,7 @@ body {
 }
 
 .teacher.dashboard.menu {
-  background-color: #98dafc;
+  background-color: #82ecff;
   justify-content: center;
   margin-bottom: 2em;
   align-items: center;
@@ -179,6 +199,7 @@ h2 {
 
 .ui.raised.card.cardItem {
   width: 90%;
+  background-color: #82ecff;
 }
 
 
@@ -244,7 +265,6 @@ h2 {
 .content.unactive {
   height: 71vh;
   width: 100%;
-  /* padding-top: 28%; */
   color: #adadad;
 }
 
@@ -267,7 +287,7 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #98dafc;
+  background-color: #82ecff;
   justify-content: space-between;
   border-radius: 5px;
 }
@@ -276,15 +296,14 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #98dafc;
+  background-color: #82ecff;
   justify-content: space-between;
   border-radius: 5px;
 }
 
 .content.dashboard:hover {
-  background-color: #fcfdff;
   color: #3a7999;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .right.part {
@@ -304,12 +323,56 @@ canvas {
   height:100%;
 }
 
+.add.option {
+  text-align: center;
+}
+
+.send.option {
+  text-align: center;
+  width: 100%;
+}
+
+.answer.options {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.button.view {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ui.button.add {
+  margin-top: 2em;
+  width: 30%;
+  background-color: #82ecff;
+}
+.ui.button.add:hover {
+  background-color: #ffffff;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+.ui.button.send {
+  width: 30%;
+  background-color: #82ecff;
+}
+
+.ui.button.send:hover {
+  background-color: #ffffff;
+  color: #3a7999;
+  box-shadow: inset 0 0 0 3px #3a7999;
+}
+
+
+
 .userinterface.wrapper {
   display: flex;
   flex-flow: row wrap;
   text-align: center;
   justify-content: center;
-  height: 80vh;
+  height: 85vh;
   width:50%;
 }
 
@@ -337,12 +400,19 @@ canvas {
 
 
 .left.col {
-  height: 80vh;
+  height: 86vh;
   width: 33%;
-  margin-left: 1em;
-  margin-right: 1em;
+  padding-top: 13.5em;
   padding-right: 1em;
   border-right: 1px solid gray;
+  background-color: #ffffff;
+}
+.question.col {
+  height: 86vh;
+  width: 33%;
+  padding-right: 1em;
+  border-right: 1px solid gray;
+  background-color: #ffffff;
 }
 
 .chat.grid {
@@ -375,11 +445,28 @@ canvas {
   overflow:hidden;
   max-height: 80vh;
   padding: 1em;
+
 }
+
+
+.emotion.main {
+  height: 68vh;
+  width: 100%;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+/* .emoji.div {
+  height: 25%;
+  width: 100%;
+  align-items: center;
+  vertical-align: middle;
+} */
 
 .header {
   text-align: center;
   justify-content: center;
+
   height: 8%;
 }
 
@@ -424,22 +511,57 @@ textarea {
   margin-left: 2em;
 }
 
-.ui.button.ui.big.circular.center.aligned.segment.emoji.top {
+.ui.button.ui.circular.center.aligned.segment.thumbsup {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+  background-color: green;
+  /* height: 65%;
+  width: 35%; */
 }
-.ui.button.ui.big.circular.center.aligned.segment.emoji.good {
+.ui.button.ui.circular.center.aligned.segment.okay {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+  background-color: #8cffa3;
+
+  /* height: 65%;
+  width: 35%; */
 }
-.ui.button.ui.big.circular.center.aligned.segment.emoji.confused {
+.ui.button.ui.circular.center.aligned.segment.thumbsdown {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
+  background-color: #f97a80;
+  /* height: 20%; */
+  /* height: 65%;
+  width: 35%; */
 }
-.ui.button.ui.big.circular.center.aligned.segment.emoji.out {
+.ui.button.ui.circular.center.aligned.segment.blown {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  background-color: red;
+  /* height: 65%;
+  width: 35%; */
+}
+
+.ui.button.ui.circular.center.aligned.segment.inactive {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  /* height: 65%;
+  width: 35%; */
+}
+
+.ui.button.small.circular.center.aligned.segment.okay {
+  box-shadow: 0 0 0 0;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  background-color: #82ecff;
+}
+
+.ui.button.small.circular.center.aligned.segment.inactive {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
@@ -451,8 +573,20 @@ textarea {
   flex-direction: row;
 }
 
+.lecture.view.grid {
+  height:80vh;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+}
+
+.most.outer.left {
+  width: 8%;
+  height: 80vh;
+}
+
 .left.column.teacher.lecture {
-  width: 50%;
+  width: 42%;
   height: 80vh;
 }
 
@@ -462,6 +596,10 @@ textarea {
   align-items: center;
   justify-content: center;
   border-left: 1px solid gray;
+}
+
+.ui.center.aligned.header.commentblock {
+  background-color: #ffffff;
 }
 
 .most.viewed.questions {
@@ -567,7 +705,7 @@ textarea {
 }
 
 .ui.massive.button {
-  background-color: #98dafc;
+  background-color: #82ecff;
 }
 
 .ui.massive.button:hover {
@@ -596,6 +734,10 @@ textarea {
 .ui.button.button.active {
   background-color: #ff2d34;
   height: 70vh;
+}
+
+.add.circle.large.bordered.circular.icon {
+  margin-left: 0.3em;
 }
 
 .ui.button.button.unactive {
@@ -734,7 +876,13 @@ textarea {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
   overflow: hidden;
+  background-color: #82ecff;
+  justify-content: center;
+  margin-bottom: 2em;
+  align-items: center;
+  width:90%;
 }
+
 .hvr-underline-from-left:before {
   content: "";
   position: absolute;
@@ -742,8 +890,8 @@ textarea {
   left: 0;
   right: 100%;
   bottom: 0;
-  background: #2098D1;
-  height: 4px;
+  background: #1d69bb;
+  height: 100%;
   -webkit-transition-property: right;
   transition-property: right;
   -webkit-transition-duration: 0.3s;
@@ -876,4 +1024,8 @@ textarea {
 .hvr-icon-grow:hover .hvr-icon, .hvr-icon-grow:focus .hvr-icon, .hvr-icon-grow:active .hvr-icon {
   -webkit-transform: scale(1.3) translateZ(0);
   transform: scale(1.3) translateZ(0);
+}
+
+.modal.input {
+  width: 90%;
 }

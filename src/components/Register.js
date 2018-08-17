@@ -107,9 +107,9 @@ export default class Register extends React.Component {
               <Grid.Column style={{ maxWidth: 450 }}>
                 <Form className='ui error form' size='large' >
                   <Segment stacked style={{background: '#98dafc'}}>
-                  <Header as='h2' style={{color:'#312c32'}} textAlign='center'>
+                  <h2 style={{color:'#312c32'}} textAlign='center'>
                     Register an account as {this.state.type}
-                  </Header>
+                  </h2>
                     <Form.Input
                       fluid
                       icon='inbox'

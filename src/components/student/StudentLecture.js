@@ -60,12 +60,12 @@ export default class UserInterface extends React.Component {
           description={this.props.user.username} />
 
           <div className="chat grid">
-            <div className="left col">
+            <div className="question col">
               <Questions user={this.props.user} lecture={this.props.lecture.id} />
             </div>
             <div className="userinterface wrapper">
               <header class="header">
-                <Header as='h1' textAlign="center">
+                <Header className="commentblock" as='h1' textAlign="center">
                 Questions
                   <Header.Subheader content='Ask Questions and respond to threads.'/>
                 </Header>

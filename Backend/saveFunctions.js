@@ -295,6 +295,20 @@ async function updateQuestions(questionData) {
   }
 }
 
+async function updateAnswers(questionId, answer, lectureId, user) {
+  try {
+    var question = await models.Question.findById(questionId);
+    question.answers[user] = answer;
+    question.markModified('answers');
+    await question.save();
+    var lecture = await models.Lecture.findById(lectureId);
+    var allQuestions = await lecture.getQuestions();
+    return allQuestions;
+  } catch(e) {
+    console.log(e)
+  }
+}
+
 module.exports = {
   saveLecture: saveLecture,
   saveTeacher: saveTeacher,
@@ -312,5 +326,6 @@ module.exports = {
   updateSlideTotal: updateSlideTotal,
   toggleLecture: toggleLecture,
   addNewStudent: addNewStudent,
-  updateQuestions: updateQuestions
+  updateQuestions: updateQuestions,
+  updateAnswers: updateAnswers
 }

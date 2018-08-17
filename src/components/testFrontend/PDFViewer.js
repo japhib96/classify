@@ -59,7 +59,7 @@ class MyPdfViewer extends React.Component {
     .then((resp) => {
       console.log(resp)
       if(resp.data.slideId){
-        var filePath = 'localhost:3001/slide/' + resp.data.slideId
+        var filePath = 'http://localhost:3001/slide/' + resp.data.slideId
         var slideId = resp.data.slideId
         var page = resp.data.currentSlide
         this.setState({filePath, uploadFile: '', slideId, page, loading: true})
@@ -128,13 +128,19 @@ class MyPdfViewer extends React.Component {
     .then((res) => {
       console.log(res)
       if(res.status === 'success'){
-        var filePath = 'localhost:3001slide/' + res.id
+        var filePath = 'http://localhost:3001/slide/' + res.id
         var slideId = res.id
         this.setState({filePath, uploadFile: '', slideId, loading: true })
       }
     })
     .catch(err => {
       console.log("Error: ", err)
+    })
+  }
+
+  changeState = () => {
+    this.setState({
+      filePath: ''
     })
   }
 
@@ -195,7 +201,11 @@ class MyPdfViewer extends React.Component {
                   onDocumentComplete={this.onDocumentComplete}
                   page={this.state.page}
                 />
-                <Button onClick={this.goFull}> <FontAwesomeIcon icon="expand" size="2x"/></Button>
+                <div className="button view">
+                  <Button onClick={this.goFull}> <FontAwesomeIcon icon="expand" size="2x"/></Button>
+                  <Button onClick={this.changeState}> Upload new</Button>
+                </div>
+
                 {this.state.isFull === false ? '' :
                   <div className="nav col">
                     <div className="pager">
@@ -203,19 +213,19 @@ class MyPdfViewer extends React.Component {
                         <div className="emoji container">
                           <div className="emoji content">
                             <Emoji  emoji='thumbsup' set='apple' skin="1" size={50} />
-                            <Label size="massive" >{thumbsUp}</Label>
+                            <Label size="massive" >{this.props.reactions.thumbsUp}</Label>
                           </div>
                           <div className="emoji content">
                             <Emoji  emoji='ok_hand' set='apple' skin="2" size={50} />
-                            <Label size="massive" >{okay}</Label>
+                            <Label size="massive" >{this.props.reactions.okay}</Label>
                           </div>
                           <div className="emoji content">
                             <Emoji  emoji='thumbsdown' set='apple' skin="3" size={50} />
-                            <Label size="massive" >{thumbsDown}</Label>
+                            <Label size="massive" >{this.props.reactions.thumbsDown}</Label>
                           </div>
                           <div className="emoji content">
                             <Emoji  emoji='exploding_head' set='apple' skin="1" size={50} />
-                            <Label size="massive" >{confused}</Label>
+                            <Label size="massive" >{this.props.reactions.confused}</Label>
                           </div>
                         </div>
                       </div>

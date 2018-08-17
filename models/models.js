@@ -186,6 +186,7 @@ const questionSchema = mongoose.Schema({
     required: true
   },
   options: Array,
+  answers: Object,
   lectureId: String
 })
 

@@ -83,9 +83,9 @@ export default class Login extends React.Component {
           <Grid.Column style={{ maxWidth: 450 }}>
             <Form size='large'>
               <Segment stacked style={{background: '#98dafc'}}>
-              <Header as='h2' style={{color:'black'}} textAlign='center'>
+              <h2 style={{color:'black'}} textAlign='center'>
                 Log-in to your {this.state.type} account
-              </Header>
+              </h2>
                 <Form.Input
                   fluid
                   icon='user'
