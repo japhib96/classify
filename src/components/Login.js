@@ -66,7 +66,6 @@ export default class Login extends React.Component {
           backgroundImage: `url(${image2})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 100%',
-          height: 800
         }} >
         {/*
           Heads up! The styles below are necessary for the correct render of this example.

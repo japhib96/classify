@@ -27,7 +27,7 @@ class CardGroups extends React.Component {
             <Card.Header>{this.props.title}</Card.Header>
             <Card.Meta>{this.props.active ? 'LIVE' : `Created: ${this.props.date.substring(4,15)}`}</Card.Meta>
             <Card.Description>
-              Steve wants to add you to the group <strong>best friends</strong>
+              This app fucks <strong>hard</strong>
             </Card.Description>
           </Card.Content>
         </Card>

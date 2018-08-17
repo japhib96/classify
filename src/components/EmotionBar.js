@@ -8,7 +8,8 @@ class Emotion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allReactions: []
+      allReactions: [],
+      disabled: false
     };
     var self = this;
 
@@ -102,6 +103,37 @@ class Emotion extends React.Component {
              </Segment>
            </div>
       </div>
+
+      // <div className="emotiongrid wrapper">
+      //    <header class="header">
+      //      <Header  className="commentblock" as='h1' textAlign="center">
+      //        Emotion Bar
+      //        <Header.Subheader content='What is your understanding of the current situation?' />
+      //      </Header>
+      //    </header>
+      //      <div className="emotion main">
+      //        <div className="emoji div">
+      //          <Segment as={Button} circular textAlign="center" className={this.renderColor(1)} onClick={() => this.thumbsUp()}>
+      //            <Emoji  emoji='thumbsup' set='apple' skin="6" size={36} />
+      //          </Segment>
+      //        </div>
+      //        <div className="emoji div">
+      //          <Segment as={Button} circular raised textAlign="center" className={this.renderColor(0)} onClick={() => this.okay()}>
+      //            <Emoji emoji="ok_hand" set='apple' skin="4" size={36}  />
+      //          </Segment>
+      //        </div>
+      //        <div className="emoji div">
+      //          <Segment  as={Button} circular  onClick={() => this.thumbsDown()}  raised textAlign="center" className={this.renderColor(-1)}>
+      //            <Emoji emoji='thumbsdown' set='apple' skin="4" size={36}  />
+      //          </Segment>
+      //        </div>
+      //        <div className="emoji div">
+      //          <Segment as={Button} circular onClick={() => this.confused()} raised textAlign="center" className={this.renderColor(-2)}>
+      //            <Emoji emoji='exploding_head' set='apple' skin='5' size={36} />
+      //          </Segment>
+      //        </div>
+      //      </div>
+      // </div>
 
     );
   }
