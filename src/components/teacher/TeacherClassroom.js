@@ -96,7 +96,7 @@ export default class TeacherClassroom extends Component {
                 <div className="content dashboard">
                   {this.state.lectures.map((lecture) => {
                     return (
-                      <div>
+                      <div className="card container">
                         <CardGroups
                           title={lecture.lectureTitle}
                           setLecture={this.props.setLecture}

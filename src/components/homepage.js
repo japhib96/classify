@@ -108,7 +108,7 @@ class DesktopContainer extends Component {
 
             >
               <Container>
-
+                <Menu.Item header name='Classify'  />
                 <Menu.Item position='right'>
                   <Link to={'/login'}>
                   <Button className='hvr-grow' as='a' inverted={!fixed} primary={fixed} style={{ backgroundColor: '#312c32', color: '#98dafc', marginLeft: '0.5em' }}>

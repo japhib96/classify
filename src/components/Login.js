@@ -62,10 +62,10 @@ export default class Login extends React.Component {
   render(){
     return(
       <div className='login-form' style={{
-          height: '100%',
           backgroundImage: `url(${image2})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100% 100%',
+          height: '100%',
         }} >
         {/*
           Heads up! The styles below are necessary for the correct render of this example.
