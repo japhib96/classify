@@ -2,13 +2,14 @@ body {
   margin: 0;
   padding: 0;
   font-family: Raleway, sans-serif;
-  background-color: #ffffff;
+  background-color: #E8F1F2;
   height:100%;
 }
 .ui.massive.ui.navbar.menu {
-  background-color: #82ecff;
+  background-color: #13293D;
   align-items: center;
   text-align: center;
+  color: #E8F1F2;
 }
 
 .session {
@@ -20,21 +21,22 @@ body {
   margin-left: 0px;
 }
 .ui.large.fluid.button.user.dropdown {
-  background-color: #82ecff;;
-  color: #3a7999;
+  background-color: #13293D;;
+  color: #E8F1F2;
   margin-top: 1em;
   border: 1px solid #42b9f4;
   text-align: center;
+
 }
 
 .ui.large.fluid.button.user.dropdown:hover {
-  background-color: #ffffff;
+  background-color: #E8F1F2;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .ui.center.aligned.header {
-  background-color: #80FFE8;
+  background-color: #006494;
   margin-top: 0;
 }
 
@@ -114,7 +116,8 @@ body {
 }
 
 .ui.button.floating.labeled.dropdown.icon{
-  background-color: #82ecff;
+  background-color: #13293D;
+  color: #E8F1F2;
 }
 
 
@@ -164,28 +167,29 @@ body {
 }
 
 .user.dashboard.menu {
-  background-color: #82ecff;
+  background-color: #13293D;
   justify-content: center;
   margin-bottom: 2em;
   align-items: center;
-
-
+  color: #E8F1F2;
 }
+
 .user.dashboard.menu:hover {
-  background-color: #ffffff;
+  background-color: #E8F1F2;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .teacher.dashboard.menu {
-  background-color: #82ecff;
+  background-color: #13293D;
   justify-content: center;
   margin-bottom: 2em;
   align-items: center;
   width:100%;
+  color: #E8F1F2;
 }
 .teacher.dashboard.menu:hover {
-  background-color:#ffffff;
+  background-color:#E8F1F2;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
@@ -199,7 +203,8 @@ h2 {
 
 .ui.raised.card.cardItem {
   width: 90%;
-  background-color: #82ecff;
+  background-color: #0094C6;
+  color: #E8F1F2;
 }
 
 
@@ -287,18 +292,20 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #82ecff;
+  background-color: #13293D;
   justify-content: space-between;
   border-radius: 5px;
+  color: #E8F1F2;
 }
 
 .toolbar.teacher.dashboard {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #82ecff;
+  background-color: #13293D;
   justify-content: space-between;
   border-radius: 5px;
+  color: #E8F1F2;
 }
 
 .content.dashboard:hover {
@@ -346,21 +353,23 @@ canvas {
 .ui.button.add {
   margin-top: 2em;
   width: 30%;
-  background-color: #82ecff;
+  background-color: #13293D;
+  color: #E8F1F2;
 }
 .ui.button.add:hover {
-  background-color: #ffffff;
+  background-color: #E8F1F2;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .ui.button.send {
   width: 30%;
-  background-color: #82ecff;
+  background-color: #13293D;
+  color: #E8F1F2;
 }
 
 .ui.button.send:hover {
-  background-color: #ffffff;
+  background-color: #E8F1F2;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
@@ -405,14 +414,14 @@ canvas {
   padding-top: 13.5em;
   padding-right: 1em;
   border-right: 1px solid gray;
-  background-color: #ffffff;
+  background-color: #E8F1F2;
 }
 .question.col {
   height: 86vh;
   width: 33%;
   padding-right: 1em;
   border-right: 1px solid gray;
-  background-color: #ffffff;
+  background-color: #E8F1F2;
 }
 
 .chat.grid {
@@ -509,6 +518,7 @@ textarea {
 
 .stats.section {
   margin-left: 2em;
+  height: 85vh;
 }
 
 .ui.button.ui.circular.center.aligned.segment.thumbsup {
@@ -558,7 +568,7 @@ textarea {
   box-shadow: 0 0 0 0;
   margin-right: 0px;
   margin-bottom: 0px;
-  background-color: #82ecff;
+  background-color: #13293D;
 }
 
 .ui.button.small.circular.center.aligned.segment.inactive {
@@ -599,7 +609,7 @@ textarea {
 }
 
 .ui.center.aligned.header.commentblock {
-  background-color: #ffffff;
+  background-color: #E8F1F2;
 }
 
 .most.viewed.questions {
@@ -705,11 +715,11 @@ textarea {
 }
 
 .ui.massive.button {
-  background-color: #82ecff;
+  background-color: #13293D;
 }
 
 .ui.massive.button:hover {
-  background-color: #ffffff;
+  background-color: #E8F1F2;
   color: #3a7999;
   box-shadow: inset 0 0 0 3px #3a7999;
 }
@@ -779,19 +789,68 @@ textarea {
   background-color: #68ff72;
 }
 
-/* .student.act:hover {
-  background-color: #68ff72;
-} */
+.ui.blue.button.quiz {
+  width: 90%;
+}
 
+.ui.button.quiz {
+  width: 90%;
+  margin-bottom:2em;
+}
+
+.quiz.header {
+ border:1px solid gray;
+ border-radius: 2em;
+ width: 100%;
+}
+
+
+.ui.massive.message {
+  border-radius: 1.1em;
+}
+
+.ui.massive.message.not.active.header {
+  border-radius: 1.1em;
+  text-align: center;
+  color: gray;
+}
+
+.ui.massive.message.inactive {
+  border-radius: 1.1em;
+  text-align: center;
+  color: gray;
+  margin-top: 3em;
+}
+
+.quiz.container {
+  padding-top: 2em;
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 2em;
+}
+
+.question.wrapper.inactive {
+  height: 75vh;
+  margin-top: 2em;
+}
+
+.question.wrapper {
+  margin-top: 2em;
+}
+
+.quiz.container.inactive {
+  height: 25em;
+}
+
+
+
+.question.container {
+  width: 100%;
+}
 
 .ui.button.student.act {
   background-color: #68ff72;
 }
-
-
-/* .teacher.act:hover {
-  background-color: #68ff72;
-} */
 
 
 /* CSS for Chat component */
@@ -849,7 +908,7 @@ textarea {
 }
 
 .ui.button.ui.circular.label:hover{
-  background-color: #ffffff;
+  background-color: #E8F1F2;
   color: #3a7999;
   box-shadow: inset 0 0 0 2px #3a7999;
 }
@@ -876,11 +935,12 @@ textarea {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   position: relative;
   overflow: hidden;
-  background-color: #82ecff;
+  background-color: #13293D;
   justify-content: center;
   margin-bottom: 2em;
   align-items: center;
   width:90%;
+  color: #E8F1F2;
 }
 
 .hvr-underline-from-left:before {

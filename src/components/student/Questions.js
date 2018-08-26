@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Segment, Container, Label, Grid } from 'semantic-ui-react'
+import { Button, Header, Segment, Container, Label, Grid, Message } from 'semantic-ui-react'
 import io from 'socket.io-client';
 import { Emoji } from 'emoji-mart';
 
@@ -64,67 +64,94 @@ class Questions extends React.Component {
       check = question.answers[this.props.user._id]
     }
     if(this.state.questions[0] && check === index) {
-      return 'okay'
+      return 'blue'
     } else {
-      return 'inactive'
+      return ''
     }
   }
 
   render() {
-  //   console.log(this.state.questions)
-  //   var thumbsUp=0;
-  //   var okay=0;
-  //   var thumbsDown=0;
-  //   var confused =0;
-  //   this.state.allReactions.map( (reactionObj, index) =>{
-  //
-  //     if(reactionObj.reaction === -1){
-  //       thumbsDown += 1
-  //     }
-  //     else if(reactionObj.reaction === 0){
-  //       okay += 1
-  //     }
-  //     else if(reactionObj.reaction === +1){
-  //       thumbsUp += 1
-  //     }
-  //     else{
-  //       confused += 1
-  //     }
-  //   }
-  // )
 
-  return (
-    <div className="stats section">
-      <Header className="commentblock" as='h1' textAlign="center">
-        Review
-        <Header.Subheader content='Check your understanding' />
-      </Header>
-      <Grid stretched verticalAlign="bottom">
-        <Grid columns="equal" >
-          {this.state.questions.map((question, index) => {
-            if (index === this.state.questions.length - 1) { // shows only the most recent question
-            return (
-              <Grid.Row centered>
-                <Header> {question.question}</Header>
-                {question.options.map((option, index) => {
-                  const num = index + 1;
-                  return (
-                    <Grid.Row>
-                      <Segment as={Button} circular size="small" textAlign="center" className={this.renderColor(question, index)} onClick={() => this.sendAnswer(question._id, index)}>
-                        <Label size="massive">{num + '. ' + option}</Label>
-                      </Segment>
-                    </Grid.Row>
-                  )
-                })}
-              </Grid.Row>
-            )}
-          })}
-          </Grid>
-        </Grid>
-      </div>
-    );
+
+    return (
+      <div className="stats section">
+        <Header className="commentblock" as='h1' textAlign="center">
+          Quiz
+          <Header.Subheader content='Respond to teacher´s questions' />
+        </Header>
+
+        {this.state.questions[0] ?
+
+          <div className="question wrapper">
+            {this.state.questions.map((question, index) => {
+              if (index === this.state.questions.length - 1) { // shows only the most recent question
+                return (
+                  <div>
+                    <header className="quiz header">
+                      <Message size="massive">
+                        {question.question}
+                      </Message>
+                    </header>
+                    <div className="quiz container">
+                      {question.options.map((option, index) => {
+                        const num = index + 1;
+                        return (
+                          <div className="question container">
+                            <Button className="quiz" color={this.renderColor(question, index)} onClick={() => this.sendAnswer(question._id, index)}>
+                              <Message size="large">{num + '. ' + option}</Message>
+                            </Button>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+              })}
+            </div>
+
+            :
+
+            <div className="question wrapper inactive">
+              <div>
+                <header className="quiz header inactive">
+                  <Message className="not active header" size="massive">
+                    Currently no Questions available
+                  </Message>
+                </header>
+                <div className="quiz container inactive">
+                  <Message className="inactive" size="massive"> Stay tuned for Questions from your Teacher </Message>
+                </div>
+              </div>
+            </div>
+        }
+        </div>
+      )
+    }
   }
-}
 
 
-export default Questions
+  export default Questions
+
+
+  {/* <Grid stretched verticalAlign="bottom">
+  <Grid columns="equal" >
+  {this.state.questions.map((question, index) => {
+  if (index === this.state.questions.length - 1) { // shows only the most recent question
+  return (
+  <Grid.Row centered>
+  <Header> {question.question}</Header>
+  {question.options.map((option, index) => {
+  const num = index + 1;
+  return (
+  <Grid.Row>
+  <Segment as={Button} circular size="small" textAlign="center" className={this.renderColor(question, index)} onClick={() => this.sendAnswer(question._id, index)}>
+  <Label size="massive">{num + '. ' + option}</Label>
+</Segment>
+</Grid.Row>
+)
+})}
+</Grid.Row>
+)}
+})}
+</Grid>
+</Grid> */}
